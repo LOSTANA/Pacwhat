@@ -40,15 +40,18 @@ public class Maingame extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
-					
+					player.left();
 					break;
 					
 				case KeyEvent.VK_RIGHT:
+					player.right();
 					break;
 					
 				case KeyEvent.VK_UP:
+					player.up();
 					break;
 				case KeyEvent.VK_DOWN:
+					player.down();
 					break;
 					
 				}
@@ -59,7 +62,7 @@ public class Maingame extends JFrame {
 				// TODO Auto-generated method stub
 				super.keyReleased(e);
 			}
-
+			key
 		});
 	}
 	
