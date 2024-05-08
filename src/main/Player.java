@@ -31,13 +31,9 @@ public class Player extends JLabel implements Moveable {
 	
 	public Player(Maingame stage) {
 		this.stage = stage;
-
-
 		initData();
 		setInitLayout();
-		
 		new Thread(new BackgroundPlayerService(this)).start();
-		
 	}
 
 
