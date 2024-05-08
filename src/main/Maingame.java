@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 public class Maingame extends JFrame {
 
 	Maingame stage = this;
-	
+
 	private JLabel backgroundMap;
 	private Player player;
 	private Enemy enemy;
@@ -20,11 +20,11 @@ public class Maingame extends JFrame {
 		setInitLayout();
 		addEventListener();
 	}
-	
+
 	public Player getPlayer() {
 		return player;
 	}
-	
+
 	public Enemy getEnemy() {
 		return enemy;
 	}
@@ -32,14 +32,13 @@ public class Maingame extends JFrame {
 	private void initData() {
 
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
-		
+
 		setSize(750, 850);
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		player = new Player(this);
 		enemy = new Enemy(this);
-		
 
 	}
 
@@ -48,7 +47,7 @@ public class Maingame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
+
 		add(player);
 		add(enemy);
 	}
@@ -61,31 +60,57 @@ public class Maingame extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
-					player.left();
+					if (!player.isLeft() && !player.isLeftWallCrash()) {
+						player.left();
+					} else
+						System.err.println("벽");
 					break;
-					
+
 				case KeyEvent.VK_RIGHT:
-					player.right();
+					if (!player.isRight() && !player.isRightWallCrash()) {
+						player.right();
+					} else
+						System.err.println("벽");
 					break;
-					
+
 				case KeyEvent.VK_UP:
-					player.up();
+					if (!player.isUp() && !player.isTopWallCrash()) {
+						player.up();
+					} else
+						System.err.println("벽");
 					break;
 				case KeyEvent.VK_DOWN:
-					player.down();
+					if (!player.isDown() && !player.isBottomWallCrash()) {
+						player.down();
+					}
+					System.err.println("벽");
+					break;
+
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					player.setLeft(false);
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.setRight(false);
+					break;
+				case KeyEvent.VK_UP:
+					player.setUp(false);
+					break;
+				case KeyEvent.VK_DOWN:
+					player.setDown(false);
 					break;
 					
 				}
 			}
 			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				super.keyReleased(e);
-			}
 		});
 	}
-	
+
 	public static void main(String[] args) {
 		new Maingame();
 	}

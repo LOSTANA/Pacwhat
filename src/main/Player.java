@@ -172,7 +172,7 @@ public class Player extends JLabel implements Moveable {
 					x = x - SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -194,7 +194,7 @@ public class Player extends JLabel implements Moveable {
 					x = x + SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -216,7 +216,7 @@ public class Player extends JLabel implements Moveable {
 					y = y - SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -238,7 +238,7 @@ public class Player extends JLabel implements Moveable {
 					y = y + SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
