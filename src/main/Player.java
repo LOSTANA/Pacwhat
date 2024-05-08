@@ -52,6 +52,11 @@ public class Player extends JLabel implements Moveable {
 		right = false;
 		up = false;
 		down = false;
+		
+		leftWallCrash = false;
+		rightWallCrash = false;
+		topWallCrash = false;
+		bottomWallCrash = false;
 
 		playerWay = PlayerWay.RIGHT;
 	}
