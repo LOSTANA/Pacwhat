@@ -70,7 +70,6 @@ public class Maingame extends JFrame {
 						System.err.println("왼벽");
 						break;
 					}
-					
 
 				case KeyEvent.VK_RIGHT:
 					if (!player.isRight() && !player.isRightWallCrash()) {
@@ -80,7 +79,6 @@ public class Maingame extends JFrame {
 						System.err.println("오른벽");
 						break;
 					}
-					
 
 				case KeyEvent.VK_UP:
 					if (!player.isUp() && !player.isTopWallCrash()) {
@@ -94,11 +92,10 @@ public class Maingame extends JFrame {
 					if (!player.isDown() && !player.isBottomWallCrash()) {
 						player.down();
 						break;
-					}else {
-					System.out.println("아랫벽");
-					break;
+					} else {
+						System.out.println("아랫벽");
+						break;
 					}
-					
 
 				}
 			}
@@ -120,13 +117,38 @@ public class Maingame extends JFrame {
 					break;
 				}
 			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					if (player.isLeft() && player.isLeftWallCrash()) {
+						player.setLeft(false);
+					}
+
+				case KeyEvent.VK_RIGHT:
+					if (player.isRight() && player.isRightWallCrash()) {
+						player.setRight(false);
+					}
+					break;
+				case KeyEvent.VK_UP:
+					if (player.isUp() && player.isTopWallCrash()) {
+						player.setUp(false);
+					}
+
+				case KeyEvent.VK_DOWN:
+					if (player.isDown() && player.isBottomWallCrash()) {
+						player.setDown(false);
+					}
+
+				}
+			}
 		});
+
 	}
-			
 
 	public static void main(String[] args) {
 		new Maingame();
 	}
 
 }
-
