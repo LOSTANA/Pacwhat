@@ -20,6 +20,14 @@ public class Maingame extends JFrame {
 		setInitLayout();
 		addEventListener();
 	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+	
+	public Enemy getEnemy() {
+		return enemy;
+	}
 
 	private void initData() {
 
@@ -29,7 +37,7 @@ public class Maingame extends JFrame {
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//player = new Player(this);
+		player = new Player(this);
 		enemy = new Enemy(this);
 		
 

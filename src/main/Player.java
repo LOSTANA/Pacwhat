@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 
 public class Player extends JLabel implements Moveable {
 
+	Maingame stage;
+	
 	private int x;
 	private int y;
 	private ImageIcon player0, player1, player2, player3, player4; // playerT(playerTop) = 위 , playerB(playerBottom) =
@@ -27,11 +29,16 @@ public class Player extends JLabel implements Moveable {
 
 	// enum
 	PlayerWay playerWay;
-
-	public Player() {
+	
+	public Player(Maingame stage) {
+		this.stage = stage;
 		initData();
 		setInitLayout();
+		
+		new Thread(new BackgroundPlayerService(this)).start();
+		
 	}
+
 
 	private void initData() {
 		player0 = new ImageIcon("img/pacman/pac0.png");
@@ -244,8 +251,5 @@ public class Player extends JLabel implements Moveable {
 	}
 
 
-	public void beAttacked() {
-
-	}
 
 }
