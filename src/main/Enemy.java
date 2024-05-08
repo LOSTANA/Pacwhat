@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 
 public class Enemy extends JLabel implements Moveable {
 
-	Maingame mContext;
+	Maingame stage;
 
 	// 적군의 좌표값 위치 상태
 	private int x;
@@ -32,7 +32,7 @@ public class Enemy extends JLabel implements Moveable {
 	private final int SPEED = 3; // 수정
 
 	public Enemy(Maingame mContext) {
-		this.mContext = mContext;
+		this.stage = stage;
 		initData();
 		setInitLayout();
 	}
@@ -93,11 +93,11 @@ public class Enemy extends JLabel implements Moveable {
 	
 	// get,set
 	public Maingame getmContext() {
-		return mContext;
+		return stage;
 	}
 
 	public void setmContext(Maingame mContext) {
-		this.mContext = mContext;
+		this.stage = mContext;
 	}
 
 	public int getX() {
