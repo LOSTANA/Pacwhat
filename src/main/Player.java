@@ -5,7 +5,8 @@ import javax.swing.JLabel;
 
 public class Player extends JLabel implements Moveable {
 
-	Maingame mContext;
+	Maingame stage;
+
 	
 	private int x;
 	private int y;
@@ -27,13 +28,14 @@ public class Player extends JLabel implements Moveable {
 	private final int SPEED = 3;
 
 	PlayerWay playerWay;
-
-	public Player(Maingame mContext) {
-		this.mContext = mContext;
+	
+	public Player(Maingame stage) {
+		this.stage = stage;
 		initData();
 		setInitLayout();
 		new Thread(new BackgroundPlayerService(this)).start();
 	}
+
 
 	private void initData() {
 		player0 = new ImageIcon("img/pacman/pac0.png");
@@ -243,8 +245,5 @@ public class Player extends JLabel implements Moveable {
 	}
 
 
-	public void beAttacked() {
-
-	}
 
 }

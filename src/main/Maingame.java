@@ -1,7 +1,16 @@
 package main;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 public class Maingame extends JFrame {
 
+	Maingame stage = this;
+	
 	private JLabel backgroundMap;
 	private Player player;
 	private Enemy enemy;
@@ -11,11 +20,26 @@ public class Maingame extends JFrame {
 		setInitLayout();
 		addEventListener();
 	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+	
+	public Enemy getEnemy() {
+		return enemy;
+	}
 
 	private void initData() {
 
-		setSize(1000, 1000);
+		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
+		
+		setSize(750, 850);
+		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		player = new Player(this);
+		enemy = new Enemy(this);
+		
 
 	}
 
@@ -24,6 +48,9 @@ public class Maingame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		
+		add(player);
+		add(enemy);
 	}
 
 	private void addEventListener() {
@@ -56,7 +83,6 @@ public class Maingame extends JFrame {
 				// TODO Auto-generated method stub
 				super.keyReleased(e);
 			}
-			key
 		});
 	}
 	

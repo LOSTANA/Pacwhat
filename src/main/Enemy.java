@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 
 public class Enemy extends JLabel implements Moveable {
 
-	Maingame mContext;
+	Maingame stage;
 
 	// 적군의 좌표값 위치 상태
 	private int x;
@@ -31,18 +31,18 @@ public class Enemy extends JLabel implements Moveable {
 	// 적군 속도 상태
 	private final int SPEED = 3; // 수정
 
-	public Enemy(Maingame mContext) {
-		this.mContext = mContext;
+	public Enemy(Maingame stage) {
+		this.stage = stage;
 		initData();
 		setInitLayout();
 	}
 
 	private void initData() {
 
-		enemyR = new ImageIcon("img/cyanR1.png");
-		enemyL = new ImageIcon("img/cyanR2.png");
-		enemyD = new ImageIcon("img/cyanD1.png");
-		enemyU = new ImageIcon("img/cyanU1.png");
+		enemyR = new ImageIcon("img/ghost1/cyanR1.png");
+		enemyL = new ImageIcon("img/ghost1/cyanR2.png");
+		enemyD = new ImageIcon("img/ghost1/cyanD1.png");
+		enemyU = new ImageIcon("img/ghost1/cyanU1.png");
 
 		// 에너미가 가만히 멈춤 상태
 		left = false;
@@ -52,18 +52,18 @@ public class Enemy extends JLabel implements Moveable {
 
 		enemyWay = EnemyWay.RIGHT;
 
-		setIcon(enemyD);
-		setSize(50, 50); // 수정 해야됨
-		setLocation(x, y);
-
+		
 		// 처음 실행 시 초기 값 셋팅 (수정)
-		x = 620;
-		y = 230;
+		x = 550;
+		y = 300;
 
 	}
 
 	private void setInitLayout() {
-		
+		setIcon(enemyD);
+		setSize(50, 50); // 수정 해야됨
+		setLocation(x, y);
+
 	}
 
 	@Override
@@ -93,11 +93,11 @@ public class Enemy extends JLabel implements Moveable {
 	
 	// get,set
 	public Maingame getmContext() {
-		return mContext;
+		return stage;
 	}
 
 	public void setmContext(Maingame mContext) {
-		this.mContext = mContext;
+		this.stage = mContext;
 	}
 
 	public int getX() {
