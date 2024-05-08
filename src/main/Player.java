@@ -5,11 +5,13 @@ import javax.swing.JLabel;
 
 public class Player extends JLabel implements Moveable {
 
+	Maingame stage;
+
+	
 	private int x;
 	private int y;
-	private ImageIcon player0, player1, player2, player3, player4; // playerT(playerTop) = 위 , playerB(playerBottom) =
-																	// 아래
-
+	private ImageIcon player0, player1, player2, player3, player4; 
+	
 	// 플레이어 움직임
 	private boolean left;
 	private boolean right;
@@ -25,13 +27,15 @@ public class Player extends JLabel implements Moveable {
 	// 플레이어 속도 상태 -- 추후 수정
 	private final int SPEED = 3;
 
-	// enum
 	PlayerWay playerWay;
-
-	public Player() {
+	
+	public Player(Maingame stage) {
+		this.stage = stage;
 		initData();
 		setInitLayout();
+		new Thread(new BackgroundPlayerService(this)).start();
 	}
+
 
 	private void initData() {
 		player0 = new ImageIcon("img/pacman/pac0.png");
@@ -50,7 +54,12 @@ public class Player extends JLabel implements Moveable {
 		down = false;
 
 		playerWay = PlayerWay.RIGHT;
-
+	}
+	
+	private void setInitLayout() {
+		setIcon(player0);
+		setSize(28, 28);
+		setLocation(x, y);
 	}
 	
 	// getter, setter
@@ -114,8 +123,18 @@ public class Player extends JLabel implements Moveable {
 		return SPEED;
 	}
 	
+<<<<<<< HEAD
+=======
+	public boolean isLeftWallCrash() {
+		return leftWallCrash;
+	}
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 
+	public void setLeftWallCrash(boolean leftWallCrash) {
+		this.leftWallCrash = leftWallCrash;
+	}
 
+<<<<<<< HEAD
 	public PlayerWay getPlayerWay() {
 		return playerWay;
 	}
@@ -156,11 +175,30 @@ public class Player extends JLabel implements Moveable {
 	public void setLeftWallCrash(boolean leftWallCrash) {
 		this.leftWallCrash = leftWallCrash;
 	}
+=======
+	public boolean isRightWallCrash() {
+		return rightWallCrash;
+	}
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 
-	private void setInitLayout() {
-		setIcon(player0);
-		setSize(28, 28);
-		setLocation(x, y);
+	public void setRightWallCrash(boolean rightWallCrash) {
+		this.rightWallCrash = rightWallCrash;
+	}
+
+	public boolean isTopWallCrash() {
+		return topWallCrash;
+	}
+
+	public void setTopWallCrash(boolean topWallCrash) {
+		this.topWallCrash = topWallCrash;
+	}
+
+	public boolean isBottomWallCrash() {
+		return bottomWallCrash;
+	}
+
+	public void setBottomWallCrash(boolean bottomWallCrash) {
+		this.bottomWallCrash = bottomWallCrash;
 	}
 
 	@Override
@@ -176,12 +214,11 @@ public class Player extends JLabel implements Moveable {
 					x = x - SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-
 			}
 		}).start();
 	}
@@ -199,12 +236,11 @@ public class Player extends JLabel implements Moveable {
 					x = x + SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-
 			}
 		}).start();
 	}
@@ -222,12 +258,11 @@ public class Player extends JLabel implements Moveable {
 					y = y - SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-
 			}
 		}).start();
 	}
@@ -245,7 +280,7 @@ public class Player extends JLabel implements Moveable {
 					y = y + SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -256,8 +291,5 @@ public class Player extends JLabel implements Moveable {
 	}
 
 
-	public void beAttacked() {
-
-	}
 
 }

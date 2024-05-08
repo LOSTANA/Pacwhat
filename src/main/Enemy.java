@@ -43,7 +43,10 @@ public class Enemy extends JLabel implements Moveable {
 		enemyL = new ImageIcon("img/ghost1/cyanR2.png");
 		enemyD = new ImageIcon("img/ghost1/cyanD1.png");
 		enemyU = new ImageIcon("img/ghost1/cyanU1.png");
+<<<<<<< HEAD
 		backgroundEnemyService = new BackgroundEnemyService(this);
+=======
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 
 		// 에너미가 가만히 멈춤 상태
 		left = false;
@@ -53,17 +56,20 @@ public class Enemy extends JLabel implements Moveable {
 
 		enemyWay = EnemyWay.RIGHT;
 
-		setIcon(enemyD);
-		setSize(50, 50); // 수정 해야됨
-		setLocation(x, y);
-
+		
 		// 처음 실행 시 초기 값 셋팅 (수정)
-		x = 620;
-		y = 230;
+		x = 550;
+		y = 300;
 
 	}
 
 	private void setInitLayout() {
+<<<<<<< HEAD
+=======
+		setIcon(enemyD);
+		setSize(50, 50); // 수정 해야됨
+		setLocation(x, y);
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 
 	}
 
@@ -177,8 +183,13 @@ public class Enemy extends JLabel implements Moveable {
 		return stage;
 	}
 
+<<<<<<< HEAD
 	public void setmContext(Maingame stage) {
 		this.stage = stage;
+=======
+	public void setmContext(Maingame mContext) {
+		this.stage = mContext;
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 	}
 
 	public int getX() {
