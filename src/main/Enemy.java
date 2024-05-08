@@ -3,15 +3,15 @@ package main;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-
 public class Enemy extends JLabel implements Moveable {
 
-	Maingame mContext;
+	Maingame stage;
 
 	// 적군의 좌표값 위치 상태
 	private int x;
 	private int y;
 	private ImageIcon enemyR, enemyL, enemyD, enemyU;
+	private BackgroundEnemyService backgroundEnemyService;
 
 	// 움직임의 상태
 	private boolean left;
@@ -31,18 +31,19 @@ public class Enemy extends JLabel implements Moveable {
 	// 적군 속도 상태
 	private final int SPEED = 3; // 수정
 
-	public Enemy(Maingame mContext) {
-		this.mContext = mContext;
+	public Enemy(Maingame stage) {
+		this.stage = stage;
 		initData();
 		setInitLayout();
 	}
 
 	private void initData() {
 
-		enemyR = new ImageIcon("img/cyanR1.png");
-		enemyL = new ImageIcon("img/cyanR2.png");
-		enemyD = new ImageIcon("img/cyanD1.png");
-		enemyU = new ImageIcon("img/cyanU1.png");
+		enemyR = new ImageIcon("img/ghost1/cyanR1.png");
+		enemyL = new ImageIcon("img/ghost1/cyanR2.png");
+		enemyD = new ImageIcon("img/ghost1/cyanD1.png");
+		enemyU = new ImageIcon("img/ghost1/cyanU1.png");
+		backgroundEnemyService = new BackgroundEnemyService(this);
 
 		// 에너미가 가만히 멈춤 상태
 		left = false;
@@ -63,41 +64,121 @@ public class Enemy extends JLabel implements Moveable {
 	}
 
 	private void setInitLayout() {
-		
+
 	}
 
 	@Override
 	public void left() {
 		this.enemyWay = EnemyWay.LEFT;
 		left = true;
-		
+		setIcon(enemyL);
+		for (int i = 0; i < 1000; i++) {
+			x--;
+			setLocation(x, y);
+
+			if (backgroundEnemyService.leftWall()) {
+				break;
+			}
+			up();
+			if (up == backgroundEnemyService.upWall()) {
+				break;
+			}
+			right();
+			if (right == backgroundEnemyService.rightWall()) {
+				break;
+			}
+
+			down();
+			if (down == backgroundEnemyService.downWall()) {
+				break;
+			}
+		}
 	}
 
 	@Override
 	public void right() {
 		this.enemyWay = EnemyWay.RIGHT;
+		right = true;
+		setIcon(enemyR);
+		for (int i = 0; i < 800; i++) {
+			x++;
+			setLocation(x, y);
+			if (backgroundEnemyService.rightWall()) {
+				break;
+			}
+			down();
+			if (down == backgroundEnemyService.downWall()) {
+				break;
+			}
+			left();
+			if (left == backgroundEnemyService.leftWall()) {
+				break;
+			}
+			up();
+			if (up == backgroundEnemyService.upWall()) {
+				break;
+			}
+		}
 
 	}
 
 	@Override
 	public void up() {
 		this.enemyWay = EnemyWay.UP;
+		up = true;
+		setIcon(enemyU);
+		for (int i = 0; i < 800; i++) {
+			if (backgroundEnemyService.upWall()) {
+				break;
+			}
+			right();
+			if (right == backgroundEnemyService.rightWall()) {
+				break;
+			}
+			down();
+			if (down == backgroundEnemyService.downWall()) {
+				break;
+			}
+			up();
+			if (up == backgroundEnemyService.upWall()) {
+				break;
+			}
+		}
 
 	}
 
 	@Override
 	public void down() {
 		this.enemyWay = EnemyWay.DOWN;
+		down = true;
+		setIcon(enemyD);
+		for (int i = 0; i < 800; i++) {
+			if (backgroundEnemyService.downWall()) {
+				break;
+			}
+			left();
+			if (left == backgroundEnemyService.leftWall()) {
+				break;
+			}
+			up();
+			if (up == backgroundEnemyService.upWall()) {
+				break;
+			}
+			right();
+			if (right == backgroundEnemyService.rightWall()) {
+				break;
+			}
+		}
 
 	}
-	
+
 	// get,set
 	public Maingame getmContext() {
-		return mContext;
+		return stage;
 	}
 
-	public void setmContext(Maingame mContext) {
-		this.mContext = mContext;
+	public void setmContext(Maingame stage) {
+		this.stage = stage;
 	}
 
 	public int getX() {
@@ -223,8 +304,5 @@ public class Enemy extends JLabel implements Moveable {
 	public int getSPEED() {
 		return SPEED;
 	}
-	
 
-	
-	
 }

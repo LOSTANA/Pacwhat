@@ -1,5 +1,11 @@
 package main;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 public class Maingame extends JFrame {
 
 	private JLabel backgroundMap;
@@ -14,7 +20,7 @@ public class Maingame extends JFrame {
 
 	private void initData() {
 
-		setSize(1000, 1000);
+		setSize(750, 850);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
@@ -56,10 +62,9 @@ public class Maingame extends JFrame {
 				// TODO Auto-generated method stub
 				super.keyReleased(e);
 			}
-			key
 		});
 	}
-	
+
 	public static void main(String[] args) {
 		new Maingame();
 	}
