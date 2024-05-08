@@ -45,20 +45,23 @@ public class Player extends JLabel implements Moveable {
 		player4 = new ImageIcon("img/pacman/pac4.png");
 
 		// 초기위치값 추후 수정
-		x = 375;
-		y = 425;
+		x = 395;
+		y = 455;
 
 		left = false;
 		right = false;
 		up = false;
 		down = false;
+		
+		leftWallCrash = false;
+		rightWallCrash = false;
 
 		playerWay = PlayerWay.RIGHT;
 	}
 	
 	private void setInitLayout() {
 		setIcon(player0);
-		setSize(28, 28);
+		setSize(20, 20);
 		setLocation(x, y);
 	}
 	

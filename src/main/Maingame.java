@@ -19,6 +19,8 @@ public class Maingame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
+		
+		
 	}
 
 	public Player getPlayer() {
@@ -62,29 +64,40 @@ public class Maingame extends JFrame {
 				case KeyEvent.VK_LEFT:
 					if (!player.isLeft() && !player.isLeftWallCrash()) {
 						player.left();
-					} else
-						System.err.println("벽");
-					break;
+						break;
+					} else {
+						System.err.println("왼벽");
+						break;
+					}
+					
 
 				case KeyEvent.VK_RIGHT:
 					if (!player.isRight() && !player.isRightWallCrash()) {
 						player.right();
-					} else
-						System.err.println("벽");
-					break;
+						break;
+					} else {
+						System.err.println("오른벽");
+						break;
+					}
+					
 
 				case KeyEvent.VK_UP:
 					if (!player.isUp() && !player.isTopWallCrash()) {
 						player.up();
-					} else
-						System.err.println("벽");
-					break;
+						break;
+					} else {
+						System.out.println("윗벽");
+						break;
+					}
 				case KeyEvent.VK_DOWN:
 					if (!player.isDown() && !player.isBottomWallCrash()) {
 						player.down();
-					}
-					System.err.println("벽");
+						break;
+					}else {
+					System.out.println("아랫벽");
 					break;
+					}
+					
 
 				}
 			}

@@ -16,7 +16,7 @@ public class BackgroundEnemyService implements Runnable {
 		this.enemy = enemy;
 
 		try {
-			image = ImageIO.read(new File("img/BackgroundService.jpg"));
+			image = ImageIO.read(new File("img/background/BackgroundService.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

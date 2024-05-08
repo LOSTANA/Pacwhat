@@ -31,17 +31,17 @@ public class BackgroundPlayerService implements Runnable {
 			// 플레이어 캐릭터 인근의 벽 감지
 			while (true) {
 
-				Color leftColor = new Color(image.getRGB(player.getX() + 20, player.getY() + 15));
-				Color rightColor = new Color(image.getRGB(player.getX() + 20, player.getY() + 15));
-				Color topColor = new Color(image.getRGB(player.getX() + 10, player.getY() + 35));
-				Color bottomColor = new Color(image.getRGB(player.getX() + 10, player.getY() + 35));
+				Color leftColor = new Color(image.getRGB(player.getX() - 5, player.getY()));
+				Color rightColor = new Color(image.getRGB(player.getX() + 5, player.getY()));
+				Color topColor = new Color(image.getRGB(player.getX(), player.getY() - 5));
+				Color bottomColor = new Color(image.getRGB(player.getX(), player.getY() + 5));
 
 				// 벽 감지 -> 벽 충돌
-				if (leftColor.getRed() == 255 && leftColor.getGreen() == 0 && leftColor.getBlue() == 0) {
+				if (leftColor.getRed() == 237 && leftColor.getGreen() == 27 && leftColor.getBlue() == 36) {
 					System.out.println("왼쪽 벽에 충돌함");
 					player.setLeftWallCrash(true);
 					player.setLeft(false);
-				} else if (rightColor.getRed() == 255 && rightColor.getGreen() == 0 && rightColor.getBlue() == 0) {
+				} else if (rightColor.getRed() == 237 && rightColor.getGreen() == 27 && rightColor.getBlue() == 36) {
 					System.out.println("오른쪽 벽에 충돌함");
 					player.setRightWallCrash(true);
 					player.setRight(false);
