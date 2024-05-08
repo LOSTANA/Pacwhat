@@ -11,7 +11,7 @@ public class Player extends JLabel implements Moveable {
 	private int x;
 	private int y;
 	private ImageIcon[] imageIcon = new ImageIcon[5]; 
-	// player0, player1, player2, player3, player4; 
+	// player0, player1, player2, player3, player4
 	
 	// 플레이어 움직임
 	private boolean left;
@@ -35,6 +35,7 @@ public class Player extends JLabel implements Moveable {
 		initData();
 		setInitLayout();
 		new Thread(new BackgroundPlayerService(this)).start();
+		changeIcon();
 	}
 
 
@@ -58,7 +59,6 @@ public class Player extends JLabel implements Moveable {
 		rightWallCrash = false;
 		topWallCrash = false;
 		bottomWallCrash = false;
-
 
 		playerWay = PlayerWay.RIGHT;
 	}
@@ -179,7 +179,7 @@ public class Player extends JLabel implements Moveable {
 					for(int i = 0; i < 5; i++) {
 						setIcon(imageIcon[i]);
 						try {
-							Thread.sleep(100);
+							Thread.sleep(120);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -188,7 +188,7 @@ public class Player extends JLabel implements Moveable {
 					for(int i = 5; i > 0; i--) {
 						setIcon(imageIcon[i-1]);
 						try {
-							Thread.sleep(100);
+							Thread.sleep(120);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -197,7 +197,7 @@ public class Player extends JLabel implements Moveable {
 				
 				
 			}
-		});
+		}).start();
 	}
 		
 	
@@ -219,7 +219,6 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 				}
-				changeIcon();
 			}
 		}).start();
 	}
