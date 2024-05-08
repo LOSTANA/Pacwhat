@@ -5,11 +5,12 @@ import javax.swing.JLabel;
 
 public class Player extends JLabel implements Moveable {
 
+	Maingame mContext;
+	
 	private int x;
 	private int y;
-	private ImageIcon player0, player1, player2, player3, player4; // playerT(playerTop) = 위 , playerB(playerBottom) =
-																	// 아래
-
+	private ImageIcon player0, player1, player2, player3, player4; 
+	
 	// 플레이어 움직임
 	private boolean left;
 	private boolean right;
@@ -25,10 +26,10 @@ public class Player extends JLabel implements Moveable {
 	// 플레이어 속도 상태 -- 추후 수정
 	private final int SPEED = 3;
 
-	// enum
 	PlayerWay playerWay;
 
-	public Player() {
+	public Player(Maingame mContext) {
+		this.mContext = mContext;
 		initData();
 		setInitLayout();
 	}
@@ -50,6 +51,12 @@ public class Player extends JLabel implements Moveable {
 		down = false;
 
 		playerWay = PlayerWay.RIGHT;
+	}
+	
+	private void setInitLayout() {
+		setIcon(player0);
+		setSize(28, 28);
+		setLocation(x, y);
 	}
 	
 	// getter, setter
@@ -145,12 +152,6 @@ public class Player extends JLabel implements Moveable {
 		this.bottomWallCrash = bottomWallCrash;
 	}
 
-	private void setInitLayout() {
-		setIcon(player0);
-		setSize(28, 28);
-		setLocation(x, y);
-	}
-
 	@Override
 	public void left() {
 		playerWay = PlayerWay.LEFT;
@@ -169,7 +170,6 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 				}
-
 			}
 		}).start();
 	}
@@ -192,7 +192,6 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 				}
-
 			}
 		}).start();
 	}
@@ -215,7 +214,6 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 				}
-
 			}
 		}).start();
 	}
