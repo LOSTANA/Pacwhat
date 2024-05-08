@@ -3,7 +3,10 @@ package main;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+<<<<<<< HEAD
+=======
 import javax.swing.ImageIcon;
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -31,10 +34,14 @@ public class Maingame extends JFrame {
 
 	private void initData() {
 
+<<<<<<< HEAD
+		setSize(750, 850);
+=======
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
 
 		setSize(750, 850);
 		setContentPane(backgroundMap);
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		player = new Player(this);
@@ -108,6 +115,14 @@ public class Maingame extends JFrame {
 				}
 			}
 			
+<<<<<<< HEAD
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyReleased(e);
+			}
+=======
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 		});
 	}
 
