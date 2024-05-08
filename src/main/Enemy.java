@@ -35,6 +35,8 @@ public class Enemy extends JLabel implements Moveable {
 		this.stage = stage;
 		initData();
 		setInitLayout();
+
+		down();
 	}
 
 	private void initData() {
@@ -54,7 +56,6 @@ public class Enemy extends JLabel implements Moveable {
 
 		enemyWay = EnemyWay.RIGHT;
 
-		
 		// 처음 실행 시 초기 값 셋팅 (수정)
 		x = 550;
 		y = 300;
@@ -67,7 +68,6 @@ public class Enemy extends JLabel implements Moveable {
 		setSize(50, 50); // 수정 해야됨
 		setLocation(x, y);
 
-
 	}
 
 	@Override
@@ -75,24 +75,12 @@ public class Enemy extends JLabel implements Moveable {
 		this.enemyWay = EnemyWay.LEFT;
 		left = true;
 		setIcon(enemyL);
+		setLocation(x, y);
 		for (int i = 0; i < 1000; i++) {
 			x--;
 			setLocation(x, y);
 
 			if (backgroundEnemyService.leftWall()) {
-				break;
-			}
-			up();
-			if (up == backgroundEnemyService.upWall()) {
-				break;
-			}
-			right();
-			if (right == backgroundEnemyService.rightWall()) {
-				break;
-			}
-
-			down();
-			if (down == backgroundEnemyService.downWall()) {
 				break;
 			}
 		}
@@ -103,26 +91,15 @@ public class Enemy extends JLabel implements Moveable {
 		this.enemyWay = EnemyWay.RIGHT;
 		right = true;
 		setIcon(enemyR);
+
+		setLocation(x, y);
 		for (int i = 0; i < 800; i++) {
 			x++;
 			setLocation(x, y);
 			if (backgroundEnemyService.rightWall()) {
 				break;
 			}
-			down();
-			if (down == backgroundEnemyService.downWall()) {
-				break;
-			}
-			left();
-			if (left == backgroundEnemyService.leftWall()) {
-				break;
-			}
-			up();
-			if (up == backgroundEnemyService.upWall()) {
-				break;
-			}
 		}
-
 	}
 
 	@Override
@@ -130,24 +107,22 @@ public class Enemy extends JLabel implements Moveable {
 		this.enemyWay = EnemyWay.UP;
 		up = true;
 		setIcon(enemyU);
-		for (int i = 0; i < 800; i++) {
-			if (backgroundEnemyService.upWall()) {
-				break;
-			}
-			right();
-			if (right == backgroundEnemyService.rightWall()) {
-				break;
-			}
-			down();
-			if (down == backgroundEnemyService.downWall()) {
-				break;
-			}
-			up();
-			if (up == backgroundEnemyService.upWall()) {
-				break;
-			}
-		}
 
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (up) {
+					y -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(SPEED);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+		}).start();
 	}
 
 	@Override
@@ -155,23 +130,26 @@ public class Enemy extends JLabel implements Moveable {
 		this.enemyWay = EnemyWay.DOWN;
 		down = true;
 		setIcon(enemyD);
-		for (int i = 0; i < 800; i++) {
-			if (backgroundEnemyService.downWall()) {
-				break;
-			}
-			left();
-			if (left == backgroundEnemyService.leftWall()) {
-				break;
-			}
-			up();
-			if (up == backgroundEnemyService.upWall()) {
-				break;
-			}
-			right();
-			if (right == backgroundEnemyService.rightWall()) {
-				break;
-			}
+		if (backgroundEnemyService.downWall()) {
+			down = false;
 		}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (down) {
+					y += SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (backgroundEnemyService.downWall()) {
+						break;
+					}
+				}
+			}
+		}).start();
 
 	}
 
@@ -183,7 +161,6 @@ public class Enemy extends JLabel implements Moveable {
 	public void setStage(Maingame stage) {
 		this.stage = stage;
 	}
-
 
 	public int getX() {
 		return x;
