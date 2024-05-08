@@ -50,7 +50,6 @@ public class Player extends JLabel implements Moveable {
 		down = false;
 
 		playerWay = PlayerWay.RIGHT;
-
 	}
 	
 	// getter, setter
@@ -113,8 +112,38 @@ public class Player extends JLabel implements Moveable {
 	public int getSPEED() {
 		return SPEED;
 	}
+	
+	public boolean isLeftWallCrash() {
+		return leftWallCrash;
+	}
 
+	public void setLeftWallCrash(boolean leftWallCrash) {
+		this.leftWallCrash = leftWallCrash;
+	}
 
+	public boolean isRightWallCrash() {
+		return rightWallCrash;
+	}
+
+	public void setRightWallCrash(boolean rightWallCrash) {
+		this.rightWallCrash = rightWallCrash;
+	}
+
+	public boolean isTopWallCrash() {
+		return topWallCrash;
+	}
+
+	public void setTopWallCrash(boolean topWallCrash) {
+		this.topWallCrash = topWallCrash;
+	}
+
+	public boolean isBottomWallCrash() {
+		return bottomWallCrash;
+	}
+
+	public void setBottomWallCrash(boolean bottomWallCrash) {
+		this.bottomWallCrash = bottomWallCrash;
+	}
 
 	private void setInitLayout() {
 		setIcon(player0);
