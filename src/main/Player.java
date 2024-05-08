@@ -128,6 +128,51 @@ public class Player extends JLabel implements Moveable {
 		return SPEED;
 	}
 	
+<<<<<<< HEAD
+=======
+	public boolean isLeftWallCrash() {
+		return leftWallCrash;
+	}
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
+
+	public void setLeftWallCrash(boolean leftWallCrash) {
+		this.leftWallCrash = leftWallCrash;
+	}
+
+<<<<<<< HEAD
+	public PlayerWay getPlayerWay() {
+		return playerWay;
+	}
+
+	public void setPlayerWay(PlayerWay playerWay) {
+		this.playerWay = playerWay;
+	}
+
+	public boolean isRightWallCrash() {
+		return rightWallCrash;
+	}
+
+	public void setRightWallCrash(boolean rightWallCrash) {
+		this.rightWallCrash = rightWallCrash;
+	}
+
+	public boolean isTopWallCrash() {
+		return topWallCrash;
+	}
+
+	public void setTopWallCrash(boolean topWallCrash) {
+		this.topWallCrash = topWallCrash;
+	}
+
+	public boolean isBottomWallCrash() {
+		return bottomWallCrash;
+	}
+
+	public void setBottomWallCrash(boolean bottomWallCrash) {
+		this.bottomWallCrash = bottomWallCrash;
+	}
+	
+
 	public boolean isLeftWallCrash() {
 		return leftWallCrash;
 	}
@@ -135,10 +180,11 @@ public class Player extends JLabel implements Moveable {
 	public void setLeftWallCrash(boolean leftWallCrash) {
 		this.leftWallCrash = leftWallCrash;
 	}
-
+=======
 	public boolean isRightWallCrash() {
 		return rightWallCrash;
 	}
+>>>>>>> bbb9af715f63d33013378d4c89033502e48ece6b
 
 	public void setRightWallCrash(boolean rightWallCrash) {
 		this.rightWallCrash = rightWallCrash;
