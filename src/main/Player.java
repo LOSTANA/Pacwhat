@@ -11,7 +11,6 @@ public class Player extends JLabel implements Moveable {
 	private int x;
 	private int y;
 	private ImageIcon[] imageIcon = new ImageIcon[5]; 
-	// player0, player1, player2, player3, player4
 	
 	// 플레이어 움직임
 	private boolean left;
@@ -46,9 +45,9 @@ public class Player extends JLabel implements Moveable {
 		imageIcon[3] = new ImageIcon("img/pacman/pac3.png");
 		imageIcon[4] = new ImageIcon("img/pacman/pac4.png");
 		
-		// 초기위치값 추후 수정
-		x = 395;
-		y = 455;
+		// 초기위치값 임시로 설정 -- 추후 수정예정
+		x = 355;
+		y = 445;
 
 		left = false;
 		right = false;
@@ -205,7 +204,6 @@ public class Player extends JLabel implements Moveable {
 	public void left() {
 		playerWay = PlayerWay.LEFT;
 		left = true;
-		setIcon(imageIcon[0]);
 
 		new Thread(new Runnable() {
 			@Override
@@ -227,7 +225,6 @@ public class Player extends JLabel implements Moveable {
 	public void right() {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
-		setIcon(imageIcon[0]);
 
 		new Thread(new Runnable() {
 			@Override
@@ -249,7 +246,6 @@ public class Player extends JLabel implements Moveable {
 	public void up() {
 		playerWay = PlayerWay.UP;
 		up = true;
-		setIcon(imageIcon[0]);
 
 		new Thread(new Runnable() {
 			@Override
@@ -271,7 +267,6 @@ public class Player extends JLabel implements Moveable {
 	public void down() {
 		playerWay = PlayerWay.DOWN;
 		down = true;
-		setIcon(imageIcon[0]);
 
 		new Thread(new Runnable() {
 			@Override
