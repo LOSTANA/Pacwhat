@@ -19,8 +19,7 @@ public class Maingame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-		
-		
+
 	}
 
 	public Player getPlayer() {
@@ -32,6 +31,8 @@ public class Maingame extends JFrame {
 	}
 
 	private void initData() {
+
+		setSize(750, 850);
 
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
 
@@ -117,15 +118,15 @@ public class Maingame extends JFrame {
 				case KeyEvent.VK_DOWN:
 					player.setDown(false);
 					break;
-					
 				}
 			}
-			
 		});
 	}
+			
 
 	public static void main(String[] args) {
 		new Maingame();
 	}
 
 }
+
