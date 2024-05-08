@@ -1,11 +1,5 @@
 package main;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 public class Maingame extends JFrame {
 
 	private JLabel backgroundMap;
