@@ -83,7 +83,7 @@ public class Startgame extends JFrame {
 		
 		public DrawLogo() {
 			logo = new ImageIcon("img/pacman_logo.png").getImage();
-			pacman = new ImageIcon("img/pacman/pac4.png").getImage();
+			pacman = new ImageIcon("img/pacman/pac4_R.png").getImage();
 			ghost1 = new ImageIcon("img/ghost1/cyanR2.png").getImage();
 			ghost2 = new ImageIcon("img/ghost2/pinkR1.png").getImage();
 			ghost3 = new ImageIcon("img/ghost3/redR3.png").getImage();

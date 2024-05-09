@@ -1,11 +1,14 @@
 package main;
 
+import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 public class Maingame extends JFrame {
 
@@ -14,14 +17,12 @@ public class Maingame extends JFrame {
 	private JLabel backgroundMap;
 	private Player player;
 	private Enemy enemy;
-	private Item item;
-	private Item item2;
+	private Item[] item;
 
 	public Maingame() {
 		initData();
 		setInitLayout();
 		addEventListener();
-
 	}
 
 	public Player getPlayer() {
@@ -30,10 +31,6 @@ public class Maingame extends JFrame {
 
 	public Enemy getEnemy() {
 		return enemy;
-	}
-	
-	public Item getItem() {
-		return item;
 	}
 
 
@@ -49,10 +46,9 @@ public class Maingame extends JFrame {
 
 		player = new Player(this);
 		enemy = new Enemy(this);
-		item = new Item(this);
-		item2 = new Item(this);
-		
-
+		for (int i = 0; i < 600; i++) {
+			item[i] = new Item(this);
+		}
 	}
 
 	private void setInitLayout() {
@@ -63,9 +59,13 @@ public class Maingame extends JFrame {
 
 		add(player);
 		add(enemy);
-		add(item);
-		add(item2);
-		
+		for(int i = 0;i<600;i++) {
+			if(i % 100 == 0) {
+				item[i].setY(i);
+			}
+			add(item[i]);
+		}
+
 	}
 
 	private void addEventListener() {
@@ -158,6 +158,7 @@ public class Maingame extends JFrame {
 
 	public static void main(String[] args) {
 		new Startgame();
+
 	}
 
 }
