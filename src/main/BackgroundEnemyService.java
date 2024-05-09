@@ -25,7 +25,7 @@ public class BackgroundEnemyService {
 
 	public boolean leftWall() {
 		// 255 0 0 <-- 빨간색 (왼쪽벽 확인)
-		Color leftColor = new Color(image.getRGB(enemy.getX(), enemy.getY() + 25));
+		Color leftColor = new Color(image.getRGB(enemy.getX() - 10, enemy.getY() + 25));
 		if (leftColor.getRed() == 237 && leftColor.getGreen() == 27 && leftColor.getBlue() == 36) {
 			return true;
 		}
@@ -43,7 +43,7 @@ public class BackgroundEnemyService {
 
 	// 위쪽벽
 	public boolean upWall() {
-		Color topColor = new Color(image.getRGB(enemy.getX() + 25, enemy.getY()));
+		Color topColor = new Color(image.getRGB(enemy.getX() + 25, enemy.getY() - 10));
 		if (topColor.getRed() == 237 && topColor.getGreen() == 27 && topColor.getBlue() == 36) {
 			return true;
 		}

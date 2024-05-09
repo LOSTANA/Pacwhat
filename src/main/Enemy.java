@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -29,7 +31,7 @@ public class Enemy extends JLabel implements Moveable {
 	private boolean downWallCrash;
 
 	// 적군 속도 상태
-	private final int SPEED = 3; // 수정
+	private final int SPEED = 2; // 수정
 
 	public Enemy(Maingame stage) {
 		this.stage = stage;
@@ -70,20 +72,68 @@ public class Enemy extends JLabel implements Moveable {
 
 	}
 
+	// 적의 방향을 무작위로 변경하는 값
+	private void change() {
+		Random random = new Random();
+		int direction = random.nextInt(4); // 0~3 무작위 숫자 생성
+
+		switch (direction) {
+		case 0:
+			// 방어적 코드
+			if (!leftWallCrash) {
+				left();
+			}
+			break;
+		case 1:
+			// 방어적 코드
+			if (!rightWallCrash) {
+				right();
+			}
+			break;
+		case 2:
+			// 방어적 코드
+			if (!upWallCrash) {
+				up();
+			}
+			break;
+		case 3:
+			// 방어적 코드
+			if (!downWallCrash) {
+				down();
+			}
+			break;
+		default:
+			// 이동할 수 있는 방향이 없는 경우
+			break;
+		}
+	}
+
 	@Override
 	public void left() {
 		this.enemyWay = EnemyWay.LEFT;
 		left = true;
 		setIcon(enemyL);
-		setLocation(x, y);
-		for (int i = 0; i < 1000; i++) {
-			x--;
-			setLocation(x, y);
-
-			if (backgroundEnemyService.leftWall()) {
-				break;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (left) {
+					x -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (backgroundEnemyService.leftWall()) {
+						break;
+					}
+				}
+				if (backgroundEnemyService.leftWall()) {
+					left = false;
+					change();
+				}
 			}
-		}
+		}).start();
 	}
 
 	@Override
@@ -92,14 +142,27 @@ public class Enemy extends JLabel implements Moveable {
 		right = true;
 		setIcon(enemyR);
 
-		setLocation(x, y);
-		for (int i = 0; i < 800; i++) {
-			x++;
-			setLocation(x, y);
-			if (backgroundEnemyService.rightWall()) {
-				break;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (right) {
+					x += SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (backgroundEnemyService.rightWall()) {
+						break;
+					}
+				}
+				if (backgroundEnemyService.rightWall()) {
+					right = false;
+					change();
+				}
 			}
-		}
+		}).start();
 	}
 
 	@Override
@@ -115,12 +178,18 @@ public class Enemy extends JLabel implements Moveable {
 					y -= SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(SPEED);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					if (backgroundEnemyService.upWall()) {
+						break;
+					}
 				}
-
+				if (backgroundEnemyService.upWall()) {
+					up = false;
+					change();
+				}
 			}
 		}).start();
 	}
@@ -140,7 +209,7 @@ public class Enemy extends JLabel implements Moveable {
 					y += SPEED;
 					setLocation(x, y);
 					try {
-						Thread.sleep(50);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -148,6 +217,11 @@ public class Enemy extends JLabel implements Moveable {
 						break;
 					}
 				}
+				if (backgroundEnemyService.downWall()) {
+					down = false;
+					change();
+				}
+
 			}
 		}).start();
 
