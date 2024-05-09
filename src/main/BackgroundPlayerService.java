@@ -43,7 +43,7 @@ public class BackgroundPlayerService implements Runnable {
 					player.setRightWallCrash(true);
 					player.setRight(false);
 				} else if (topColor.getRed() == 237 && topColor.getGreen() == 27 && topColor.getBlue() == 36) {
-					System.out.println("위쪽 벽에 충돌함");
+					//System.out.println("위쪽 벽에 충돌함");
 					player.setTopWallCrash(true);
 					player.setUp(false);
 				} else if (bottomColor.getRed() == 237 && bottomColor.getGreen() == 27 && bottomColor.getBlue() == 36) {
@@ -62,6 +62,20 @@ public class BackgroundPlayerService implements Runnable {
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+				
+				
+				// 반대쪽 통로로 빠져나오기
+				while(player.getState()==0) {
+					if(player.getX()<20 && player.getY()>330){
+						player.setX(700);
+						player.setLocation(player.getX(),player.getY());
+					} else if(player.getX()>700 && player.getY()>330){
+						player.setX(20);
+						player.setLocation(player.getX(),player.getY());
+					} else {
+						System.out.print("");
+					}
 				}
 
 			}
