@@ -6,15 +6,15 @@ import javax.swing.JLabel;
 public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
-	
+
 	// 플레이어 살아있는상태 0, 죽은상태 1
 	private int state;
-	
+
 	private int x;
 	private int y;
-	private ImageIcon[] imageIconR = new ImageIcon[5]; 
-	private ImageIcon[] imageIconL = new ImageIcon[5]; 
-	
+	private ImageIcon[] imageIconR = new ImageIcon[5];
+	private ImageIcon[] imageIconL = new ImageIcon[5];
+
 	// 플레이어 움직임
 	private boolean left;
 	private boolean right;
@@ -31,7 +31,7 @@ public class Player extends JLabel implements Moveable {
 	private final int SPEED = 3;
 
 	PlayerWay playerWay;
-	
+
 	public Player(Maingame stage) {
 		this.stage = stage;
 		initData();
@@ -39,20 +39,19 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new BackgroundPlayerService(this)).start();
 	}
 
-
 	private void initData() {
 		imageIconR[0] = new ImageIcon("img/pacman/pac0_R.png");
 		imageIconR[1] = new ImageIcon("img/pacman/pac1_R.png");
 		imageIconR[2] = new ImageIcon("img/pacman/pac2_R.png");
 		imageIconR[3] = new ImageIcon("img/pacman/pac3_R.png");
 		imageIconR[4] = new ImageIcon("img/pacman/pac4_R.png");
-		
+
 		imageIconL[0] = new ImageIcon("img/pacman/pac0_L.png");
 		imageIconL[1] = new ImageIcon("img/pacman/pac1_L.png");
 		imageIconL[2] = new ImageIcon("img/pacman/pac2_L.png");
 		imageIconL[3] = new ImageIcon("img/pacman/pac3_L.png");
 		imageIconL[4] = new ImageIcon("img/pacman/pac4_L.png");
-		
+
 		// 초기위치값 임시로 설정 -- 추후 수정예정
 		x = 355;
 		y = 445;
@@ -61,23 +60,23 @@ public class Player extends JLabel implements Moveable {
 		right = false;
 		up = false;
 		down = false;
-		
+
 		leftWallCrash = false;
 		rightWallCrash = false;
 		topWallCrash = false;
 		bottomWallCrash = false;
-		
+
 		state = 0; // 살아있는 상태
 
 		playerWay = PlayerWay.RIGHT;
 	}
-	
+
 	private void setInitLayout() {
 		setIcon(imageIconR[0]);
 		setSize(28, 28);
 		setLocation(x, y);
 	}
-	
+
 	// getter, setter
 	public int getX() {
 		return x;
@@ -143,7 +142,6 @@ public class Player extends JLabel implements Moveable {
 		return leftWallCrash;
 	}
 
-
 	public void setLeftWallCrash(boolean leftWallCrash) {
 		this.leftWallCrash = leftWallCrash;
 	}
@@ -179,26 +177,24 @@ public class Player extends JLabel implements Moveable {
 	public void setBottomWallCrash(boolean bottomWallCrash) {
 		this.bottomWallCrash = bottomWallCrash;
 	}
-	
+
 	public int getState() {
 		return state;
 	}
-
 
 	public void setState(int state) {
 		this.state = state;
 	}
 
-
 	public void changeIconRight() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(right) {
-					
-					for(int i = 0; i < 5; i++) {
-						
-						if(right == false) {
+				while (right) {
+
+					for (int i = 0; i < 5; i++) {
+
+						if (right == false) {
 							break;
 						}
 						setIcon(imageIconR[i]);
@@ -208,12 +204,12 @@ public class Player extends JLabel implements Moveable {
 							e.printStackTrace();
 						}
 					}
-					
-					for(int i = 5; i > 0; i--) {
-						if(right == false) {
+
+					for (int i = 5; i > 0; i--) {
+						if (right == false) {
 							break;
 						}
-						setIcon(imageIconR[i-1]);
+						setIcon(imageIconR[i - 1]);
 						try {
 							Thread.sleep(80);
 						} catch (InterruptedException e) {
@@ -224,15 +220,15 @@ public class Player extends JLabel implements Moveable {
 			}
 		}).start();
 	}
-	
+
 	public void changeIconLeft() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(left) {
-					for(int i = 0; i < 5; i++) {
+				while (left) {
+					for (int i = 0; i < 5; i++) {
 						setIcon(imageIconL[i]);
-						if(left == false) {
+						if (left == false) {
 							break;
 						}
 						try {
@@ -241,10 +237,10 @@ public class Player extends JLabel implements Moveable {
 							e.printStackTrace();
 						}
 					}
-					
-					for(int i = 5; i > 0; i--) {
-						setIcon(imageIconL[i-1]);
-						if(left == false) {
+
+					for (int i = 5; i > 0; i--) {
+						setIcon(imageIconL[i - 1]);
+						if (left == false) {
 							break;
 						}
 						try {
@@ -262,21 +258,23 @@ public class Player extends JLabel implements Moveable {
 				}
 			}
 		}).start();
-	} 
-		
-	
+	}
+
 	@Override
 	synchronized public void left() {
 		playerWay = PlayerWay.LEFT;
 		left = true;
 		changeIconLeft();
-		bridge();
+
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (left) {
 					x = x - SPEED;
 					setLocation(x, y);
+					if (x <= 70) {
+						bridgeLeft();
+					}
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
@@ -294,13 +292,16 @@ public class Player extends JLabel implements Moveable {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
 		changeIconRight();
-		bridge();
+
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (right) {
 					x = x + SPEED;
 					setLocation(x, y);
+					if (x >= 680) {
+						bridgeRight();
+					}
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
@@ -352,48 +353,52 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					isBeAttacked();
-					
+
 				} // end of while
 
 			}
 		}).start();
 	}
-	
+
 	public void beAttacked() {
 		stage.getPlayer().setState(1);
 		setIcon(null);
 	}
-	
+
 	public void isBeAttacked() {
 		int absXResult = Math.abs(x - stage.getEnemy().getX());
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
-		if(absXResult < 20 && absYResult < 20) {
-			if(stage.getPlayer().getState() == 0) {
+		if (absXResult < 20 && absYResult < 20) {
+			if (stage.getPlayer().getState() == 0) {
 				beAttacked();
 				stage.remove(stage.getPlayer());
-				
+
 			}
 		}
 	}
 
-	public void bridge() {
-		new Thread(new Runnable() {
-			Player player=stage.getPlayer();
-			public void run() {
-				while(player.getState()==0) {
-					if(player.getX()<20 && player.getY()>330){
-						player.setX(700);
-						player.setLocation(player.getX(),player.getY());
-					} else if(player.getX()>700 && player.getY()>330){
-						player.setX(20);
-						player.setLocation(player.getX(),player.getY());
-					} else {
-						System.out.print("");
-					}
-				}
-			}
-		}).start();
+	public void bridgeLeft() {
+
+		if (x <= 70 &&( y <=400 && y >= 350)) {
+			x = 660;
+			y = 370;
+			setLocation(x, y);
+		} else {
+			System.out.print("");
+		}
+
 	}
+
+	public void bridgeRight() {
 		
+
+				if (x >= 670 &&( y <= 400 && y >= 350)) {
+					x = 80;
+					y = 370;
+					setLocation(x, y);
+				} else {
+					System.out.print("");
+				}
+	}
 
 }
