@@ -63,6 +63,20 @@ public class BackgroundPlayerService implements Runnable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				
+				// 반대쪽 통로로 빠져나오기
+				while(player.getState()==0) {
+					if(player.getX()<20 && player.getY()>330){
+						player.setX(700);
+						player.setLocation(player.getX(),player.getY());
+					} else if(player.getX()>700 && player.getY()>330){
+						player.setX(20);
+						player.setLocation(player.getX(),player.getY());
+					} else {
+						System.out.print("");
+					}
+				}
 
 			}
 
