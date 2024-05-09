@@ -226,8 +226,6 @@ public class Player extends JLabel implements Moveable {
 	}
 	
 	public void changeIconLeft() {
-		System.out.println("Log 1 Left  : " + left);
-		
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -272,6 +270,7 @@ public class Player extends JLabel implements Moveable {
 		playerWay = PlayerWay.LEFT;
 		left = true;
 		changeIconLeft();
+		bridge();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -295,6 +294,7 @@ public class Player extends JLabel implements Moveable {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
 		changeIconRight();
+		bridge();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -371,10 +371,29 @@ public class Player extends JLabel implements Moveable {
 			if(stage.getPlayer().getState() == 0) {
 				beAttacked();
 				stage.remove(stage.getPlayer());
+				
 			}
 		}
 	}
 
-
+	public void bridge() {
+		new Thread(new Runnable() {
+			Player player=stage.getPlayer();
+			public void run() {
+				while(player.getState()==0) {
+					if(player.getX()<20 && player.getY()>330){
+						player.setX(700);
+						player.setLocation(player.getX(),player.getY());
+					} else if(player.getX()>700 && player.getY()>330){
+						player.setX(20);
+						player.setLocation(player.getX(),player.getY());
+					} else {
+						System.out.print("");
+					}
+				}
+			}
+		}).start();
+	}
+		
 
 }

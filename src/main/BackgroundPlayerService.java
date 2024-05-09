@@ -28,9 +28,9 @@ public class BackgroundPlayerService implements Runnable {
 			// 플레이어 캐릭터 인근의 벽 감지
 			while (true) {
 
-				Color leftColor = new Color(image.getRGB(player.getX() +10, player.getY() + 15));
-				Color rightColor = new Color(image.getRGB(player.getX() + 28, player.getY() + 15));
-				Color topColor = new Color(image.getRGB(player.getX() + 10, player.getY() -10));
+				Color leftColor = new Color(image.getRGB(player.getX(), player.getY() + 15));
+				Color rightColor = new Color(image.getRGB(player.getX() + 40, player.getY() + 15));
+				Color topColor = new Color(image.getRGB(player.getX() + 10, player.getY() -8));
 				Color bottomColor = new Color(image.getRGB(player.getX() + 10, player.getY() + 35));
 
 				// 벽 감지 -> 벽 충돌
@@ -63,20 +63,9 @@ public class BackgroundPlayerService implements Runnable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				 
 				
-				
-				// 반대쪽 통로로 빠져나오기
-				while(player.getState()==0) {
-					if(player.getX()<20 && player.getY()>330){
-						player.setX(700);
-						player.setLocation(player.getX(),player.getY());
-					} else if(player.getX()>700 && player.getY()>330){
-						player.setX(20);
-						player.setLocation(player.getX(),player.getY());
-					} else {
-						System.out.print("");
-					}
-				}
+
 
 			}
 
