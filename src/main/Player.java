@@ -7,6 +7,9 @@ public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
 	
+	// 플레이어 살아있는상태 0, 죽은상태 1
+	private int state;
+	
 	private int x;
 	private int y;
 	private ImageIcon[] imageIconR = new ImageIcon[5]; 
@@ -63,6 +66,8 @@ public class Player extends JLabel implements Moveable {
 		rightWallCrash = false;
 		topWallCrash = false;
 		bottomWallCrash = false;
+		
+		state = 0; // 살아있는 상태
 
 		playerWay = PlayerWay.RIGHT;
 	}
@@ -175,24 +180,42 @@ public class Player extends JLabel implements Moveable {
 		this.bottomWallCrash = bottomWallCrash;
 	}
 	
-	public synchronized void changeIconRight() {
+	public int getState() {
+		return state;
+	}
+
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+
+	public void changeIconRight() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while(right) {
+					
 					for(int i = 0; i < 5; i++) {
+						
+						if(right == false) {
+							break;
+						}
 						setIcon(imageIconR[i]);
 						try {
-							Thread.sleep(120);
+							Thread.sleep(80);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
 					
 					for(int i = 5; i > 0; i--) {
+						if(right == false) {
+							break;
+						}
 						setIcon(imageIconR[i-1]);
 						try {
-							Thread.sleep(120);
+							Thread.sleep(80);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -202,15 +225,20 @@ public class Player extends JLabel implements Moveable {
 		}).start();
 	}
 	
-	public synchronized void changeIconLeft() {
+	public void changeIconLeft() {
+		System.out.println("Log 1 Left  : " + left);
+		
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while(left) {
 					for(int i = 0; i < 5; i++) {
 						setIcon(imageIconL[i]);
+						if(left == false) {
+							break;
+						}
 						try {
-							Thread.sleep(120);
+							Thread.sleep(200);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -218,11 +246,20 @@ public class Player extends JLabel implements Moveable {
 					
 					for(int i = 5; i > 0; i--) {
 						setIcon(imageIconL[i-1]);
+						if(left == false) {
+							break;
+						}
 						try {
-							Thread.sleep(120);
+							Thread.sleep(200);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					}
+					try {
+						Thread.sleep(120);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			}
@@ -246,9 +283,11 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					isBeAttacked();
 				}
 			}
 		}).start();
+		setRight(false);
 	}
 
 	@Override
@@ -267,9 +306,11 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					isBeAttacked();
 				}
 			}
 		}).start();
+		setLeft(false);
 	}
 
 	@Override
@@ -288,6 +329,7 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					isBeAttacked();
 				}
 			}
 		}).start();
@@ -309,10 +351,28 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-				}
+					isBeAttacked();
+					
+				} // end of while
 
 			}
 		}).start();
+	}
+	
+	public void beAttacked() {
+		stage.getPlayer().setState(1);
+		setIcon(null);
+	}
+	
+	public void isBeAttacked() {
+		int absXResult = Math.abs(x - stage.getEnemy().getX());
+		int absYResult = Math.abs(y - stage.getEnemy().getY());
+		if(absXResult < 20 && absYResult < 20) {
+			if(stage.getPlayer().getState() == 0) {
+				beAttacked();
+				stage.remove(stage.getPlayer());
+			}
+		}
 	}
 
 
