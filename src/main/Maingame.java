@@ -14,6 +14,7 @@ public class Maingame extends JFrame {
 	private JLabel backgroundMap;
 	private Player player;
 	private Enemy enemy;
+	private Enemy2 enemy2;
 	private Item item[][] = new Item[750][850];
 
 	public Maingame() {
@@ -29,7 +30,10 @@ public class Maingame extends JFrame {
 	public Enemy getEnemy() {
 		return enemy;
 	}
-
+	
+	public Enemy2 getEnemy2() {
+		return enemy2;
+	}
 	private void initData() {
 
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
@@ -40,6 +44,8 @@ public class Maingame extends JFrame {
 
 		player = new Player(this);
 		enemy = new Enemy(this);
+		enemy2 = new Enemy2(this);
+		
 		for (int i = 30; i < 700; i += 30) {
 			for (int j = 30; j < 800; j += 35) {
 				item[i][j] = new Item(this);
@@ -58,6 +64,7 @@ public class Maingame extends JFrame {
 
 		add(player);
 		add(enemy);
+		add(enemy2);
 
 		for (int i = 30; i < 700; i += 30) {
 			for (int j =30; j < 800; j += 35) {
