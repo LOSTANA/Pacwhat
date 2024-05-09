@@ -228,8 +228,6 @@ public class Player extends JLabel implements Moveable {
 	}
 	
 	public void changeIconLeft() {
-		System.out.println("Log 1 Left  : " + left);
-		
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
