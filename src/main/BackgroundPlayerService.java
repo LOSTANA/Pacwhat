@@ -28,8 +28,8 @@ public class BackgroundPlayerService implements Runnable {
 			// 플레이어 캐릭터 인근의 벽 감지
 			while (true) {
 
-				Color leftColor = new Color(image.getRGB(player.getX() +10, player.getY() + 15));
-				Color rightColor = new Color(image.getRGB(player.getX() + 28, player.getY() + 15));
+				Color leftColor = new Color(image.getRGB(player.getX(), player.getY() + 15));
+				Color rightColor = new Color(image.getRGB(player.getX() + 40, player.getY() + 15));
 				Color topColor = new Color(image.getRGB(player.getX() + 10, player.getY() -10));
 				Color bottomColor = new Color(image.getRGB(player.getX() + 10, player.getY() + 35));
 
