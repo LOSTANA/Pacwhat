@@ -14,6 +14,8 @@ public class Maingame extends JFrame {
 	private JLabel backgroundMap;
 	private Player player;
 	private Enemy enemy;
+	private Item item;
+	private Item item2;
 
 	public Maingame() {
 		initData();
@@ -29,6 +31,11 @@ public class Maingame extends JFrame {
 	public Enemy getEnemy() {
 		return enemy;
 	}
+	
+	public Item getItem() {
+		return item;
+	}
+
 
 	private void initData() {
 
@@ -42,6 +49,9 @@ public class Maingame extends JFrame {
 
 		player = new Player(this);
 		enemy = new Enemy(this);
+		item = new Item(this);
+		item2 = new Item(this);
+		
 
 	}
 
@@ -53,6 +63,9 @@ public class Maingame extends JFrame {
 
 		add(player);
 		add(enemy);
+		add(item);
+		add(item2);
+		
 	}
 
 	private void addEventListener() {
