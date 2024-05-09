@@ -1,14 +1,11 @@
 package main;
 
-import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 
 public class Maingame extends JFrame {
 
@@ -17,7 +14,7 @@ public class Maingame extends JFrame {
 	private JLabel backgroundMap;
 	private Player player;
 	private Enemy enemy;
-	private Item[] item;
+	private Item item[][] = new Item[750][850];
 
 	public Maingame() {
 		initData();
@@ -33,10 +30,7 @@ public class Maingame extends JFrame {
 		return enemy;
 	}
 
-
 	private void initData() {
-
-		setSize(750, 850);
 
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
 
@@ -46,26 +40,36 @@ public class Maingame extends JFrame {
 
 		player = new Player(this);
 		enemy = new Enemy(this);
-		for (int i = 0; i < 600; i++) {
-			item[i] = new Item(this);
+		for (int i = 30; i < 700; i += 30) {
+			for (int j = 30; j < 800; j += 35) {
+				item[i][j] = new Item(this);
+				item[i][j].setX(i);
+				item[i][j].setY(j);
+			}
 		}
+
+
 	}
 
 	private void setInitLayout() {
 		setLayout(null);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setVisible(true);
 
 		add(player);
 		add(enemy);
-		for(int i = 0;i<600;i++) {
-			if(i % 100 == 0) {
-				item[i].setY(i);
+
+		for (int i = 30; i < 700; i += 30) {
+			for (int j =30; j < 800; j += 35) {
+				if (item[i][j] != null) {
+					add(item[i][j]);
+				} else {
+					continue;
+				}
 			}
-			add(item[i]);
 		}
 
+		setVisible(true);
 	}
 
 	private void addEventListener() {
@@ -105,6 +109,8 @@ public class Maingame extends JFrame {
 					} else {
 						break;
 					}
+				case KeyEvent.VK_SPACE:
+					System.out.println(player.getX() + " , " + player.getY());
 
 				}
 			}
@@ -151,7 +157,9 @@ public class Maingame extends JFrame {
 					}
 
 				}
+
 			}
+
 		});
 
 	}
