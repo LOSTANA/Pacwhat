@@ -6,11 +6,11 @@ import javax.swing.JLabel;
 public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
-
 	
 	private int x;
 	private int y;
-	private ImageIcon[] imageIcon = new ImageIcon[5]; 
+	private ImageIcon[] imageIconR = new ImageIcon[5]; 
+	private ImageIcon[] imageIconL = new ImageIcon[5]; 
 	
 	// 플레이어 움직임
 	private boolean left;
@@ -34,16 +34,21 @@ public class Player extends JLabel implements Moveable {
 		initData();
 		setInitLayout();
 		new Thread(new BackgroundPlayerService(this)).start();
-		changeIcon();
 	}
 
 
 	private void initData() {
-		imageIcon[0] = new ImageIcon("img/pacman/pac0.png");
-		imageIcon[1] = new ImageIcon("img/pacman/pac1.png");
-		imageIcon[2] = new ImageIcon("img/pacman/pac2.png");
-		imageIcon[3] = new ImageIcon("img/pacman/pac3.png");
-		imageIcon[4] = new ImageIcon("img/pacman/pac4.png");
+		imageIconR[0] = new ImageIcon("img/pacman/pac0_R.png");
+		imageIconR[1] = new ImageIcon("img/pacman/pac1_R.png");
+		imageIconR[2] = new ImageIcon("img/pacman/pac2_R.png");
+		imageIconR[3] = new ImageIcon("img/pacman/pac3_R.png");
+		imageIconR[4] = new ImageIcon("img/pacman/pac4_R.png");
+		
+		imageIconL[0] = new ImageIcon("img/pacman/pac0_L.png");
+		imageIconL[1] = new ImageIcon("img/pacman/pac1_L.png");
+		imageIconL[2] = new ImageIcon("img/pacman/pac2_L.png");
+		imageIconL[3] = new ImageIcon("img/pacman/pac3_L.png");
+		imageIconL[4] = new ImageIcon("img/pacman/pac4_L.png");
 		
 		// 초기위치값 임시로 설정 -- 추후 수정예정
 		x = 355;
@@ -63,7 +68,7 @@ public class Player extends JLabel implements Moveable {
 	}
 	
 	private void setInitLayout() {
-		setIcon(imageIcon[0]);
+		setIcon(imageIconR[0]);
 		setSize(28, 28);
 		setLocation(x, y);
 	}
@@ -86,11 +91,11 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	public ImageIcon getPlayer0() {
-		return imageIcon[0];
+		return imageIconR[0];
 	}
 
 	public void setPlayer0(ImageIcon player0) {
-		this.imageIcon[0] = player0;
+		this.imageIconR[0] = player0;
 	}
 
 	public boolean isLeft() {
@@ -170,13 +175,13 @@ public class Player extends JLabel implements Moveable {
 		this.bottomWallCrash = bottomWallCrash;
 	}
 	
-	public void changeIcon() {
+	public void changeIconRight() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while(true) {
 					for(int i = 0; i < 5; i++) {
-						setIcon(imageIcon[i]);
+						setIcon(imageIconR[i]);
 						try {
 							Thread.sleep(120);
 						} catch (InterruptedException e) {
@@ -185,7 +190,7 @@ public class Player extends JLabel implements Moveable {
 					}
 					
 					for(int i = 5; i > 0; i--) {
-						setIcon(imageIcon[i-1]);
+						setIcon(imageIconR[i-1]);
 						try {
 							Thread.sleep(120);
 						} catch (InterruptedException e) {
@@ -193,18 +198,43 @@ public class Player extends JLabel implements Moveable {
 						}
 					}
 				}
-				
-				
 			}
 		}).start();
 	}
+	
+	public void changeIconLeft() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while(true) {
+					for(int i = 0; i < 5; i++) {
+						setIcon(imageIconL[i]);
+						try {
+							Thread.sleep(120);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					
+					for(int i = 5; i > 0; i--) {
+						setIcon(imageIconL[i-1]);
+						try {
+							Thread.sleep(120);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}).start();
+	} 
 		
 	
 	@Override
-	public void left() {
+	synchronized public void left() {
 		playerWay = PlayerWay.LEFT;
 		left = true;
-
+		changeIconLeft();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -222,10 +252,10 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	@Override
-	public void right() {
+	synchronized public void right() {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
-
+		changeIconRight();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

@@ -19,7 +19,6 @@ public class Maingame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-
 	}
 
 	public Player getPlayer() {
