@@ -175,7 +175,7 @@ public class Player extends JLabel implements Moveable {
 		this.bottomWallCrash = bottomWallCrash;
 	}
 	
-	public void changeIconRight() {
+	public synchronized void changeIconRight() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -202,7 +202,7 @@ public class Player extends JLabel implements Moveable {
 		}).start();
 	}
 	
-	public void changeIconLeft() {
+	public synchronized void changeIconLeft() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
