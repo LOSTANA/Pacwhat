@@ -66,7 +66,6 @@ public class Maingame extends JFrame {
 						player.left();
 						break;
 					} else {
-						System.err.println("왼벽");
 						break;
 					}
 
@@ -75,7 +74,6 @@ public class Maingame extends JFrame {
 						player.right();
 						break;
 					} else {
-						System.err.println("오른벽");
 						break;
 					}
 
@@ -84,7 +82,6 @@ public class Maingame extends JFrame {
 						player.up();
 						break;
 					} else {
-						System.out.println("윗벽");
 						break;
 					}
 				case KeyEvent.VK_DOWN:
@@ -92,7 +89,6 @@ public class Maingame extends JFrame {
 						player.down();
 						break;
 					} else {
-						System.out.println("아랫벽");
 						break;
 					}
 
@@ -147,7 +143,7 @@ public class Maingame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Maingame();
+		new Startgame();
 	}
 
 }
