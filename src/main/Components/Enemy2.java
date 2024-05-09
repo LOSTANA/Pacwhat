@@ -1,9 +1,14 @@
-package main;
+package main.Components;
 
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import main.Maingame;
+import main.Interface.Moveable;
+import main.Service.BackgroundEnemyService2;
+import main.State.EnemyWay;
 
 public class Enemy2 extends JLabel implements Moveable {
 

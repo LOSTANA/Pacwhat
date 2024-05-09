@@ -7,6 +7,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import main.Components.Enemy;
+import main.Components.Enemy2;
+import main.Components.Item;
+import main.Components.Player;
+import main.State.PlayerWay;
+
 public class Maingame extends JFrame {
 
 	Maingame stage = this;

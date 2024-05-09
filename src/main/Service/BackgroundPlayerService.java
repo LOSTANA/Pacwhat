@@ -1,4 +1,4 @@
-package main;
+package main.Service;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import main.Components.Player;
 
 public class BackgroundPlayerService implements Runnable {
 

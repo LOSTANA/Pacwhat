@@ -1,4 +1,4 @@
-package main;
+package main.Service;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -7,13 +7,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class BackgroundEnemyService {
+import main.Components.Enemy2;
+
+public class BackgroundEnemyService2 {
 
 	private BufferedImage image;
-	private Enemy enemy;
+	private Enemy2 enemy2;
 
-	public BackgroundEnemyService(Enemy enemy) {
-		this.enemy = enemy;
+	public BackgroundEnemyService2(Enemy2 enemy2) {
+		this.enemy2 = enemy2;
 
 		try {
 			image = ImageIO.read(new File("img/background/BackgroundService.jpg"));
@@ -25,7 +27,7 @@ public class BackgroundEnemyService {
 
 	public boolean leftWall() {
 		// 255 0 0 <-- 빨간색 (왼쪽벽 확인)
-		Color leftColor = new Color(image.getRGB(enemy.getX() - 10, enemy.getY() + 25));
+		Color leftColor = new Color(image.getRGB(enemy2.getX() - 10, enemy2.getY() + 25));
 		if (leftColor.getRed() == 237 && leftColor.getGreen() == 27 && leftColor.getBlue() == 36) {
 			return true;
 		}
@@ -34,7 +36,7 @@ public class BackgroundEnemyService {
 
 	// 오른쪽벽
 	public boolean rightWall() {
-		Color rightColor = new Color(image.getRGB(enemy.getX() + 60, enemy.getY() + 25));
+		Color rightColor = new Color(image.getRGB(enemy2.getX() + 60, enemy2.getY() + 25));
 		if (rightColor.getRed() == 237 && rightColor.getGreen() == 27 && rightColor.getBlue() == 36) {
 			return true;
 		}
@@ -43,7 +45,7 @@ public class BackgroundEnemyService {
 
 	// 위쪽벽
 	public boolean upWall() {
-		Color topColor = new Color(image.getRGB(enemy.getX() + 25, enemy.getY() - 10));
+		Color topColor = new Color(image.getRGB(enemy2.getX() + 25, enemy2.getY() - 10));
 		if (topColor.getRed() == 237 && topColor.getGreen() == 27 && topColor.getBlue() == 36) {
 			return true;
 		}
@@ -52,7 +54,7 @@ public class BackgroundEnemyService {
 
 	// 아래벽
 	public boolean downWall() {
-		Color downColor = new Color(image.getRGB(enemy.getX() + 25, enemy.getY() + 60));
+		Color downColor = new Color(image.getRGB(enemy2.getX() + 25, enemy2.getY() + 60));
 		if (downColor.getRed() == 237 && downColor.getGreen() == 27 && downColor.getBlue() == 36) {
 			return true;
 		}

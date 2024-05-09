@@ -1,7 +1,9 @@
-package main;
+package main.Components;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import main.Maingame;
 
 public class Item extends JLabel {
 
