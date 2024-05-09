@@ -179,7 +179,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(true) {
+				while(right) {
 					for(int i = 0; i < 5; i++) {
 						setIcon(imageIconR[i]);
 						try {
@@ -206,7 +206,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(true) {
+				while(left) {
 					for(int i = 0; i < 5; i++) {
 						setIcon(imageIconL[i]);
 						try {
