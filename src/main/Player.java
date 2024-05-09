@@ -14,7 +14,6 @@ public class Player extends JLabel implements Moveable {
 	private int y;
 	private ImageIcon[] imageIconR = new ImageIcon[5]; 
 	private ImageIcon[] imageIconL = new ImageIcon[5]; 
-	private ImageIcon dieMotion;
 	
 	// 플레이어 움직임
 	private boolean left;
@@ -42,19 +41,20 @@ public class Player extends JLabel implements Moveable {
 
 
 	private void initData() {
+		// 오른쪽 이미지 배열
 		imageIconR[0] = new ImageIcon("img/pacman/pac0_R.png");
 		imageIconR[1] = new ImageIcon("img/pacman/pac1_R.png");
 		imageIconR[2] = new ImageIcon("img/pacman/pac2_R.png");
 		imageIconR[3] = new ImageIcon("img/pacman/pac3_R.png");
 		imageIconR[4] = new ImageIcon("img/pacman/pac4_R.png");
 		
+		// 왼쪽 이미지 배열
 		imageIconL[0] = new ImageIcon("img/pacman/pac0_L.png");
 		imageIconL[1] = new ImageIcon("img/pacman/pac1_L.png");
 		imageIconL[2] = new ImageIcon("img/pacman/pac2_L.png");
 		imageIconL[3] = new ImageIcon("img/pacman/pac3_L.png");
 		imageIconL[4] = new ImageIcon("img/pacman/pac4_L.png");
 		
-		dieMotion = new ImageIcon("img/pacman/pacman_die_motion.gif");
 		// 초기위치값 임시로 설정 -- 추후 수정예정
 		x = 355;
 		y = 445;
@@ -191,7 +191,7 @@ public class Player extends JLabel implements Moveable {
 		this.state = state;
 	}
 
-
+	// 오른쪽으로 이미지 움직이게
 	public void changeIconRight() {
 		new Thread(new Runnable() {
 			@Override
@@ -227,6 +227,7 @@ public class Player extends JLabel implements Moveable {
 		}).start();
 	}
 	
+	// 왼쪽으로 이미지 움직이게
 	public void changeIconLeft() {
 		new Thread(new Runnable() {
 			@Override
@@ -258,7 +259,6 @@ public class Player extends JLabel implements Moveable {
 					try {
 						Thread.sleep(120);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -355,17 +355,19 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked();
 					
-				} // end of while
+				} 
 
 			}
 		}).start();
 	}
 	
+	// 플레이어 죽었을때
 	public void beAttacked() {
 		stage.getPlayer().setState(1);
 		setIcon(null);
 	}
 	
+	// 플레이어 에너미랑 부딪힐 경우
 	public void isBeAttacked() {
 		int absXResult = Math.abs(x - stage.getEnemy().getX());
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
@@ -377,7 +379,8 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 	}
-
+	
+	// 반대쪽 통로로 이동
 	public void bridge() {
 		new Thread(new Runnable() {
 			Player player=stage.getPlayer();
