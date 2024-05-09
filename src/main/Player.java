@@ -371,6 +371,7 @@ public class Player extends JLabel implements Moveable {
 			if(stage.getPlayer().getState() == 0) {
 				beAttacked();
 				stage.remove(stage.getPlayer());
+				
 			}
 		}
 	}
