@@ -43,7 +43,7 @@ public class BackgroundPlayerService implements Runnable {
 					player.setRightWallCrash(true);
 					player.setRight(false);
 				} else if (topColor.getRed() == 237 && topColor.getGreen() == 27 && topColor.getBlue() == 36) {
-					System.out.println("위쪽 벽에 충돌함");
+					//System.out.println("위쪽 벽에 충돌함");
 					player.setTopWallCrash(true);
 					player.setUp(false);
 				} else if (bottomColor.getRed() == 237 && bottomColor.getGreen() == 27 && bottomColor.getBlue() == 36) {

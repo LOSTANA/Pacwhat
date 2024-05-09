@@ -99,7 +99,10 @@ public class Maingame extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
+					
 					player.setLeft(false);
+					System.out.println("Released left ");
+					System.out.println("player.isLeft() " +  player.isLeft());
 					break;
 				case KeyEvent.VK_RIGHT:
 					player.setRight(false);

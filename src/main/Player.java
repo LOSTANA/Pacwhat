@@ -180,19 +180,27 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while(right) {
+					
 					for(int i = 0; i < 5; i++) {
+						
+						if(right == false) {
+							break;
+						}
 						setIcon(imageIconR[i]);
 						try {
-							Thread.sleep(120);
+							Thread.sleep(80);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
 					
 					for(int i = 5; i > 0; i--) {
+						if(right == false) {
+							break;
+						}
 						setIcon(imageIconR[i-1]);
 						try {
-							Thread.sleep(120);
+							Thread.sleep(80);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -203,14 +211,19 @@ public class Player extends JLabel implements Moveable {
 	}
 	
 	public void changeIconLeft() {
+		System.out.println("Log 1 Left  : " + left);
+		
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while(left) {
 					for(int i = 0; i < 5; i++) {
 						setIcon(imageIconL[i]);
+						if(left == false) {
+							break;
+						}
 						try {
-							Thread.sleep(120);
+							Thread.sleep(200);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -218,11 +231,20 @@ public class Player extends JLabel implements Moveable {
 					
 					for(int i = 5; i > 0; i--) {
 						setIcon(imageIconL[i-1]);
+						if(left == false) {
+							break;
+						}
 						try {
-							Thread.sleep(120);
+							Thread.sleep(200);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					}
+					try {
+						Thread.sleep(120);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			}
@@ -249,6 +271,7 @@ public class Player extends JLabel implements Moveable {
 				}
 			}
 		}).start();
+		setRight(false);
 	}
 
 	@Override
@@ -270,6 +293,7 @@ public class Player extends JLabel implements Moveable {
 				}
 			}
 		}).start();
+		setLeft(false);
 	}
 
 	@Override
