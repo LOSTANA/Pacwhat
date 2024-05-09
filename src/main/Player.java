@@ -14,6 +14,7 @@ public class Player extends JLabel implements Moveable {
 	private int y;
 	private ImageIcon[] imageIconR = new ImageIcon[5]; 
 	private ImageIcon[] imageIconL = new ImageIcon[5]; 
+	private ImageIcon dieMotion;
 	
 	// 플레이어 움직임
 	private boolean left;
@@ -53,6 +54,7 @@ public class Player extends JLabel implements Moveable {
 		imageIconL[3] = new ImageIcon("img/pacman/pac3_L.png");
 		imageIconL[4] = new ImageIcon("img/pacman/pac4_L.png");
 		
+		dieMotion = new ImageIcon("img/pacman/pacman_die_motion.gif");
 		// 초기위치값 임시로 설정 -- 추후 수정예정
 		x = 355;
 		y = 445;
