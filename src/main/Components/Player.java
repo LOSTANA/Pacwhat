@@ -400,6 +400,7 @@ public class Player extends JLabel implements Moveable {
 					}
 					beAttackedAlways();
 					eated();
+					
 				}
 
 			} // end of while
@@ -533,9 +534,8 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	// 먹기 구현
-
 	public void eated() {
-		for (int i = 0; i < 324; i++) {
+		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
 			if (absXResult < 23 && absYResult < 23) {
@@ -543,5 +543,8 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 	}
+	
+	
+	
 
 }

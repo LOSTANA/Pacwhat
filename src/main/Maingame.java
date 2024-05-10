@@ -23,7 +23,7 @@ public class Maingame extends JFrame {
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
 
-	private Item[] item = new Item[324];
+	private Item[] item = new Item[239];
 
 	public Maingame() {
 		initData();
@@ -65,7 +65,7 @@ public class Maingame extends JFrame {
 
 		enemy3 = new Enemy3(this);
 
-		for (int i = 0; i < 324; i++) {
+		for (int i = 0; i < 239; i++) {
 			if (item[i] == null)
 				item[i] = new Item(this);
 		}
@@ -82,24 +82,24 @@ public class Maingame extends JFrame {
 		add(enemy2);
 		add(enemy3);
 
-		for (int i = 0; i < 324; i++) {
+		for (int i = 0; i < 239; i++) {
 
 			if (i % 17 == 0) {
 				if (i == 0) {
 
 				} else {
-					if (i + 1 < 324) {
+					if (i + 1 < 239) {
 						item[i + 1].setY(item[i].getY() + 55);
 					}
 				}
 			} else {
 
-				if (count > 324) {
+				if (count > 238) {
 					count = count - 16;
 				}
 
 				else {
-					if (i == 323) {
+					if (i == 239) {
 						add(item[i]);
 					} else {
 						item[i + 1].setX(item[i].getX() + 40);
@@ -211,6 +211,7 @@ public class Maingame extends JFrame {
 		});
 
 	}
+	
 
 	public static void main(String[] args) {
 		new Startgame();

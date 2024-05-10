@@ -25,7 +25,7 @@ public class Item extends JLabel {
 		initData();
 		setInitLayout();
 		eated();
-		new Thread(new BackgroundItemService(this)).start();
+		//new Thread(new BackgroundItemService(this)).start();
 	}
 
 	public Maingame getStage() {
