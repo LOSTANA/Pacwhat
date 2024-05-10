@@ -14,6 +14,7 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 살아있는상태 0, 죽은상태 1
 	private int state;
+	private Item[][] item;
 	
 	// 점수
 	private int score;
@@ -425,6 +426,8 @@ public class Player extends JLabel implements Moveable {
 			System.out.print("");
 		}
 	}
+	
+	 
 	
 	
 }

@@ -11,7 +11,6 @@ import main.Components.Enemy1;
 import main.Components.Enemy2;
 import main.Components.Item;
 import main.Components.Player;
-import main.State.PlayerWay;
 
 public class Maingame extends JFrame {
 
@@ -22,6 +21,8 @@ public class Maingame extends JFrame {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Item item[][] = new Item[750][850];
+	private int absX[][];
+	private int absY[][];
 
 	public Maingame() {
 		initData();
@@ -36,15 +37,16 @@ public class Maingame extends JFrame {
 	public Enemy1 getEnemy() {
 		return enemy;
 	}
-	
+
 	public Enemy2 getEnemy2() {
 		return enemy2;
 	}
-	
-	public Item[][] getItem(){
-		
+
+	public Item[][] getItem() {
+
 		return item;
 	}
+
 	private void initData() {
 
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
@@ -56,7 +58,7 @@ public class Maingame extends JFrame {
 		player = new Player(this);
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
-		
+
 		for (int i = 30; i < 700; i += 30) {
 			for (int j = 30; j < 800; j += 35) {
 				item[i][j] = new Item(this);
@@ -64,7 +66,6 @@ public class Maingame extends JFrame {
 				item[i][j].setY(j);
 			}
 		}
-
 
 	}
 
@@ -78,7 +79,7 @@ public class Maingame extends JFrame {
 		add(enemy2);
 
 		for (int i = 30; i < 700; i += 30) {
-			for (int j =30; j < 800; j += 35) {
+			for (int j = 30; j < 800; j += 35) {
 				if (item[i][j] != null) {
 					add(item[i][j]);
 				} else {
@@ -163,7 +164,6 @@ public class Maingame extends JFrame {
 					if (player.isRight() && player.isRightWallCrash()) {
 						player.setRight(false);
 					}
-					break;
 				case KeyEvent.VK_UP:
 					if (player.isUp() && player.isTopWallCrash()) {
 						player.setUp(false);
@@ -179,6 +179,14 @@ public class Maingame extends JFrame {
 			}
 
 		});
+
+	}
+
+	public void eated(int a, int b) {
+
+		item[a][b].setIcon(null);
+		item[a][b].setLocation(item[a][b].getX(), item[a][b].getY());
+		repaint();
 
 	}
 
