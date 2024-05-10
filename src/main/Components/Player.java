@@ -14,6 +14,9 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 살아있는상태 0, 죽은상태 1
 	private int state;
+	
+	// 점수
+	private int score;
 
 	private int x;
 	private int y;
@@ -288,7 +291,8 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked();
+					isBeAttacked1();
+					isBeAttacked2();
 				}
 			}
 		}).start();
@@ -315,7 +319,8 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked();
+					isBeAttacked1();
+					isBeAttacked2();
 				}
 			}
 		}).start();
@@ -338,7 +343,8 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked();
+					isBeAttacked1();
+					isBeAttacked2();
 				}
 			}
 		}).start();
@@ -360,8 +366,8 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked();
-
+					isBeAttacked1();
+					isBeAttacked2();
 				}
 
 			} // end of while
@@ -374,16 +380,28 @@ public class Player extends JLabel implements Moveable {
 		stage.getPlayer().setState(1);
 		setIcon(null);
 	}
+	
+	//
 
-	// 플레이어 에너미랑 부딪힐 경우
-	public void isBeAttacked() {
+	// 플레이어 에너미1랑 부딪힐 경우  -- 플레이어 아이콘 삭제(임시조치)
+	public void isBeAttacked1() {
 		int absXResult = Math.abs(x - stage.getEnemy().getX());
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
-		if (absXResult < 20 && absYResult < 20) {
+		if (absXResult < 23 && absYResult < 23) {
 			if (stage.getPlayer().getState() == 0) {
 				beAttacked();
 				stage.remove(stage.getPlayer());
-
+			}
+		}
+	}
+	
+	public void isBeAttacked2() {
+		int absXResult = Math.abs(x - stage.getEnemy2().getX());
+		int absYResult = Math.abs(y - stage.getEnemy2().getY());
+		if (absXResult < 23 && absYResult < 23) {
+			if (stage.getPlayer().getState() == 0) {
+				beAttacked();
+				stage.remove(stage.getPlayer());
 			}
 		}
 	}
@@ -407,5 +425,6 @@ public class Player extends JLabel implements Moveable {
 			System.out.print("");
 		}
 	}
-
+	
+	
 }
