@@ -4,11 +4,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import main.Maingame;
+import main.Service.BackgroundItemService;
 
 public class Item extends JLabel {
 
 	private Maingame stage;
-	
+	private BackgroundItemService backgroundItemService;
 	private Player player;
 	
 	private int x;
@@ -76,6 +77,7 @@ public class Item extends JLabel {
 	private void initData() {
 		coin = new ImageIcon("img/item/coin.png");
 		state = 0;
+		backgroundItemService = new BackgroundItemService(this);
 	}
 	
 	private void setInitLayout() {

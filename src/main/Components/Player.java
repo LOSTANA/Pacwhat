@@ -19,7 +19,6 @@ public class Player extends JLabel implements Moveable {
 	private int state;
 	private Item[] item;
 
-
 	// 플레이어 목숨
 	private int playerLife;
 
@@ -304,8 +303,7 @@ public class Player extends JLabel implements Moveable {
 				while (left) {
 					x = x - SPEED;
 					setLocation(x, y);
-					
-					
+
 					if (x <= 70) {
 						bridgeLeft();
 					}
@@ -318,7 +316,6 @@ public class Player extends JLabel implements Moveable {
 					isBeAttacked2();
 
 					isBeAttacked3();
-
 					eated();
 
 				}
@@ -379,7 +376,6 @@ public class Player extends JLabel implements Moveable {
 					isBeAttacked2();
 
 					isBeAttacked3();
-
 					eated();
 
 				}
@@ -407,7 +403,6 @@ public class Player extends JLabel implements Moveable {
 					isBeAttacked2();
 
 					isBeAttacked3();
-
 					eated();
 
 				}
@@ -442,12 +437,12 @@ public class Player extends JLabel implements Moveable {
 		}
 		stage.getPlayer().setState(1);
 	}
-	
+
 	public void beAttackedAlways() {
-		
+
 	}
 
-	// 플레이어 에너미1랑 부딪힐 경우 
+	// 플레이어 에너미1랑 부딪힐 경우
 	public void isBeAttacked1() {
 		int absXResult = Math.abs(x - stage.getEnemy().getX());
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
@@ -519,16 +514,16 @@ public class Player extends JLabel implements Moveable {
 			System.out.print("");
 		}
 	}
+
 	public void eated() {
-		for(int i = 0;i<324;i++) {
+		for (int i = 0; i < 324; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
 			if (absXResult < 23 && absYResult < 23) {
 				stage.getItem()[i].setIcon(null);
 			}
-			
+
 		}
 	}
-	
 
 }

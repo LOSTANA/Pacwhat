@@ -26,7 +26,6 @@ public class Maingame extends JFrame {
 
 	private Enemy3 enemy3;
 
-
 	public Maingame() {
 		initData();
 		setInitLayout();
@@ -45,16 +44,13 @@ public class Maingame extends JFrame {
 		return enemy2;
 	}
 
-
 	public Item[] getItem() {
 		return item;
-		}
-	
+	}
+
 	public Enemy3 getEnemy3() {
 		return enemy3;
 	}
-
-	
 
 	private void initData() {
 
@@ -186,15 +182,14 @@ public class Maingame extends JFrame {
 				case KeyEvent.VK_LEFT:
 					if (player.isLeft() && player.isLeftWallCrash()) {
 						player.setLeft(false);
-					}else {
-						for(int i=0;i<324 ;i++) {
-							if(player.getX() == item[i].getX() && player.getY() == item[i].getY()) {
+					} else {
+						for (int i = 0; i < 324; i++) {
+							if (player.getX() == item[i].getX() && player.getY() == item[i].getY()) {
 								item[i].setIcon(null);
-								item[i].setLocation(item[i].getX(),item[i].getY());
+								item[i].setLocation(item[i].getX(), item[i].getY());
 							}
 						}
 					}
-					
 
 				case KeyEvent.VK_RIGHT:
 					if (player.isRight() && player.isRightWallCrash()) {
