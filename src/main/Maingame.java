@@ -40,6 +40,11 @@ public class Maingame extends JFrame {
 	public Enemy2 getEnemy2() {
 		return enemy2;
 	}
+	
+	public Item[][] getItem(){
+		
+		return item;
+	}
 	private void initData() {
 
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
