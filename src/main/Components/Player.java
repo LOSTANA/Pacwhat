@@ -12,10 +12,14 @@ public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
 
-	// 플레이어 살아있는상태 0, 죽은상태 1
+	// 플레이어 살아있는상태 1, 죽은상태 0
 	private int state;
 	private Item[] item;
-	
+
+
+	// 플레이어 목숨
+	private int playrerLife;
+
 	// 점수
 	private int score;
 
@@ -37,7 +41,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean bottomWallCrash;
 
 	// 플레이어 속도 상태 -- 추후 수정
-	private final int SPEED = 3;
+	private final int SPEED = 4;
 
 	PlayerWay playerWay;
 
@@ -77,7 +81,9 @@ public class Player extends JLabel implements Moveable {
 		topWallCrash = false;
 		bottomWallCrash = false;
 
-		state = 0; // 살아있는 상태
+		state = 1; // 살아있는 상태
+
+		playrerLife = 3; // 목숨 3개
 
 		playerWay = PlayerWay.RIGHT;
 	}
@@ -195,6 +201,22 @@ public class Player extends JLabel implements Moveable {
 
 	public void setState(int state) {
 		this.state = state;
+	}
+
+	public int getPlayrerLife() {
+		return playrerLife;
+	}
+
+	public void setPlayrerLife(int playrerLife) {
+		this.playrerLife = playrerLife;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	// 오른쪽으로 이미지 움직이게
@@ -382,34 +404,63 @@ public class Player extends JLabel implements Moveable {
 		}).start();
 	}
 
-	// 플레이어 죽었을때
+	// 플레이어 완전히 죽었을때 ( life -> 0)
+	// state 1 -- > 0
 	public void beAttacked() {
-		stage.getPlayer().setState(1);
-		setIcon(null);
+		stage.getPlayer().setState(0);
+		stage.remove(stage.getPlayer());  
 	}
-	
-	//
 
-	// 플레이어 에너미1랑 부딪힐 경우  -- 플레이어 아이콘 삭제(임시조치)
+	// 목숨3개 2개까지는 깜박거리고 다시 이동 마지막은 아얘 없어지는것
+	public void lostLifeMotion() {
+		for (int i = 0; i <= 3; i++) {
+			setIcon(imageIconR[0]);
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			setIcon(null);
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		stage.getPlayer().setState(1);
+	}
+
+	// 플레이어 에너미1랑 부딪힐 경우 -- 플레이어 아이콘 삭제(임시조치)
 	public void isBeAttacked1() {
 		int absXResult = Math.abs(x - stage.getEnemy().getX());
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
 		if (absXResult < 23 && absYResult < 23) {
-			if (stage.getPlayer().getState() == 0) {
-				beAttacked();
-				stage.remove(stage.getPlayer());
+			playrerLife--;
+			if (stage.getPlayer().getState() == 1) {
+				if (playrerLife == 0) {
+					beAttacked();
+				} else {
+					lostLifeMotion();
+				}
 			}
+			beAttacked();
 		}
 	}
-	
+
+	// 플레이어 에너미2랑 부딪힐 경우
 	public void isBeAttacked2() {
 		int absXResult = Math.abs(x - stage.getEnemy2().getX());
 		int absYResult = Math.abs(y - stage.getEnemy2().getY());
 		if (absXResult < 23 && absYResult < 23) {
-			if (stage.getPlayer().getState() == 0) {
-				beAttacked();
-				stage.remove(stage.getPlayer());
+			playrerLife--;
+			if (stage.getPlayer().getState() == 1) {
+				if (playrerLife == 0) {
+					beAttacked();
+				} else {
+					lostLifeMotion();
+				}
 			}
+			beAttacked();
 		}
 	}
 
@@ -432,7 +483,6 @@ public class Player extends JLabel implements Moveable {
 			System.out.print("");
 		}
 	}
-	
 	public void eated() {
 		for(int i = 0;i<324;i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
@@ -444,7 +494,5 @@ public class Player extends JLabel implements Moveable {
 		}
 	}
 	
-	 
-	
-	
+
 }

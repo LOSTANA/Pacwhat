@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import main.Components.Enemy1;
 import main.Components.Enemy2;
+import main.Components.Enemy3;
 import main.Components.Item;
 import main.Components.Player;
 
@@ -20,7 +21,12 @@ public class Maingame extends JFrame {
 	private Player player;
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
+<<<<<<< HEAD
 	private Item[] item = new Item[324];
+=======
+	private Enemy3 enemy3;
+	private Item item[][] = new Item[750][850];
+>>>>>>> 3cdb070571dcd075da152bdcb8cddec58aaeb3e0
 
 	public Maingame() {
 		initData();
@@ -39,9 +45,19 @@ public class Maingame extends JFrame {
 	public Enemy2 getEnemy2() {
 		return enemy2;
 	}
+<<<<<<< HEAD
 
 	public Item[] getItem() {
 
+=======
+	
+	public Enemy3 getEnemy3() {
+		return enemy3;
+	}
+	
+	public Item[][] getItem(){
+		
+>>>>>>> 3cdb070571dcd075da152bdcb8cddec58aaeb3e0
 		return item;
 	}
 
@@ -56,6 +72,18 @@ public class Maingame extends JFrame {
 		player = new Player(this);
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
+<<<<<<< HEAD
+=======
+		enemy3 = new Enemy3(this);
+		
+		for (int i = 30; i < 700; i += 30) {
+			for (int j = 30; j < 800; j += 35) {
+				item[i][j] = new Item(this);
+				item[i][j].setX(i);
+				item[i][j].setY(j);
+			}
+		}
+>>>>>>> 3cdb070571dcd075da152bdcb8cddec58aaeb3e0
 
 		for (int i = 0; i < 324; i++) {
 			if (item[i] == null)
@@ -72,6 +100,7 @@ public class Maingame extends JFrame {
 		add(player);
 		add(enemy);
 		add(enemy2);
+		add(enemy3);
 
 		for (int i = 0; i < 324; i++) {
 
