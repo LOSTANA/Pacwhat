@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
+import main.Service.BackgroundPlayerService2;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
@@ -51,6 +52,7 @@ public class Player extends JLabel implements Moveable {
 		initData();
 		setInitLayout();
 		new Thread(new BackgroundPlayerService(this)).start();
+		new Thread(new BackgroundPlayerService2(this)).start();
 	}
 
 	private void initData() {
@@ -315,7 +317,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					beAttackedAlways();
 					eated();
 				}
 			}
@@ -345,7 +346,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					beAttackedAlways();
 					eated();
 				}
 			}
@@ -372,7 +372,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					beAttackedAlways();
 					eated();
 				}
 			}
@@ -398,7 +397,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					beAttackedAlways();
 					eated();
 					
 				}
@@ -437,82 +435,6 @@ public class Player extends JLabel implements Moveable {
 		stage.getPlayer().setState(1);
 
 		setIcon(imageIconR[0]);
-	}
-
-	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
-	public void beAttackedAlways() {
-		isBeAttacked1();
-		isBeAttacked2();
-		isBeAttacked3();
-	}
-
-	// 플레이어 에너미1랑 부딪힐 경우
-	public void isBeAttacked1() {
-		int absXResult = Math.abs(x - stage.getEnemy().getX());
-		int absYResult = Math.abs(y - stage.getEnemy().getY());
-		if (absXResult < 23 && absYResult < 23 ) {
-			this.state = 0;
-			playerLife--;
-			System.out.println("에너미1 부딪힐 경우 목숨 : " + playerLife);
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					System.out.println("실행의 흐름 1");
-					beAttacked();
-				} else {
-					System.out.println("실행의 흐름 2");
-					lostLifeMotion();
-				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	// 플레이어 에너미2랑 부딪힐 경우
-	public void isBeAttacked2() {
-		int absXResult = Math.abs(x - stage.getEnemy2().getX());
-		int absYResult = Math.abs(y - stage.getEnemy2().getY());
-		if (absXResult < 23 && absYResult < 23) {
-			this.state = 0;
-			playerLife--;
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
-					lostLifeMotion();
-				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	// 플레이어 에너미3랑 부딪힐 경우
-	public void isBeAttacked3() {
-		int absXResult = Math.abs(x - stage.getEnemy3().getX());
-		int absYResult = Math.abs(y - stage.getEnemy3().getY());
-		if (absXResult < 23 && absYResult < 23) {
-			this.state = 0;
-			playerLife--;
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
-					lostLifeMotion();
-				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 
 	// 통로 넘어가기 왼쪽

@@ -90,7 +90,7 @@ public class BackgroundPlayerService2 implements Runnable {
 					}
 				}
 			} else {
-				return;
+				continue;
 			}
 			
 		}
