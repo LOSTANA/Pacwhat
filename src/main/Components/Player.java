@@ -17,6 +17,8 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 살아있는상태 1, 죽은상태 0
 	private int state;
+	private Item[] item;
+
 
 	// 플레이어 목숨
 	private int playerLife;
@@ -302,6 +304,8 @@ public class Player extends JLabel implements Moveable {
 				while (left) {
 					x = x - SPEED;
 					setLocation(x, y);
+					
+					
 					if (x <= 70) {
 						bridgeLeft();
 					}
@@ -312,7 +316,11 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked1();
 					isBeAttacked2();
+<<<<<<< HEAD
 					isBeAttacked3();
+=======
+					eated();
+>>>>>>> 1aeca44a8631407bda476da6e538ee381a9bc8cf
 				}
 			}
 		}).start();
@@ -341,7 +349,11 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked1();
 					isBeAttacked2();
+<<<<<<< HEAD
 					isBeAttacked3();
+=======
+					eated();
+>>>>>>> 1aeca44a8631407bda476da6e538ee381a9bc8cf
 				}
 			}
 		}).start();
@@ -366,7 +378,11 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked1();
 					isBeAttacked2();
+<<<<<<< HEAD
 					isBeAttacked3();
+=======
+					eated();
+>>>>>>> 1aeca44a8631407bda476da6e538ee381a9bc8cf
 				}
 			}
 		}).start();
@@ -390,7 +406,11 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked1();
 					isBeAttacked2();
+<<<<<<< HEAD
 					isBeAttacked3();
+=======
+					eated();
+>>>>>>> 1aeca44a8631407bda476da6e538ee381a9bc8cf
 				}
 
 			} // end of while
@@ -500,5 +520,16 @@ public class Player extends JLabel implements Moveable {
 			System.out.print("");
 		}
 	}
+	public void eated() {
+		for(int i = 0;i<324;i++) {
+			int absXResult = Math.abs(x - stage.getItem()[i].getX());
+			int absYResult = Math.abs(y - stage.getItem()[i].getY());
+			if (absXResult < 23 && absYResult < 23) {
+				stage.getItem()[i].setIcon(null);
+			}
+			
+		}
+	}
+	
 
 }

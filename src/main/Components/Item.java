@@ -7,16 +7,25 @@ import main.Maingame;
 
 public class Item extends JLabel {
 
-    Maingame stage;
-    private Player player;
-    
-    private ImageIcon coin;
-    private int x;
-    private int y;
-    
-    private int state; // 0.(기본상태), 1.먹힌상태
-    
-    public Maingame getStage() {
+	private Maingame stage;
+	
+	private Player player;
+	
+	private int x;
+	private int y;
+	
+	private int state;
+	
+	private ImageIcon coin;
+	
+	public Item(Maingame stage) {
+		this.stage = stage;
+		initData();
+		setInitLayout();
+		eated();
+	}
+
+	public Maingame getStage() {
 		return stage;
 	}
 
@@ -24,12 +33,12 @@ public class Item extends JLabel {
 		this.stage = stage;
 	}
 
-	public ImageIcon getCoin() {
-		return coin;
+	public Player getPlayer() {
+		return player;
 	}
 
-	public void setCoin(ImageIcon coin) {
-		this.coin = coin;
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 	public int getX() {
@@ -47,7 +56,6 @@ public class Item extends JLabel {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
 
 	public int getState() {
 		return state;
@@ -57,39 +65,44 @@ public class Item extends JLabel {
 		this.state = state;
 	}
 
-	public Item(Maingame stage){
-    	this.stage = stage;
-    	this.player = stage.getPlayer();
-    	initData();
-    	setInitLayout();
-    	
-    }
-    
-    private void initData() {
-    	
-    	coin = new ImageIcon("img/item/coin.png");
+	public ImageIcon getCoin() {
+		return coin;
+	}
 
-    	
-    }
-    
-    private void setInitLayout() {
-    	setIcon(coin);
-    	setSize(28,28);
-    	setLocation(x, y);
-    }
-    
-    public void eated() {
-    	int absX = Math.abs(x - stage.getPlayer().getX());
-    	int absY = Math.abs(y - stage.getPlayer().getY());
-    	if(absX < 10 && absY < 50) {
-    		
-    	}
-    	
-    	state = 1;
-    	
-    	
-    }
+	public void setCoin(ImageIcon coin) {
+		this.coin = coin;
+	}
 
+	private void initData() {
+		coin = new ImageIcon("img/item/coin.png");
+		state = 0;
+	}
+	
+	private void setInitLayout() {
+		
+		x = 30;
+		y = 30;
+		
+		setIcon(coin);
+		setSize(28,28);
+		setLocation(x,y);
+	}
+	
+	private void eated() {
+		
+		this.player = stage.getPlayer();
+		
+		if(player.getX() == x && player.getY() == y) {
+			setIcon(null);
+			setLocation(x,y);
+		}
+	}
+	
+	
+		
+	
 
-    
+	
+	
+
 }
