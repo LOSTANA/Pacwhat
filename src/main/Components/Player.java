@@ -441,79 +441,11 @@ public class Player extends JLabel implements Moveable {
 
 	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
 	public void beAttackedAlways() {
-		isBeAttacked1();
-		isBeAttacked2();
-		isBeAttacked3();
+		BackgroundPlayerService.isBeAttacked1();
+		BackgroundPlayerService.isBeAttacked2();
+		BackgroundPlayerService.isBeAttacked3();
 	}
 
-	// 플레이어 에너미1랑 부딪힐 경우
-	public void isBeAttacked1() {
-		int absXResult = Math.abs(x - stage.getEnemy().getX());
-		int absYResult = Math.abs(y - stage.getEnemy().getY());
-		if (absXResult < 23 && absYResult < 23 ) {
-			this.state = 0;
-			playerLife--;
-			System.out.println("에너미1 부딪힐 경우 목숨 : " + playerLife);
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					System.out.println("실행의 흐름 1");
-					beAttacked();
-				} else {
-					System.out.println("실행의 흐름 2");
-					lostLifeMotion();
-				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	// 플레이어 에너미2랑 부딪힐 경우
-	public void isBeAttacked2() {
-		int absXResult = Math.abs(x - stage.getEnemy2().getX());
-		int absYResult = Math.abs(y - stage.getEnemy2().getY());
-		if (absXResult < 23 && absYResult < 23) {
-			this.state = 0;
-			playerLife--;
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
-					lostLifeMotion();
-				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	// 플레이어 에너미3랑 부딪힐 경우
-	public void isBeAttacked3() {
-		int absXResult = Math.abs(x - stage.getEnemy3().getX());
-		int absYResult = Math.abs(y - stage.getEnemy3().getY());
-		if (absXResult < 23 && absYResult < 23) {
-			this.state = 0;
-			playerLife--;
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
-					lostLifeMotion();
-				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 
 	// 통로 넘어가기 왼쪽
 	public void bridgeLeft() {
