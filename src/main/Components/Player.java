@@ -315,10 +315,7 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-
-					isBeAttacked3();
+					beAttackedAlways();
 					eated();
 				}
 			}
@@ -348,11 +345,7 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-
-					isBeAttacked3();
-
+					beAttackedAlways();
 					eated();
 				}
 			}
@@ -379,12 +372,8 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-
-					isBeAttacked3();
+					beAttackedAlways();
 					eated();
-
 				}
 			}
 		}).start();
@@ -409,12 +398,8 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-
-					isBeAttacked3();
+					beAttackedAlways();
 					eated();
-
 				}
 
 			} // end of while
