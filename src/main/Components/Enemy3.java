@@ -49,10 +49,10 @@ public class Enemy3 extends JLabel implements Moveable {
 
 	private void initData() {
 
-		enemyR = new ImageIcon("img/ghost3/redR1.png");
-		enemyL = new ImageIcon("img/ghost3/redR2.png");
-		enemyD = new ImageIcon("img/ghost3/redD1.png");
-		enemyU = new ImageIcon("img/ghost3/redU1.png");
+		enemyR = new ImageIcon("img/ghostmove/redR.gif");
+		enemyL = new ImageIcon("img/ghostmove/redL.gif");
+		enemyD = new ImageIcon("img/ghostmove/redD.gif");
+		enemyU = new ImageIcon("img/ghostmove/redU.gif");
 
 		backgroundEnemyService3 = new BackgroundEnemyService3(this);
 

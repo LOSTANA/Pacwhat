@@ -317,6 +317,10 @@ public class Player extends JLabel implements Moveable {
 					isBeAttacked2();
 					isBeAttacked3();
 					eated();
+<<<<<<< HEAD
+=======
+
+>>>>>>> c738fa9afedc63adb9db726d34d7cc1122234058
 				}
 			}
 		}).start();
