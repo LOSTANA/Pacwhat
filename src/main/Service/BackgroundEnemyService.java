@@ -7,14 +7,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import main.Components.Enemy;
+import main.Components.Enemy1;
 
 public class BackgroundEnemyService {
 
 	private BufferedImage image;
-	private Enemy enemy;
+	private Enemy1 enemy;
 
-	public BackgroundEnemyService(Enemy enemy) {
+	public BackgroundEnemyService(Enemy1 enemy) {
 		this.enemy = enemy;
 
 		try {

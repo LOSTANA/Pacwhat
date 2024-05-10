@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import main.Components.Enemy;
+import main.Components.Enemy1;
 import main.Components.Enemy2;
 import main.Components.Item;
 import main.Components.Player;
@@ -19,7 +19,7 @@ public class Maingame extends JFrame {
 
 	private JLabel backgroundMap;
 	private Player player;
-	private Enemy enemy;
+	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Item item[][] = new Item[750][850];
 
@@ -33,7 +33,7 @@ public class Maingame extends JFrame {
 		return player;
 	}
 
-	public Enemy getEnemy() {
+	public Enemy1 getEnemy() {
 		return enemy;
 	}
 	
@@ -54,7 +54,7 @@ public class Maingame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		player = new Player(this);
-		enemy = new Enemy(this);
+		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
 		
 		for (int i = 30; i < 700; i += 30) {

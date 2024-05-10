@@ -1,4 +1,4 @@
-package main.Components;
+ package main.Components;
 
 import java.util.Random;
 
@@ -10,12 +10,24 @@ import main.Interface.Moveable;
 import main.Service.BackgroundEnemyService;
 import main.State.EnemyWay;
 
-public class Enemy extends JLabel implements Moveable {
+public class Enemy1 extends JLabel implements Moveable {
 
 	Maingame stage;
 
 	// 적군의 좌표값 위치 상태
 	private int x;
+	public BackgroundEnemyService getBackgroundEnemyService() {
+		return backgroundEnemyService;
+	}
+
+	public void setBackgroundEnemyService(BackgroundEnemyService backgroundEnemyService) {
+		this.backgroundEnemyService = backgroundEnemyService;
+	}
+
+	public Maingame getStage() {
+		return stage;
+	}
+
 	private int y;
 	private ImageIcon enemyR, enemyL, enemyD, enemyU;
 	private BackgroundEnemyService backgroundEnemyService;
@@ -38,7 +50,7 @@ public class Enemy extends JLabel implements Moveable {
 	// 적군 속도 상태
 	private final int SPEED = 2; // 수정
 
-	public Enemy(Maingame stage) {
+	public Enemy1(Maingame stage) {
 		this.stage = stage;
 		initData();
 		setInitLayout();
