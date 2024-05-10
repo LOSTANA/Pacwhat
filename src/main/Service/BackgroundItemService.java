@@ -14,7 +14,10 @@ public class BackgroundItemService implements Runnable {
 
 	private BufferedImage image;
 	private Item item;
-	private Color color;
+	private Color leftcolor;
+	private Color rightcolor;
+	private Color topcolor;
+	private Color bottomcolor;
 
 	public BackgroundItemService(Item item) {
 		this.item = item;
@@ -22,7 +25,7 @@ public class BackgroundItemService implements Runnable {
 
 		{
 			// 코인 삭제를 위한 백그라운드 이미지 설정
-			image = ImageIO.read(new File("img/background/BackgroundService.jpg"));
+			image = ImageIO.read(new File("img/background/BackgroundService.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -30,8 +33,33 @@ public class BackgroundItemService implements Runnable {
 
 	public void run() {
 		while (true) {
-			color = new Color(image.getRGB(item.getX(), item.getY()));
-			if (color.getRed() == 237 && color.getGreen() == 27 && color.getBlue() == 36) {
+			leftcolor = new Color(image.getRGB(item.getX() - 3, item.getY()));
+			rightcolor = new Color(image.getRGB(item.getX() + 3, item.getY()));
+			topcolor = new Color(image.getRGB(item.getX(), item.getY() - 10));
+			bottomcolor = new Color(image.getRGB(item.getX(), item.getY() + 10));
+
+			if (leftcolor.getRed() == 255 && leftcolor.getGreen() == 0 && leftcolor.getBlue() == 0) {
+				if (item.getState() == 0) {
+					item.setIcon(null);
+					item.setState(1);
+					System.out.println(item.getX() + " , " + item.getY() + "작동");
+				}
+			}
+			else if (rightcolor.getRed() == 255 && rightcolor.getGreen() == 0 && rightcolor.getBlue() == 0) {
+				if (item.getState() == 0) {
+					item.setIcon(null);
+					item.setState(1);
+					System.out.println(item.getX() + " , " + item.getY() + "작동");
+				}
+			}
+			else if (topcolor.getRed() == 255 && topcolor.getGreen() == 0 && topcolor.getBlue() == 0) {
+				if (item.getState() == 0) {
+					item.setIcon(null);
+					item.setState(1);
+					System.out.println(item.getX() + " , " + item.getY() + "작동");
+				}
+			}
+			else if (bottomcolor.getRed() == 255 && bottomcolor.getGreen() == 0 && bottomcolor.getBlue() == 0) {
 				if (item.getState() == 0) {
 					item.setIcon(null);
 					item.setState(1);
@@ -41,6 +69,7 @@ public class BackgroundItemService implements Runnable {
 			} else {
 
 			}
+
 			try {
 				Thread.sleep(3);
 			} catch (InterruptedException e) {

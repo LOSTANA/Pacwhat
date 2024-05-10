@@ -25,7 +25,6 @@ public class Maingame extends JFrame {
 
 	private Item[] item = new Item[324];
 
-
 	public Maingame() {
 		initData();
 		setInitLayout();

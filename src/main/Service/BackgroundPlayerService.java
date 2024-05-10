@@ -19,7 +19,7 @@ public class BackgroundPlayerService implements Runnable {
 		this.player = player;
 		try {
 			// 플레이어 캐릭터 기본 이미지 설정
-			image = ImageIO.read(new File("img/background/BackgroundService.jpg"));
+			image = ImageIO.read(new File("img/background/BackgroundService.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -36,19 +36,19 @@ public class BackgroundPlayerService implements Runnable {
 				Color bottomColor = new Color(image.getRGB(player.getX() + 10, player.getY() + 35));
 
 				// 벽 감지 -> 벽 충돌
-				if (leftColor.getRed() == 237 && leftColor.getGreen() == 27 && leftColor.getBlue() == 36) {
+				if (leftColor.getRed() == 255 && leftColor.getGreen() == 0 && leftColor.getBlue() == 0) {
 					//System.out.println("왼쪽 벽에 충돌함");
 					player.setLeftWallCrash(true);
 					player.setLeft(false);
-				} else if (rightColor.getRed() == 237 && rightColor.getGreen() == 27 && rightColor.getBlue() == 36) {
+				} else if (rightColor.getRed() == 255 && rightColor.getGreen() == 0 && rightColor.getBlue() == 0) {
 					//System.out.println("오른쪽 벽에 충돌함");
 					player.setRightWallCrash(true);
 					player.setRight(false);
-				} else if (topColor.getRed() == 237 && topColor.getGreen() == 27 && topColor.getBlue() == 36) {
+				} else if (topColor.getRed() == 255 && topColor.getGreen() == 0 && topColor.getBlue() == 0) {
 					//System.out.println("위쪽 벽에 충돌함");
 					player.setTopWallCrash(true);
 					player.setUp(false);
-				} else if (bottomColor.getRed() == 237 && bottomColor.getGreen() == 27 && bottomColor.getBlue() == 36) {
+				} else if (bottomColor.getRed() == 255 && bottomColor.getGreen() == 0 && bottomColor.getBlue() == 0) {
 					//System.out.println("아래쪽 벽에 충돌함");
 					player.setBottomWallCrash(true);
 					player.setDown(false);
