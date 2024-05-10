@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
+import main.Service.BackgroundPlayerService2;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
@@ -51,6 +52,7 @@ public class Player extends JLabel implements Moveable {
 		initData();
 		setInitLayout();
 		new Thread(new BackgroundPlayerService(this)).start();
+		new Thread(new BackgroundPlayerService2(this)).start();
 	}
 
 	private void initData() {
@@ -205,11 +207,11 @@ public class Player extends JLabel implements Moveable {
 		this.state = state;
 	}
 
-	public int getPlayrerLife() {
+	public int getPlayerLife() {
 		return playerLife;
 	}
 
-	public void setPlayrerLife(int playrerLife) {
+	public void setPlayerLife(int playrerLife) {
 		this.playerLife = playrerLife;
 	}
 
@@ -315,7 +317,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					beAttackedAlways();
 					eated();
 				}
 			}
@@ -345,7 +346,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					beAttackedAlways();
 					eated();
 				}
 			}
@@ -372,7 +372,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					beAttackedAlways();
 					eated();
 				}
 			}
@@ -398,7 +397,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					beAttackedAlways();
 					eated();
 					
 				}
@@ -411,9 +409,7 @@ public class Player extends JLabel implements Moveable {
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
-		System.out.println("플레이어 목숨 0일때 작동");
-		System.out.println("state : " + state);
-		stage.getPlayer().setState(0);
+		state = 0;
 		stage.remove(stage.getPlayer());
 	}
 
@@ -439,12 +435,6 @@ public class Player extends JLabel implements Moveable {
 		setIcon(imageIconR[0]);
 	}
 
-	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
-	public void beAttackedAlways() {
-		BackgroundPlayerService.isBeAttacked1();
-		BackgroundPlayerService.isBeAttacked2();
-		BackgroundPlayerService.isBeAttacked3();
-	}
 
 
 	// 통로 넘어가기 왼쪽
