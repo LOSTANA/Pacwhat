@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import main.Components.Enemy1;
 import main.Components.Enemy2;
+import main.Components.Enemy3;
 import main.Components.Item;
 import main.Components.Player;
 import main.State.PlayerWay;
@@ -21,6 +22,7 @@ public class Maingame extends JFrame {
 	private Player player;
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
+	private Enemy3 enemy3;
 	private Item item[][] = new Item[750][850];
 
 	public Maingame() {
@@ -41,6 +43,10 @@ public class Maingame extends JFrame {
 		return enemy2;
 	}
 	
+	public Enemy3 getEnemy3() {
+		return enemy3;
+	}
+	
 	public Item[][] getItem(){
 		
 		return item;
@@ -56,6 +62,7 @@ public class Maingame extends JFrame {
 		player = new Player(this);
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
+		enemy3 = new Enemy3(this);
 		
 		for (int i = 30; i < 700; i += 30) {
 			for (int j = 30; j < 800; j += 35) {
@@ -76,6 +83,7 @@ public class Maingame extends JFrame {
 		add(player);
 		add(enemy);
 		add(enemy2);
+		add(enemy3);
 
 		for (int i = 30; i < 700; i += 30) {
 			for (int j =30; j < 800; j += 35) {
