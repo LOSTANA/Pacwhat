@@ -301,7 +301,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
-					if(state == 0) {
+					if (state == 0) {
 						break;
 					}
 					x = x - SPEED;
@@ -317,9 +317,9 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked1();
 					isBeAttacked2();
+
 					isBeAttacked3();
 					eated();
-
 				}
 			}
 		}).start();
@@ -335,7 +335,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (right) {
-					if(state == 0) {
+					if (state == 0) {
 						break;
 					}
 					x = x + SPEED;
@@ -350,7 +350,9 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked1();
 					isBeAttacked2();
+
 					isBeAttacked3();
+
 					eated();
 				}
 			}
@@ -367,7 +369,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (up) {
-					if(state == 0) {
+					if (state == 0) {
 						break;
 					}
 					y = y - SPEED;
@@ -379,8 +381,10 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked1();
 					isBeAttacked2();
+
 					isBeAttacked3();
 					eated();
+
 				}
 			}
 		}).start();
@@ -395,7 +399,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (down) {
-					if(state == 0) {
+					if (state == 0) {
 						break;
 					}
 					y = y + SPEED;
@@ -407,8 +411,10 @@ public class Player extends JLabel implements Moveable {
 					}
 					isBeAttacked1();
 					isBeAttacked2();
+
 					isBeAttacked3();
 					eated();
+
 				}
 
 			} // end of while
@@ -443,6 +449,7 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 		stage.getPlayer().setState(1);
+
 		setIcon(imageIconR[0]);
 	}
 
@@ -541,6 +548,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	// 먹기 구현
+
 	public void eated() {
 		for (int i = 0; i < 324; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
