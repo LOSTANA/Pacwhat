@@ -45,20 +45,14 @@ public class Maingame extends JFrame {
 	public Item[] getItem() {
 		return item;
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> c738fa9afedc63adb9db726d34d7cc1122234058
 	
 	public Enemy3 getEnemy3() {
 		return enemy3;
 	}
 	
-<<<<<<< HEAD
 		
-=======
 
->>>>>>> c738fa9afedc63adb9db726d34d7cc1122234058
 
 	private void initData() {
 
@@ -72,11 +66,8 @@ public class Maingame extends JFrame {
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
 		enemy3 = new Enemy3(this);
-<<<<<<< HEAD
 		
-=======
 
->>>>>>> c738fa9afedc63adb9db726d34d7cc1122234058
 
 		for (int i = 0; i < 324; i++) {
 			if (item[i] == null)
