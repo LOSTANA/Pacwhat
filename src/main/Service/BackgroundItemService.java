@@ -38,28 +38,28 @@ public class BackgroundItemService implements Runnable {
 			topcolor = new Color(image.getRGB(item.getX(), item.getY() - 1));
 			bottomcolor = new Color(image.getRGB(item.getX(), item.getY() + 1));
 
-			if (leftcolor.getRed() == 255 && leftcolor.getGreen() == 0 && leftcolor.getBlue() == 0) {
+			if ((leftcolor.getRed() == 255 && leftcolor.getGreen() == 0 && leftcolor.getBlue() == 0) || (leftcolor.getRed() == 0 && leftcolor.getGreen() == 0 && leftcolor.getBlue() == 255)) {
 				if (item.getState() == 0) {
 					item.setIcon(null);
 					item.setState(1);
 					System.out.println(item.getX() + " , " + item.getY() + "작동");
 				}
 			}
-			else if (rightcolor.getRed() == 255 && rightcolor.getGreen() == 0 && rightcolor.getBlue() == 0) {
+			else if ((rightcolor.getRed() == 255 && rightcolor.getGreen() == 0 && rightcolor.getBlue() == 0) || (rightcolor.getRed() == 0 && rightcolor.getGreen() == 0 && rightcolor.getBlue() == 255)) {
 				if (item.getState() == 0) {
 					item.setIcon(null);
 					item.setState(1);
 					System.out.println(item.getX() + " , " + item.getY() + "작동");
 				}
 			}
-			else if (topcolor.getRed() == 255 && topcolor.getGreen() == 0 && topcolor.getBlue() == 0) {
+			else if ((topcolor.getRed() == 255 && topcolor.getGreen() == 0 && topcolor.getBlue() == 0) || (topcolor.getRed() == 0 && topcolor.getGreen() == 0 && topcolor.getBlue() == 255)) {
 				if (item.getState() == 0) {
 					item.setIcon(null);
 					item.setState(1);
 					System.out.println(item.getX() + " , " + item.getY() + "작동");
 				}
 			}
-			else if (bottomcolor.getRed() == 255 && bottomcolor.getGreen() == 0 && bottomcolor.getBlue() == 0) {
+			else if ((bottomcolor.getRed() == 255 && bottomcolor.getGreen() == 0 && bottomcolor.getBlue() == 0) || (bottomcolor.getRed() == 0 && bottomcolor.getGreen() == 0 && bottomcolor.getBlue() == 255)) {
 				if (item.getState() == 0) {
 					item.setIcon(null);
 					item.setState(1);

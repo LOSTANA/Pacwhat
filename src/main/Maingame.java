@@ -29,6 +29,9 @@ public class Maingame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
+
+//		noteated();
+
 	}
 
 	public Player getPlayer() {
@@ -53,7 +56,7 @@ public class Maingame extends JFrame {
 
 	private void initData() {
 
-		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
+		backgroundMap = new JLabel(new ImageIcon("img/background/BackgroundService.png"));
 
 		setSize(750, 850);
 		setContentPane(backgroundMap);
@@ -167,6 +170,7 @@ public class Maingame extends JFrame {
 					player.setRight(false);
 					break;
 				case KeyEvent.VK_UP:
+					System.out.println(1);
 					player.setUp(false);
 					break;
 				case KeyEvent.VK_DOWN:
@@ -211,7 +215,96 @@ public class Maingame extends JFrame {
 		});
 
 	}
-	
+//	public void noteated() { // 임시코드 (정말 최후의 수단)
+//		item[9].setState(1);
+//		item[9].setIcon(null);
+//		item[22].setState(1);
+//		item[22].setIcon(null);
+//		item[26].setState(1);
+//		item[26].setIcon(null);
+//		item[28].setState(1);
+//		item[28].setIcon(null);
+//		item[56].setState(1);
+//		item[56].setIcon(null);
+//		item[64].setState(1);
+//		item[64].setIcon(null);
+//		item[73].setState(1);
+//		item[73].setIcon(null);
+//		item[77].setState(1);
+//		item[77].setIcon(null);
+//		item[79].setState(1);
+//		item[79].setIcon(null);
+//		item[90].setState(1);
+//		item[90].setIcon(null);
+//		item[98].setState(1);
+//		item[98].setIcon(null);
+//		item[109].setState(1);
+//		item[109].setIcon(null);
+//		item[124].setState(1);
+//		item[124].setIcon(null);
+//		item[126].setState(1);
+//		item[126].setIcon(null);
+//		item[132].setState(1);
+//		item[132].setIcon(null);
+//		item[134].setState(1);
+//		item[134].setIcon(null);
+//		item[141].setState(1);
+//		item[141].setIcon(null);
+//		item[143].setState(1);
+//		item[143].setIcon(null);
+//		item[144].setState(1);
+//		item[144].setIcon(null);
+//		item[145].setState(1);
+//		item[145].setIcon(null);
+//		item[146].setState(1);
+//		item[146].setIcon(null);
+//		item[147].setState(1);
+//		item[147].setIcon(null);
+//		item[149].setState(1);
+//		item[149].setIcon(null);
+//		item[151].setState(1);
+//		item[151].setIcon(null);
+//		item[162].setState(1);
+//		item[162].setIcon(null);
+//		item[175].setState(1);
+//		item[175].setIcon(null);
+//		item[179].setState(1);
+//		item[179].setIcon(null);
+//		item[181].setState(1);
+//		item[181].setIcon(null);
+//		item[185].setState(1);
+//		item[185].setIcon(null);
+//		item[188].setState(1);
+//		item[188].setIcon(null);
+//		item[190].setState(1);
+//		item[190].setIcon(null);
+//		item[192].setState(1);
+//		item[192].setIcon(null);
+//		item[194].setState(1);
+//		item[194].setIcon(null);
+//		item[195].setState(1);
+//		item[195].setIcon(null);
+//		item[196].setState(1);
+//		item[196].setIcon(null);
+//		item[197].setState(1);
+//		item[197].setIcon(null);
+//		item[198].setState(1);
+//		item[198].setIcon(null);
+//		item[200].setState(1);
+//		item[200].setIcon(null);
+//		item[202].setState(1);
+//		item[202].setIcon(null);
+//		item[204].setState(1);
+//		item[204].setIcon(null);
+//		item[209].setState(1);
+//		item[209].setIcon(null);
+//		item[213].setState(1);
+//		item[213].setIcon(null);
+//		item[217].setState(1);
+//		item[217].setIcon(null);
+//		
+//	}
+
 
 	public static void main(String[] args) {
 		new Startgame();
