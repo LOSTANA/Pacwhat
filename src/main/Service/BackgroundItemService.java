@@ -33,10 +33,10 @@ public class BackgroundItemService implements Runnable {
 
 	public void run() {
 		while (true) {
-			leftcolor = new Color(image.getRGB(item.getX() - 3, item.getY()));
-			rightcolor = new Color(image.getRGB(item.getX() + 3, item.getY()));
-			topcolor = new Color(image.getRGB(item.getX(), item.getY() - 10));
-			bottomcolor = new Color(image.getRGB(item.getX(), item.getY() + 10));
+			leftcolor = new Color(image.getRGB(item.getX() - 1, item.getY()));
+			rightcolor = new Color(image.getRGB(item.getX() + 1, item.getY()));
+			topcolor = new Color(image.getRGB(item.getX(), item.getY() - 1));
+			bottomcolor = new Color(image.getRGB(item.getX(), item.getY() + 1));
 
 			if (leftcolor.getRed() == 255 && leftcolor.getGreen() == 0 && leftcolor.getBlue() == 0) {
 				if (item.getState() == 0) {
