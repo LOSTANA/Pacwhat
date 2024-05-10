@@ -37,11 +37,11 @@ public class BackgroundPlayerService implements Runnable {
 
 				// 벽 감지 -> 벽 충돌
 				if (leftColor.getRed() == 237 && leftColor.getGreen() == 27 && leftColor.getBlue() == 36) {
-					System.out.println("왼쪽 벽에 충돌함");
+					//System.out.println("왼쪽 벽에 충돌함");
 					player.setLeftWallCrash(true);
 					player.setLeft(false);
 				} else if (rightColor.getRed() == 237 && rightColor.getGreen() == 27 && rightColor.getBlue() == 36) {
-					System.out.println("오른쪽 벽에 충돌함");
+					//System.out.println("오른쪽 벽에 충돌함");
 					player.setRightWallCrash(true);
 					player.setRight(false);
 				} else if (topColor.getRed() == 237 && topColor.getGreen() == 27 && topColor.getBlue() == 36) {
@@ -49,7 +49,7 @@ public class BackgroundPlayerService implements Runnable {
 					player.setTopWallCrash(true);
 					player.setUp(false);
 				} else if (bottomColor.getRed() == 237 && bottomColor.getGreen() == 27 && bottomColor.getBlue() == 36) {
-					System.out.println("아래쪽 벽에 충돌함");
+					//System.out.println("아래쪽 벽에 충돌함");
 					player.setBottomWallCrash(true);
 					player.setDown(false);
 				} else {
