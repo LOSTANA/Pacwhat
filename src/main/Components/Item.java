@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import main.Maingame;
 import main.Service.BackgroundItemService;
+import main.Service.BackgroundPlayerService;
 
 public class Item extends JLabel {
 
@@ -24,6 +25,7 @@ public class Item extends JLabel {
 		initData();
 		setInitLayout();
 		eated();
+		new Thread(new BackgroundItemService(this)).start();
 	}
 
 	public Maingame getStage() {
@@ -88,6 +90,7 @@ public class Item extends JLabel {
 		setIcon(coin);
 		setSize(28,28);
 		setLocation(x,y);
+		state = 0;
 	}
 	
 	private void eated() {

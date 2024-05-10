@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import main.Components.Item;
 import main.Components.Player;
 
-public class BackgroundItemService {
+public class BackgroundItemService implements Runnable {
 
 	private BufferedImage image;
 	private Item item;
@@ -18,7 +18,6 @@ public class BackgroundItemService {
 
 	public BackgroundItemService(Item item) {
 		this.item = item;
-
 		try
 
 		{
@@ -30,14 +29,23 @@ public class BackgroundItemService {
 	}
 
 	public void run() {
-		for (int i = 0; i < 324; i++) {
+		while (true) {
 			color = new Color(image.getRGB(item.getX(), item.getY()));
 			if (color.getRed() == 237 && color.getGreen() == 27 && color.getBlue() == 36) {
-				item.setIcon(null);
-				System.out.println("작동");
+				if (item.getState() == 0) {
+					item.setIcon(null);
+					item.setState(1);
+					System.out.println(item.getX() + " , " + item.getY() + "작동");
+				}
 				// 충돌하지 않았을 때
 			} else {
 
+			}
+			try {
+				Thread.sleep(3);
+			} catch (InterruptedException e) {
+
+				e.printStackTrace();
 			}
 		}
 	}

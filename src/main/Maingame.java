@@ -21,10 +21,10 @@ public class Maingame extends JFrame {
 	private Player player;
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
+	private Enemy3 enemy3;
 
 	private Item[] item = new Item[324];
 
-	private Enemy3 enemy3;
 
 	public Maingame() {
 		initData();
