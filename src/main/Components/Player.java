@@ -13,7 +13,6 @@ public class Player extends JLabel implements Moveable {
 	Maingame stage;
 
 	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
-	// 플레이어 죽은 상태로 아이템 먹어지는거 수정 해야함
 
 	// 플레이어 살아있는상태 1, 죽은상태 0
 	private int state;
@@ -326,8 +325,7 @@ public class Player extends JLabel implements Moveable {
 		}).start();
 		setRight(false);
 	}
-
-	@Override
+  
 	synchronized public void right() {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
@@ -450,18 +448,16 @@ public class Player extends JLabel implements Moveable {
 
 	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
 	public void beAttackedAlways() {
-		while (true) {
-			isBeAttacked2();
-			isBeAttacked1();
-			isBeAttacked3();
-		}
+		isBeAttacked1();
+		isBeAttacked2();
+		isBeAttacked3();
 	}
 
 	// 플레이어 에너미1랑 부딪힐 경우
 	public void isBeAttacked1() {
 		int absXResult = Math.abs(x - stage.getEnemy().getX());
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
-		if (absXResult < 23 && absYResult < 23) {
+		if (absXResult < 23 && absYResult < 23 ) {
 			this.state = 0;
 			playerLife--;
 			System.out.println("에너미1 부딪힐 경우 목숨 : " + playerLife);
