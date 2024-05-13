@@ -1,4 +1,4 @@
- package main.Components;
+package main.Components;
 
 import java.util.Random;
 
@@ -16,6 +16,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	// 적군의 좌표값 위치 상태
 	private int x;
+
 	public BackgroundEnemyService getBackgroundEnemyService() {
 		return backgroundEnemyService;
 	}
@@ -55,7 +56,7 @@ public class Enemy1 extends JLabel implements Moveable {
 		initData();
 		setInitLayout();
 
-		down();
+		enemyStart();
 	}
 
 	private void initData() {
@@ -76,8 +77,8 @@ public class Enemy1 extends JLabel implements Moveable {
 		enemyWay = EnemyWay.RIGHT;
 
 		// 처음 실행 시 초기 값 셋팅 (수정)
-		x = 550;
-		y = 300;
+		x = 360;
+		y = 375;
 
 	}
 
@@ -86,6 +87,43 @@ public class Enemy1 extends JLabel implements Moveable {
 		setIcon(enemyD);
 		setSize(28, 28); // 수정 해야됨
 		setLocation(x, y);
+
+	}
+
+	// 에너미 스타트
+	private void enemyStart() {
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				for (int i = 0; i < 50; i++) {
+
+					if (backgroundEnemyService.leftWall()) {
+						x += SPEED;
+						setLocation(x, y);
+					}
+
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				for (int i = 0; i < 45; i++) {
+					// 적을 위로 50만큼 이동
+					y -= SPEED;
+					setLocation(x, y);
+
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				right();
+			}
+		}).start();
 
 	}
 
