@@ -207,11 +207,11 @@ public class Player extends JLabel implements Moveable {
 		this.state = state;
 	}
 
-	public int getPlayrerLife() {
+	public int getPlayerLife() {
 		return playerLife;
 	}
 
-	public void setPlayrerLife(int playrerLife) {
+	public void setPlayerLife(int playrerLife) {
 		this.playerLife = playrerLife;
 	}
 
@@ -409,9 +409,7 @@ public class Player extends JLabel implements Moveable {
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
-		System.out.println("플레이어 목숨 0일때 작동");
-		System.out.println("state : " + state);
-		stage.getPlayer().setState(0);
+		state = 0;
 		stage.remove(stage.getPlayer());
 	}
 
@@ -436,6 +434,8 @@ public class Player extends JLabel implements Moveable {
 
 		setIcon(imageIconR[0]);
 	}
+
+
 
 	// 통로 넘어가기 왼쪽
 	public void bridgeLeft() {

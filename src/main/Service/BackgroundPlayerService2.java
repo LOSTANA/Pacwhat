@@ -8,12 +8,18 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import main.Maingame;
+import main.Components.Enemy1;
+import main.Components.Enemy2;
+import main.Components.Enemy3;
 import main.Components.Player;
 
 public class BackgroundPlayerService2 implements Runnable {
 
 	private BufferedImage image;
 	private Player player;
+	private Enemy1 enemy1;
+	private Enemy2 enemy2;
+	private Enemy3 enemy3;
 	private Maingame stage;
 
 	// 생성자 의존 설계
@@ -31,21 +37,24 @@ public class BackgroundPlayerService2 implements Runnable {
 	public void run() {
 		
 		while(true) {
-			int absXResult = Math.abs(player.getX() - stage.getEnemy().getX());
-			int absYResult = Math.abs(player.getY() - stage.getEnemy().getY());
+			// Enemy1의 위치
+			int absXResult = Math.abs(player.getX() - enemy1.getX());
+			int absYResult = Math.abs(player.getY() - enemy1.getY());
 			
-			int absXResult2 = Math.abs(player.getX() - stage.getEnemy2().getX());
-			int absYResult2 = Math.abs(player.getY() - stage.getEnemy2().getY());
+			// Enemy2의 위치
+			int absXResult2 = Math.abs(player.getX() - enemy2.getX());
+			int absYResult2 = Math.abs(player.getY() - enemy2.getY());
 			
-			int absXResult3 = Math.abs(player.getX()- stage.getEnemy3().getX());
-			int absYResult3 = Math.abs(player.getY()- stage.getEnemy3().getY());
+			// Enemy3의 위치
+			int absXResult3 = Math.abs(player.getX()- enemy3.getX());
+			int absYResult3 = Math.abs(player.getY()- enemy3.getY());
 			
 			// 에너미 1과 마주쳤을 때
 			if (absXResult < 23 && absYResult < 23 ) {
 				player.setState(0);
-				player.setPlayrerLife(player.getPlayrerLife()-1);
+				player.setPlayerLife(player.getPlayerLife()-1);
 				if (stage.getPlayer().getState() == 0) {
-					if (player.getPlayrerLife()== 0) {
+					if (player.getPlayerLife()== 0) {
 						player.beAttacked();
 					} else {
 						player.lostLifeMotion();
@@ -60,9 +69,9 @@ public class BackgroundPlayerService2 implements Runnable {
 			// 에너미 2와 마주쳤을 때
 			else if (absXResult2 < 23 && absYResult2 < 23 ) {
 				player.setState(0);
-				player.setPlayrerLife(player.getPlayrerLife()-1);
+				player.setPlayerLife(player.getPlayerLife()-1);
 				if (stage.getPlayer().getState() == 0) {
-					if (player.getPlayrerLife()== 0) {
+					if (player.getPlayerLife()== 0) {
 						player.beAttacked();
 					} else {
 						player.lostLifeMotion();
@@ -76,9 +85,9 @@ public class BackgroundPlayerService2 implements Runnable {
 			}	// 에너미 3와 마주쳤을 때
 			else if (absXResult3 < 23 && absYResult3 < 23 ) {
 				player.setState(0);
-				player.setPlayrerLife(player.getPlayrerLife()-1);
+				player.setPlayerLife(player.getPlayerLife()-1);
 				if (stage.getPlayer().getState() == 0) {
-					if (player.getPlayrerLife()== 0) {
+					if (player.getPlayerLife()== 0) {
 						player.beAttacked();
 					} else {
 						player.lostLifeMotion();
