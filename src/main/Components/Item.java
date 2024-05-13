@@ -5,12 +5,10 @@ import javax.swing.JLabel;
 
 import main.Maingame;
 import main.Service.BackgroundItemService;
-import main.Service.BackgroundPlayerService;
 
 public class Item extends JLabel {
 
 	private Maingame stage;
-	private BackgroundItemService backgroundItemService;
 	private Player player;
 	
 	private int x;
@@ -79,13 +77,12 @@ public class Item extends JLabel {
 	private void initData() {
 		coin = new ImageIcon("img/item/coin.png");
 		state = 0;
-		backgroundItemService = new BackgroundItemService(this);
 	}
 	
 	private void setInitLayout() {
 		
-		x = 30;
-		y = 70;
+		x = 33;
+		y = 110;
 		
 		setIcon(coin);
 		setSize(28,28);
@@ -100,6 +97,7 @@ public class Item extends JLabel {
 		if(player.getX() == x && player.getY() == y) {
 			setIcon(null);
 			setLocation(x,y);
+			state = 1;
 		}
 	}
 	

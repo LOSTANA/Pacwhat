@@ -71,7 +71,7 @@ public class Player extends JLabel implements Moveable {
 
 		// 초기위치값 임시로 설정 -- 추후 수정예정
 		x = 355;
-		y = 520;
+		y = 520; 
 
 		left = false;
 		right = false;

@@ -22,7 +22,7 @@ public class BackgroundEnemyService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+ 
 	}
 
 	public boolean leftWall() {
