@@ -415,7 +415,6 @@ public class Player extends JLabel implements Moveable {
 
 	// 목숨 남아있을때 -> lostLifeMotion
 	public void lostLifeMotion() {
-		System.out.println("실행의 흐름 3");
 		for (int i = 0; i <= 3; i++) {
 			setIcon(imageIconR[0]);
 			try {

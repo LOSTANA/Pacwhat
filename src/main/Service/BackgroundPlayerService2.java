@@ -42,9 +42,9 @@ public class BackgroundPlayerService2 implements Runnable {
 			// 에너미 1과 마주쳤을 때
 			if (absXResult < 23 && absYResult < 23 ) {
 				player.setState(0);
-				player.setPlayrerLife(player.getPlayrerLife()-1);
+				player.setPlayerLife(player.getPlayerLife()-1);
 				if (stage.getPlayer().getState() == 0) {
-					if (player.getPlayrerLife()== 0) {
+					if (player.getPlayerLife()== 0) {
 						player.beAttacked();
 					} else {
 						player.lostLifeMotion();
@@ -59,9 +59,9 @@ public class BackgroundPlayerService2 implements Runnable {
 			// 에너미 2와 마주쳤을 때
 			else if (absXResult2 < 23 && absYResult2 < 23 ) {
 				player.setState(0);
-				player.setPlayrerLife(player.getPlayrerLife()-1);
+				player.setPlayerLife(player.getPlayerLife()-1);
 				if (stage.getPlayer().getState() == 0) {
-					if (player.getPlayrerLife()== 0) {
+					if (player.getPlayerLife()== 0) {
 						player.beAttacked();
 					} else {
 						player.lostLifeMotion();
@@ -75,9 +75,9 @@ public class BackgroundPlayerService2 implements Runnable {
 			}	// 에너미 3와 마주쳤을 때
 			else if (absXResult3 < 23 && absYResult3 < 23 ) {
 				player.setState(0);
-				player.setPlayrerLife(player.getPlayrerLife()-1);
+				player.setPlayerLife(player.getPlayerLife()-1);
 				if (stage.getPlayer().getState() == 0) {
-					if (player.getPlayrerLife()== 0) {
+					if (player.getPlayerLife()== 0) {
 						player.beAttacked();
 					} else {
 						player.lostLifeMotion();
