@@ -38,12 +38,15 @@ public class Enemy2 extends JLabel implements Moveable {
 	// 적군 속도 상태
 	private final int SPEED = 2; // 수정
 
+	// enemy 스타트 시간 0.1초단위
+	private final int enemyStart = 100;
+
 	public Enemy2(Maingame stage) {
 		this.stage = stage;
 		initData();
 		setInitLayout();
 
-		up();
+		enemyStart();
 	}
 
 	private void initData() {
@@ -64,8 +67,8 @@ public class Enemy2 extends JLabel implements Moveable {
 		enemyWay = EnemyWay.RIGHT;
 
 		// 처음 실행 시 초기 값 셋팅 (수정)
-		x = 150;
-		y = 210;
+		x = 355;
+		y = 375;
 
 	}
 
@@ -74,6 +77,38 @@ public class Enemy2 extends JLabel implements Moveable {
 		setIcon(enemyU);
 		setSize(28, 28); // 수정 해야됨
 		setLocation(x, y);
+
+	}
+
+	// 에너미 스타트
+	public void enemyStart() {
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				for (int i = 0; i < enemyStart; i++) {
+
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				for (int i = 0; i < 45; i++) {
+					// 적을 위로 50만큼 이동
+					y -= SPEED;
+					setLocation(x, y);
+
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				left();
+			}
+		}).start();
 
 	}
 
