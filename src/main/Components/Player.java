@@ -41,6 +41,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean rightWallCrash;
 	private boolean topWallCrash;
 	private boolean bottomWallCrash;
+	
 
 	// 플레이어 속도 상태 -- 추후 수정
 	private final int SPEED = 4;
@@ -296,7 +297,8 @@ public class Player extends JLabel implements Moveable {
 				}
 			}
 		}).start();
-	}
+	}		
+
 
 	// 왼쪽으로 입 벌렸다가 닫음
 	public void changeIconLeft() {
@@ -458,7 +460,8 @@ public class Player extends JLabel implements Moveable {
 
 		}).start();
 	}
-
+	
+	
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
@@ -488,11 +491,9 @@ public class Player extends JLabel implements Moveable {
 
 	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
 	public void beAttackedAlways() {
-		while (true) {
 			isBeAttacked2();
 			isBeAttacked1();
 			isBeAttacked3();
-		}
 	}
 
 	// 플레이어 에너미1랑 부딪힐 경우
@@ -612,4 +613,6 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 	}
-}
+	
+	
+} // end of class
