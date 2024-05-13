@@ -341,6 +341,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				
 				while (left) {
 					if(state == 0) {
 						break;
@@ -461,15 +462,12 @@ public class Player extends JLabel implements Moveable {
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
-		System.out.println("플레이어 목숨 0일때 작동");
-		System.out.println("state : " + state);
 		stage.getPlayer().setState(0);
 		stage.remove(stage.getPlayer());
 	}
 
 	// 목숨 남아있을때 -> lostLifeMotion
 	public void lostLifeMotion() {
-		System.out.println("실행의 흐름 3");
 		for (int i = 0; i <= 3; i++) {
 			setIcon(imageIconR[0]);
 			try {
@@ -504,13 +502,10 @@ public class Player extends JLabel implements Moveable {
 		if (absXResult < 23 && absYResult < 23) {
 			this.state = 0;
 			playerLife--;
-			System.out.println("에너미1 부딪힐 경우 목숨 : " + playerLife);
 			if (stage.getPlayer().getState() == 0) {
 				if (playerLife == 0) {
-					System.out.println("실행의 흐름 1");
 					beAttacked();
 				} else {
-					System.out.println("실행의 흐름 2");
 					lostLifeMotion();
 				}
 				try {
