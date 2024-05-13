@@ -72,7 +72,7 @@ public class Enemy2 extends JLabel implements Moveable {
 	private void setInitLayout() {
 
 		setIcon(enemyU);
-		setSize(50, 50); // 수정 해야됨
+		setSize(28, 28); // 수정 해야됨
 		setLocation(x, y);
 
 	}
