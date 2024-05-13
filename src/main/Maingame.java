@@ -36,7 +36,6 @@ public class Maingame extends JFrame {
 		setInitLayout();
 		addEventListener();
 
-
 	}
 
 	public Player getPlayer() {
@@ -50,7 +49,7 @@ public class Maingame extends JFrame {
 	public Enemy2 getEnemy2() {
 		return this.enemy2;
 	}
-	
+
 	public Enemy3 getEnemy3() {
 		return enemy3;
 	}
@@ -59,30 +58,29 @@ public class Maingame extends JFrame {
 		return item;
 	}
 
-<<<<<<< HEAD
-	
-=======
-	public Enemy3 getEnemy3() {
-		return this.enemy3;
+	public JLabel getBackgroundMap() {
+		return backgroundMap;
 	}
->>>>>>> 5b55c8f9960c3e9bf1077257668c70dbe2ef446a
+
+	public void setBackgroundMap(JLabel backgroundMap) {
+		this.backgroundMap = backgroundMap;
+	}
 
 	private void initData() {
+		backgroundMap = new JLabel(new ImageIcon("img/background/BackgroundService2.png"));
 
-		backgroundMap = new JLabel(new ImageIcon("img/background/BackgroundService.png"));
-		
-		setSize(750, 850);
+		setSize(750, 1000);
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		score = new JPanel();
-		score.setBackground(new Color(255,255,255));
-		score.setLayout(new FlowLayout(FlowLayout.LEADING, 20,40));
+		score.setBackground(new Color(0, 0, 0));
+		score.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 40));
 		life = new JPanel();
-		life.setBackground(new Color(255,255,255));
-		life.setLayout(new FlowLayout(FlowLayout.TRAILING, 20, 20));
+		life.setBackground(new Color(0, 0, 0));
+		life.setLayout(new FlowLayout(FlowLayout.TRAILING, 20, 40));
 		
-		
+		backgroundMap.setBounds(0, 40, 750, 850);
 
 		player = new Player(this);
 		enemy = new Enemy1(this);
@@ -181,6 +179,8 @@ public class Maingame extends JFrame {
 				case KeyEvent.VK_SPACE:
 					System.out.println(player.getX() + " , " + player.getY());
 
+				default:
+
 				}
 			}
 
@@ -239,7 +239,6 @@ public class Maingame extends JFrame {
 		});
 
 	}
-
 
 	public static void main(String[] args) {
 		new Startgame();

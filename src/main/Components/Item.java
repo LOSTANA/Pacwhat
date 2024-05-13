@@ -85,7 +85,7 @@ public class Item extends JLabel {
 	private void setInitLayout() {
 		
 		x = 30;
-		y = 35;
+		y = 70;
 		
 		setIcon(coin);
 		setSize(28,28);

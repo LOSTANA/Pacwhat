@@ -25,7 +25,8 @@ public class BackgroundItemService implements Runnable {
 
 		{
 			// 코인 삭제를 위한 백그라운드 이미지 설정
-			image = ImageIO.read(new File("img/background/BackgroundService.png"));
+			image = ImageIO.read(new File("img/background/BackgroundService2.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -18,7 +18,7 @@ public class BackgroundEnemyService2 {
 		this.enemy2 = enemy2;
 
 		try {
-			image = ImageIO.read(new File("img/background/BackgroundService.png"));
+			image = ImageIO.read(new File("img/background/BackgroundService2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
