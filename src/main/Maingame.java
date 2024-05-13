@@ -44,11 +44,11 @@ public class Maingame extends JFrame {
 	}
 
 	public Enemy1 getEnemy() {
-		return enemy;
+		return this.enemy;
 	}
 
 	public Enemy2 getEnemy2() {
-		return enemy2;
+		return this.enemy2;
 	}
 	
 	public Enemy3 getEnemy3() {
@@ -59,7 +59,13 @@ public class Maingame extends JFrame {
 		return item;
 	}
 
+<<<<<<< HEAD
 	
+=======
+	public Enemy3 getEnemy3() {
+		return this.enemy3;
+	}
+>>>>>>> 5b55c8f9960c3e9bf1077257668c70dbe2ef446a
 
 	private void initData() {
 
