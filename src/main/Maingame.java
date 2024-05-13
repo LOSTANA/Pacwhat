@@ -1,11 +1,15 @@
 package main;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import main.Components.Enemy1;
 import main.Components.Enemy2;
@@ -18,6 +22,8 @@ public class Maingame extends JFrame {
 	Maingame stage = this;
 
 	private JLabel backgroundMap;
+	private JPanel score;
+	private JPanel life;
 	private Player player;
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
@@ -44,22 +50,33 @@ public class Maingame extends JFrame {
 	public Enemy2 getEnemy2() {
 		return enemy2;
 	}
+	
+	public Enemy3 getEnemy3() {
+		return enemy3;
+	}
 
 	public Item[] getItem() {
 		return item;
 	}
 
-	public Enemy3 getEnemy3() {
-		return enemy3;
-	}
+	
 
 	private void initData() {
 
 		backgroundMap = new JLabel(new ImageIcon("img/background/BackgroundService.png"));
-
+		
 		setSize(750, 850);
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		score = new JPanel();
+		score.setBackground(new Color(255,255,255));
+		score.setLayout(new FlowLayout(FlowLayout.LEADING, 20,40));
+		life = new JPanel();
+		life.setBackground(new Color(255,255,255));
+		life.setLayout(new FlowLayout(FlowLayout.TRAILING, 20, 20));
+		
+		
 
 		player = new Player(this);
 		enemy = new Enemy1(this);
@@ -75,10 +92,12 @@ public class Maingame extends JFrame {
 	}
 
 	private void setInitLayout() {
-		setLayout(null);
+		setLayout(new BorderLayout());
 		setResizable(false);
 		setLocationRelativeTo(null);
 		int count = 1;
+		add(score, BorderLayout.NORTH);
+		add(life, BorderLayout.SOUTH);
 		add(player);
 		add(enemy);
 		add(enemy2);
