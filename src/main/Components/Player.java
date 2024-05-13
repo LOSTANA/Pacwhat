@@ -85,9 +85,10 @@ public class Player extends JLabel implements Moveable {
 		bottomWallCrash = false;
 
 		state = 1; // 살아있는 상태
-
 		playerLife = 3; // 목숨 3개
 
+		score = 0; // 점수 0점
+		
 		playerWay = PlayerWay.RIGHT;
 
 	}
@@ -221,6 +222,14 @@ public class Player extends JLabel implements Moveable {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+	
+	public Maingame getStage() {
+		return stage;
+	}
+
+	public void setStage(Maingame stage) {
+		this.stage = stage;
 	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
@@ -415,7 +424,6 @@ public class Player extends JLabel implements Moveable {
 
 	// 목숨 남아있을때 -> lostLifeMotion
 	public void lostLifeMotion() {
-		System.out.println("실행의 흐름 3");
 		for (int i = 0; i <= 3; i++) {
 			setIcon(imageIconR[0]);
 			try {
