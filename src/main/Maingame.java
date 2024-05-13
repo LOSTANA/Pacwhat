@@ -91,7 +91,7 @@ public class Maingame extends JFrame {
 
 				} else {
 					if (i + 1 < 239) {
-						item[i + 1].setY(item[i].getY() + 55);
+						item[i + 1].setY(item[i].getY() + 56);
 					}
 				}
 			} else {
