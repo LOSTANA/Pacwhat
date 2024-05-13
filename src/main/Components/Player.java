@@ -221,7 +221,7 @@ public class Player extends JLabel implements Moveable {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
+
 	public Maingame getStage() {
 		return stage;
 	}
@@ -341,9 +341,9 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				
+
 				while (left) {
-					if(state == 0) {
+					if (state == 0) {
 						break;
 					}
 					x = x - SPEED;
@@ -378,7 +378,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (right) {
-					if(state == 0) {
+					if (state == 0) {
 						break;
 					}
 					x = x + SPEED;
@@ -410,7 +410,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (up) {
-					if(state == 0) {
+					if (state == 0) {
 						break;
 					}
 					y = y - SPEED;
@@ -438,7 +438,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (down) {
-					if(state == 0) {
+					if (state == 0) {
 						break;
 					}
 					y = y + SPEED;
@@ -499,9 +499,14 @@ public class Player extends JLabel implements Moveable {
 	public void isBeAttacked1() {
 		int absXResult = Math.abs(x - stage.getEnemy().getX());
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
-		if (absXResult < 23 && absYResult < 23) {
+		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
 			playerLife--;
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			if (stage.getPlayer().getState() == 0) {
 				if (playerLife == 0) {
 					beAttacked();
@@ -521,9 +526,14 @@ public class Player extends JLabel implements Moveable {
 	public void isBeAttacked2() {
 		int absXResult = Math.abs(x - stage.getEnemy2().getX());
 		int absYResult = Math.abs(y - stage.getEnemy2().getY());
-		if (absXResult < 23 && absYResult < 23) {
+		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
 			playerLife--;
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			if (stage.getPlayer().getState() == 0) {
 				if (playerLife == 0) {
 					beAttacked();
@@ -543,9 +553,14 @@ public class Player extends JLabel implements Moveable {
 	public void isBeAttacked3() {
 		int absXResult = Math.abs(x - stage.getEnemy3().getX());
 		int absYResult = Math.abs(y - stage.getEnemy3().getY());
-		if (absXResult < 23 && absYResult < 23) {
+		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
 			playerLife--;
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			if (stage.getPlayer().getState() == 0) {
 				if (playerLife == 0) {
 					beAttacked();
@@ -584,10 +599,17 @@ public class Player extends JLabel implements Moveable {
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
-			if (absXResult < 23 && absYResult < 23) {
-				stage.getItem()[i].setIcon(null);
+			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
+				if (stage.getItem()[i].getIcon() != null) {
+					stage.getItem()[i].setIcon(null);
+					int a = getScore();
+					setScore(a += 10);
+					System.out.println("점수 : " + getScore());
+					if (getScore() == 1540) {
+						// next stage
+					}
+				} 
 			}
 		}
 	}
-
 }
