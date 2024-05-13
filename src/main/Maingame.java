@@ -198,6 +198,7 @@ public class Maingame extends JFrame {
 						break;
 					}
 				case KeyEvent.VK_SPACE:
+					System.out.println(player.getX() + " , " + player.getY());	
 					System.out.println(player.getX() + " , " + player.getY());
 
 				default:
