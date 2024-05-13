@@ -25,6 +25,9 @@ public class BackgroundPlayerService2 implements Runnable {
 	// 생성자 의존 설계
 	public BackgroundPlayerService2(Player player) {
 		this.player = player;
+		this.enemy1=stage.getEnemy();
+		this.enemy2=stage.getEnemy2();
+		this.enemy3=stage.getEnemy3();
 		try {
 			// 플레이어 캐릭터 기본 이미지 설정
 			image = ImageIO.read(new File("img/background/BackgroundService.png"));
