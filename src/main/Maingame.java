@@ -3,8 +3,10 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.print.Printable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,11 +26,13 @@ public class Maingame extends JFrame {
 	private JLabel backgroundMap;
 	private JPanel health;
 	private JPanel score;
+	public JLabel scoreScreen;
 	private Player player;
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
 	
+	private String number;
 
 	private Item[] item = new Item[239];
 
@@ -66,6 +70,15 @@ public class Maingame extends JFrame {
 	public void setBackgroundMap(JLabel backgroundMap) {
 		this.backgroundMap = backgroundMap;
 	}
+	
+
+	public JLabel getScoreScreen() {
+		return scoreScreen;
+	}
+
+	public void setScoreScreen(JLabel scoreScreen) {
+		this.scoreScreen = scoreScreen;
+	}
 
 	private void initData() {
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.png"));
@@ -73,14 +86,14 @@ public class Maingame extends JFrame {
 		setSize(750, 1000);
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		score = new JPanel();
-		score.setBackground(new Color(0,0,0));
-		score.setLayout(new FlowLayout(FlowLayout.LEADING, 20,40));
+		score.setBackground(new Color(0, 0, 0));
+		score.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
 		health = new JPanel();
-		health.setBackground(new Color(0,0,0));
-		health.setLayout(new FlowLayout(FlowLayout.TRAILING, 20,40));
-		
+		health.setBackground(new Color(0, 0, 0));
+		health.setLayout(new FlowLayout(FlowLayout.TRAILING, 20, 40));
+
 		player = new Player(this);
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
@@ -89,6 +102,12 @@ public class Maingame extends JFrame {
 		for (int i = 0; i < 239; i++) {
 			item[i] = new Item(this);
 		}
+		
+		number = player.getScore();
+		scoreScreen = new JLabel();
+		scoreScreen.setText("점수 : 0" );
+		scoreScreen.setFont(new Font("DungGeunMo", Font.BOLD, 38));
+		scoreScreen.setForeground(Color.WHITE);
 
 	}
 
@@ -98,7 +117,7 @@ public class Maingame extends JFrame {
 		setLocationRelativeTo(null);
 		add(score, BorderLayout.NORTH);
 		add(health, BorderLayout.SOUTH);
-
+		score.add(scoreScreen);
 		add(player);
 		add(enemy);
 		add(enemy2);
@@ -132,11 +151,11 @@ public class Maingame extends JFrame {
 
 			}
 			add(item[i]);
-			System.out.println(i + "번째 좌표" + item[i].getX() + " , " + item[i].getY());
 
 		}
 
 		setVisible(true);
+
 	}
 
 	private void addEventListener() {
@@ -149,6 +168,8 @@ public class Maingame extends JFrame {
 				case KeyEvent.VK_LEFT:
 					if (!player.isLeft() && !player.isLeftWallCrash()) {
 						player.left();
+						
+	
 						break;
 					} else {
 						break;
@@ -180,7 +201,7 @@ public class Maingame extends JFrame {
 					System.out.println(player.getX() + " , " + player.getY());
 
 				default:
-
+					
 				}
 			}
 
@@ -209,13 +230,6 @@ public class Maingame extends JFrame {
 				case KeyEvent.VK_LEFT:
 					if (player.isLeft() && player.isLeftWallCrash()) {
 						player.setLeft(false);
-					} else {
-						for (int i = 0; i < 239; i++) {
-							if (player.getX() == item[i].getX() && player.getY() == item[i].getY()) {
-								item[i].setIcon(null);
-								item[i].setLocation(item[i].getX(), item[i].getY());
-							}
-						}
 					}
 
 				case KeyEvent.VK_RIGHT:
@@ -242,7 +256,7 @@ public class Maingame extends JFrame {
 
 	public static void main(String[] args) {
 		new Startgame();
-
+		
 	}
 
 }
