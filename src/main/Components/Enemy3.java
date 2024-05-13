@@ -15,6 +15,7 @@ public class Enemy3 extends JLabel implements Moveable {
 
 	Maingame stage;
 
+	
 	// 적군의 좌표값 위치 상태
 	private int x;
 	private int y;
