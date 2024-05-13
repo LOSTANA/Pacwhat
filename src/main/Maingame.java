@@ -55,7 +55,7 @@ public class Maingame extends JFrame {
 
 	private void initData() {
 
-		backgroundMap = new JLabel(new ImageIcon("img/background/Background.jpg"));
+		backgroundMap = new JLabel(new ImageIcon("img/background/BackgroundService.png"));
 
 		setSize(750, 850);
 		setContentPane(backgroundMap);
@@ -169,6 +169,7 @@ public class Maingame extends JFrame {
 					player.setRight(false);
 					break;
 				case KeyEvent.VK_UP:
+					System.out.println(1);
 					player.setUp(false);
 					break;
 				case KeyEvent.VK_DOWN:
