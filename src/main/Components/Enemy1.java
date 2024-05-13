@@ -50,6 +50,10 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	// 적군 속도 상태
 	private final int SPEED = 2; // 수정
+	
+	// enemy 스타트 시간 0.1초단위
+	private final int enemyStart = 50; 
+	
 
 	public Enemy1(Maingame stage) {
 		this.stage = stage;
@@ -97,12 +101,7 @@ public class Enemy1 extends JLabel implements Moveable {
 			@Override
 			public void run() {
 
-				for (int i = 0; i < 50; i++) {
-
-					if (backgroundEnemyService.leftWall()) {
-						x += SPEED;
-						setLocation(x, y);
-					}
+				for (int i = 0; i < enemyStart; i++) {
 
 					try {
 						Thread.sleep(100);
