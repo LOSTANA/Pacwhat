@@ -19,7 +19,7 @@ public class BackgroundPlayerService implements Runnable {
 		this.player = player;
 		try {
 			// 플레이어 캐릭터 기본 이미지 설정
-			image = ImageIO.read(new File("img/background/BackgroundService.png"));
+			image = ImageIO.read(new File("img/background/BackgroundService2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,12 +29,11 @@ public class BackgroundPlayerService implements Runnable {
 	public void run() {
 			// 플레이어 캐릭터 인근의 벽 감지
 			while (true) {
+				Color leftColor = new Color(image.getRGB(player.getX() - 2, player.getY() + 14));
+				Color rightColor = new Color(image.getRGB(player.getX() + 30, player.getY() + 14));
+				Color topColor = new Color(image.getRGB(player.getX() + 14, player.getY() -2));
+				Color bottomColor = new Color(image.getRGB(player.getX() + 14, player.getY() + 30));
 				
-				Color leftColor = new Color(image.getRGB(player.getX(), player.getY() + 15));
-				Color rightColor = new Color(image.getRGB(player.getX() + 40, player.getY() + 15));
-				Color topColor = new Color(image.getRGB(player.getX() + 10, player.getY() -8));
-				Color bottomColor = new Color(image.getRGB(player.getX() + 10, player.getY() + 35));
-
 				// 벽 감지 -> 벽 충돌
 				if (leftColor.getRed() == 255 && leftColor.getGreen() == 0 && leftColor.getBlue() == 0) {
 					//System.out.println("왼쪽 벽에 충돌함");

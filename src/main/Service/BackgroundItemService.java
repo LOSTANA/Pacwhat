@@ -8,7 +8,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import main.Components.Item;
-import main.Components.Player;
 
 public class BackgroundItemService implements Runnable {
 
@@ -22,21 +21,21 @@ public class BackgroundItemService implements Runnable {
 	public BackgroundItemService(Item item) {
 		this.item = item;
 		try
-
 		{
 			// 코인 삭제를 위한 백그라운드 이미지 설정
-			image = ImageIO.read(new File("img/background/BackgroundService.png"));
+			image = ImageIO.read(new File("img/background/BackgroundService2.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+	@Override
 	public void run() {
 		while (true) {
-			leftcolor = new Color(image.getRGB(item.getX() - 1, item.getY() + 14));
-			rightcolor = new Color(image.getRGB(item.getX() + 29, item.getY() + 14));
-			topcolor = new Color(image.getRGB(item.getX() + 14, item.getY() - 1));
-			bottomcolor = new Color(image.getRGB(item.getX() + 14, item.getY() + 29));
+			leftcolor = new Color(image.getRGB(item.getX() - 2, item.getY() + 14));
+			rightcolor = new Color(image.getRGB(item.getX() + 30, item.getY() + 14));
+			topcolor = new Color(image.getRGB(item.getX() + 14, item.getY() - 2));
+			bottomcolor = new Color(image.getRGB(item.getX() + 14, item.getY() + 30));
 
 			if ((leftcolor.getRed() == 255 && leftcolor.getGreen() == 0 && leftcolor.getBlue() == 0)
 					|| (leftcolor.getRed() == 0 && leftcolor.getGreen() == 0 && leftcolor.getBlue() == 255)) {

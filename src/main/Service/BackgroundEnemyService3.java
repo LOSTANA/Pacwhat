@@ -19,7 +19,7 @@ public class BackgroundEnemyService3 {
 		this.enemy3 = enemy3;
 
 		try {
-			image = ImageIO.read(new File("img/background/BackgroundService.png"));
+			image = ImageIO.read(new File("img/background/BackgroundService2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
