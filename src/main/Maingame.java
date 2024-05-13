@@ -155,7 +155,6 @@ public class Maingame extends JFrame {
 					}
 				case KeyEvent.VK_SPACE:
 					System.out.println(player.getX() + " , " + player.getY());
-
 				}
 			}
 
@@ -218,6 +217,7 @@ public class Maingame extends JFrame {
 
 	public static void main(String[] args) {
 		new Startgame();
+		
 
 	}
 
