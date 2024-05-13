@@ -21,12 +21,13 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 목숨
 	private int playerLife;
-
+	
 	// 점수
-	private int score;
+	private String score;
 
 	private int x;
 	private int y;
+	private int a = 0;
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
 
@@ -72,7 +73,7 @@ public class Player extends JLabel implements Moveable {
 
 		// 초기위치값 임시로 설정 -- 추후 수정예정
 		x = 355;
-		y = 445;
+		y = 520;
 
 		left = false;
 		right = false;
@@ -215,12 +216,14 @@ public class Player extends JLabel implements Moveable {
 		this.playerLife = playrerLife;
 	}
 
-	public int getScore() {
+	public String getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(String score) {
+		
 		this.score = score;
+
 	}
 
 	public Maingame getStage() {
@@ -579,37 +582,40 @@ public class Player extends JLabel implements Moveable {
 
 	// 통로 넘어가기 왼쪽
 	public void bridgeLeft() {
-		if (x <= 10 && (y <= 400 && y >= 350)) {
+		if (x <= 10 && (y <= 470 && y >= 430)) {
 			x = 680;
-			y = 370;
+			y = 450;
 			setLocation(x, y);
 		}
 	}
 
 	// 통로 넘어가기 오른쪽
 	public void bridgeRight() {
-		if (x >= 690 && (y <= 400 && y >= 350)) {
+		if (x >= 690 && (y <= 470 && y >= 430)) {
 			x = 20;
-			y = 370;
+			y = 450;
 			setLocation(x, y);
 		}
 	}
 
 	// 먹기 구현
 	public void eated() {
+		
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
 			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
 				if (stage.getItem()[i].getIcon() != null) {
 					stage.getItem()[i].setIcon(null);
-					int a = getScore();
-					setScore(a += 10);
-					System.out.println("점수 : " + getScore());
-					if (getScore() == 1540) {
+					
+					a += 10;
+					score = Integer.toString(a);
+					System.out.println("점수 : " + a);
+					stage.scoreScreen.setText("점수 : " + a);
+					if (a == 1470) {
 						// next stage
 					}
-				} 
+				}
 			}
 		}
 	}
