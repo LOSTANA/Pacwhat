@@ -6,7 +6,6 @@ import javax.swing.JLabel;
 import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
-import main.Service.BackgroundPlayerService2;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
@@ -14,6 +13,7 @@ public class Player extends JLabel implements Moveable {
 	Maingame stage;
 
 	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
+	// 플레이어 죽은 상태로 아이템 먹어지는거 수정 해야함
 
 	// 플레이어 살아있는상태 1, 죽은상태 0
 	private int state;
@@ -52,7 +52,6 @@ public class Player extends JLabel implements Moveable {
 		initData();
 		setInitLayout();
 		new Thread(new BackgroundPlayerService(this)).start();
-		new Thread(new BackgroundPlayerService2(this)).start();
 	}
 
 	private void initData() {
@@ -85,10 +84,9 @@ public class Player extends JLabel implements Moveable {
 		bottomWallCrash = false;
 
 		state = 1; // 살아있는 상태
+
 		playerLife = 3; // 목숨 3개
 
-		score = 0; // 점수 0점
-		
 		playerWay = PlayerWay.RIGHT;
 
 	}
@@ -208,11 +206,11 @@ public class Player extends JLabel implements Moveable {
 		this.state = state;
 	}
 
-	public int getPlayerLife() {
+	public int getPlayrerLife() {
 		return playerLife;
 	}
 
-	public void setPlayerLife(int playrerLife) {
+	public void setPlayrerLife(int playrerLife) {
 		this.playerLife = playrerLife;
 	}
 
@@ -230,6 +228,38 @@ public class Player extends JLabel implements Moveable {
 
 	public void setStage(Maingame stage) {
 		this.stage = stage;
+	}
+
+	public Item[] getItem() {
+		return item;
+	}
+
+	public void setItem(Item[] item) {
+		this.item = item;
+	}
+
+	public int getPlayerLife() {
+		return playerLife;
+	}
+
+	public void setPlayerLife(int playerLife) {
+		this.playerLife = playerLife;
+	}
+
+	public ImageIcon[] getImageIconR() {
+		return imageIconR;
+	}
+
+	public void setImageIconR(ImageIcon[] imageIconR) {
+		this.imageIconR = imageIconR;
+	}
+
+	public ImageIcon[] getImageIconL() {
+		return imageIconL;
+	}
+
+	public void setImageIconL(ImageIcon[] imageIconL) {
+		this.imageIconL = imageIconL;
 	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
@@ -312,7 +342,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
-					if (state == 0) {
+					if(state == 0) {
 						break;
 					}
 					x = x - SPEED;
@@ -326,13 +356,18 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					isBeAttacked1();
+					isBeAttacked2();
+					isBeAttacked3();
 					eated();
+
 				}
 			}
 		}).start();
 		setRight(false);
 	}
-  
+
+	@Override
 	synchronized public void right() {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
@@ -342,7 +377,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (right) {
-					if (state == 0) {
+					if(state == 0) {
 						break;
 					}
 					x = x + SPEED;
@@ -355,6 +390,9 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					isBeAttacked1();
+					isBeAttacked2();
+					isBeAttacked3();
 					eated();
 				}
 			}
@@ -371,7 +409,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (up) {
-					if (state == 0) {
+					if(state == 0) {
 						break;
 					}
 					y = y - SPEED;
@@ -381,6 +419,9 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					isBeAttacked1();
+					isBeAttacked2();
+					isBeAttacked3();
 					eated();
 				}
 			}
@@ -396,7 +437,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (down) {
-					if (state == 0) {
+					if(state == 0) {
 						break;
 					}
 					y = y + SPEED;
@@ -406,8 +447,10 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					isBeAttacked1();
+					isBeAttacked2();
+					isBeAttacked3();
 					eated();
-					
 				}
 
 			} // end of while
@@ -418,12 +461,15 @@ public class Player extends JLabel implements Moveable {
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
-		state = 0;
+		System.out.println("플레이어 목숨 0일때 작동");
+		System.out.println("state : " + state);
+		stage.getPlayer().setState(0);
 		stage.remove(stage.getPlayer());
 	}
 
 	// 목숨 남아있을때 -> lostLifeMotion
 	public void lostLifeMotion() {
+		System.out.println("실행의 흐름 3");
 		for (int i = 0; i <= 3; i++) {
 			setIcon(imageIconR[0]);
 			try {
@@ -439,11 +485,86 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 		stage.getPlayer().setState(1);
-
 		setIcon(imageIconR[0]);
 	}
 
+	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
+	public void beAttackedAlways() {
+		while (true) {
+			isBeAttacked2();
+			isBeAttacked1();
+			isBeAttacked3();
+		}
+	}
 
+	// 플레이어 에너미1랑 부딪힐 경우
+	public void isBeAttacked1() {
+		int absXResult = Math.abs(x - stage.getEnemy().getX());
+		int absYResult = Math.abs(y - stage.getEnemy().getY());
+		if (absXResult < 23 && absYResult < 23) {
+			this.state = 0;
+			playerLife--;
+			System.out.println("에너미1 부딪힐 경우 목숨 : " + playerLife);
+			if (stage.getPlayer().getState() == 0) {
+				if (playerLife == 0) {
+					System.out.println("실행의 흐름 1");
+					beAttacked();
+				} else {
+					System.out.println("실행의 흐름 2");
+					lostLifeMotion();
+				}
+				try {
+					Thread.sleep(1150);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	// 플레이어 에너미2랑 부딪힐 경우
+	public void isBeAttacked2() {
+		int absXResult = Math.abs(x - stage.getEnemy2().getX());
+		int absYResult = Math.abs(y - stage.getEnemy2().getY());
+		if (absXResult < 23 && absYResult < 23) {
+			this.state = 0;
+			playerLife--;
+			if (stage.getPlayer().getState() == 0) {
+				if (playerLife == 0) {
+					beAttacked();
+				} else {
+					lostLifeMotion();
+				}
+				try {
+					Thread.sleep(1150);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	// 플레이어 에너미3랑 부딪힐 경우
+	public void isBeAttacked3() {
+		int absXResult = Math.abs(x - stage.getEnemy3().getX());
+		int absYResult = Math.abs(y - stage.getEnemy3().getY());
+		if (absXResult < 23 && absYResult < 23) {
+			this.state = 0;
+			playerLife--;
+			if (stage.getPlayer().getState() == 0) {
+				if (playerLife == 0) {
+					beAttacked();
+				} else {
+					lostLifeMotion();
+				}
+				try {
+					Thread.sleep(1150);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	// 통로 넘어가기 왼쪽
 	public void bridgeLeft() {
@@ -473,4 +594,5 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 	}
+
 }
