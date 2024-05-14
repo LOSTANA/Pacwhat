@@ -11,23 +11,24 @@ import main.State.PlayerWay;
 public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
-
+	
 	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
-	// 플레이어 죽은 상태로 아이템 먹어지는거 수정 해야함
 
-	// 플레이어 살아있는상태 1, 죽은상태 0
+	// 플레이어 살아있는상태 1, 죽은상태 0, 에너미를 먹을수 있는 상태 2 , 클리어 9
 	private int state;
 	private Item[] item;
 
 	// 플레이어 목숨
 	private int playerLife;
-	
+
 	// 점수
 	private String score;
 
+	private BackgroundPlayerService backgroundPlayerService;
+
 	private int x;
 	private int y;
-	private int a = 0;
+	private int eatedCount = 0;
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
 
@@ -42,7 +43,6 @@ public class Player extends JLabel implements Moveable {
 	private boolean rightWallCrash;
 	private boolean topWallCrash;
 	private boolean bottomWallCrash;
-	
 
 	// 플레이어 속도 상태 -- 추후 수정
 	private final int SPEED = 4;
@@ -70,6 +70,7 @@ public class Player extends JLabel implements Moveable {
 		imageIconL[2] = new ImageIcon("img/pacman/pac2_L.png");
 		imageIconL[3] = new ImageIcon("img/pacman/pac3_L.png");
 		imageIconL[4] = new ImageIcon("img/pacman/pac4_L.png");
+		
 
 		// 초기위치값 임시로 설정 -- 추후 수정예정
 		x = 355;
@@ -221,7 +222,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	public void setScore(String score) {
-		
+
 		this.score = score;
 
 	}
@@ -265,7 +266,7 @@ public class Player extends JLabel implements Moveable {
 	public void setImageIconL(ImageIcon[] imageIconL) {
 		this.imageIconL = imageIconL;
 	}
-
+	
 	// 오른쪽으로 입 벌렸다가 닫음
 	public void changeIconRight() {
 		new Thread(new Runnable() {
@@ -300,8 +301,7 @@ public class Player extends JLabel implements Moveable {
 				}
 			}
 		}).start();
-	}		
-
+	}
 
 	// 왼쪽으로 입 벌렸다가 닫음
 	public void changeIconLeft() {
@@ -362,9 +362,7 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-					isBeAttacked3();
+					beAttackedAlways();
 					eated();
 
 				}
@@ -396,9 +394,7 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-					isBeAttacked3();
+					beAttackedAlways();
 					eated();
 				}
 			}
@@ -425,9 +421,7 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-					isBeAttacked3();
+					beAttackedAlways();
 					eated();
 				}
 			}
@@ -453,9 +447,7 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-					isBeAttacked3();
+					beAttackedAlways();
 					eated();
 				}
 
@@ -463,8 +455,7 @@ public class Player extends JLabel implements Moveable {
 
 		}).start();
 	}
-	
-	
+
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
@@ -492,92 +483,40 @@ public class Player extends JLabel implements Moveable {
 		setIcon(imageIconR[0]);
 	}
 
-	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
+	// 에너미가 플레이어에 부딪히는 경우
 	public void beAttackedAlways() {
-			isBeAttacked2();
-			isBeAttacked1();
-			isBeAttacked3();
-	}
+		int absXResult1 = Math.abs(x - stage.getEnemy().getX());
+		int absYResult1 = Math.abs(y - stage.getEnemy().getY());
 
-	// 플레이어 에너미1랑 부딪힐 경우
-	public void isBeAttacked1() {
-		int absXResult = Math.abs(x - stage.getEnemy().getX());
-		int absYResult = Math.abs(y - stage.getEnemy().getY());
-		if (absXResult < 35 && absYResult < 35) {
-			this.state = 0;
-			playerLife--;
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
-					lostLifeMotion();
-				}
+		int absXResult2 = Math.abs(x - stage.getEnemy2().getX());
+		int absYResult2 = Math.abs(y - stage.getEnemy2().getY());
+
+		int absXResult3 = Math.abs(x - stage.getEnemy3().getX());
+		int absYResult3 = Math.abs(y - stage.getEnemy3().getY());
+
+
+			if (absXResult1 < 35 && absYResult1 < 35 || absXResult2 < 35 && absYResult2 < 35
+					|| absXResult3 < 35 && absYResult3 < 35) {
+				this.state = 0;
+				playerLife--;
 				try {
-					Thread.sleep(1150);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			}
-		}
-	}
-
-	// 플레이어 에너미2랑 부딪힐 경우
-	public void isBeAttacked2() {
-		int absXResult = Math.abs(x - stage.getEnemy2().getX());
-		int absYResult = Math.abs(y - stage.getEnemy2().getY());
-		if (absXResult < 35 && absYResult < 35) {
-			this.state = 0;
-			playerLife--;
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
-					lostLifeMotion();
-				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if (stage.getPlayer().getState() == 0) {
+					if (playerLife == 0) {
+						beAttacked();
+					} else {
+						lostLifeMotion();
+					}
+					try {
+						Thread.sleep(1300);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-		}
-	}
-
-	// 플레이어 에너미3랑 부딪힐 경우
-	public void isBeAttacked3() {
-		int absXResult = Math.abs(x - stage.getEnemy3().getX());
-		int absYResult = Math.abs(y - stage.getEnemy3().getY());
-		if (absXResult < 35 && absYResult < 35) {
-			this.state = 0;
-			playerLife--;
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
-					lostLifeMotion();
-				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 
 	// 통로 넘어가기 왼쪽
@@ -597,28 +536,48 @@ public class Player extends JLabel implements Moveable {
 			setLocation(x, y);
 		}
 	}
+	
+	// 클리어 스테이지
+	// 추후 수정
+	public void clearStage() {
+		
+		while(true) {
+			
+		left = false;
+		right = false;
+		up = false;
+		down = false;
+		
+		eatedCount = 0;
+		state = 9;
+		eatedCount = 0;
+		stage.scoreScreen.setText("--- Clear!!! ---");
+		
+		System.out.println("클리어 스테이지");
+		}
+		
+	}
 
 	// 먹기 구현
 	public void eated() {
-		
+
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
 			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
 				if (stage.getItem()[i].getIcon() != null) {
 					stage.getItem()[i].setIcon(null);
-					
-					a += 10;
-					score = Integer.toString(a);
-					System.out.println("점수 : " + a);
-					stage.scoreScreen.setText("점수 : " + a);
-					if (a == 1470) {
-						// next stage
+					eatedCount += 10;
+					score = Integer.toString(eatedCount);
+					System.out.println("점수 : " + eatedCount);
+					stage.scoreScreen.setText("점수 : " + eatedCount);
+					if (eatedCount == 1470) {  
+						clearStage(); 
 					}
 				}
 			}
 		}
 	}
 	
-	
+
 } // end of class

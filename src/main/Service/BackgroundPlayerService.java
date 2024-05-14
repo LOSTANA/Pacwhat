@@ -57,7 +57,11 @@ public class BackgroundPlayerService implements Runnable {
 					player.setRightWallCrash(false);
 					player.setTopWallCrash(false);
 					player.setBottomWallCrash(false);
-				}
+					
+				} 
+				player.beAttackedAlways(); 
+				
+				
 				// 벽에 부딪히지 않았다면(=감지되지 않았다면) 마음대로 움직일 수 있다.
 				try {
 					Thread.sleep(3);
