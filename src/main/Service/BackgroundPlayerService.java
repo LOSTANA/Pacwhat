@@ -40,11 +40,6 @@ public class BackgroundPlayerService implements Runnable {
 				Color topColor = new Color(image.getRGB(player.getX() + 14, player.getY() -2));
 				Color bottomColor = new Color(image.getRGB(player.getX() + 14, player.getY() + 30));
 				
-				System.out.println("와일문 돌아감");
-				if(player.isLeft()==false && player.isRight()==false && player.isUp()==false && player.isDown()) {
-					player.beAttackedAlways();
-				}
-				
 				
 				// 벽 감지 -> 벽 충돌
 				if (leftColor.getRed() == 255 && leftColor.getGreen() == 0 && leftColor.getBlue() == 0) {

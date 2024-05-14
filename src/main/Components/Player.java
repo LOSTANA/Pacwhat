@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
+import main.Service.BackgroundPlayerService2;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
@@ -21,7 +22,7 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 목숨
 	private int playerLife;
-	
+
 	// 점수
 	private String score;
 
@@ -221,7 +222,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	public void setScore(String score) {
-		
+
 		this.score = score;
 
 	}
@@ -456,20 +457,28 @@ public class Player extends JLabel implements Moveable {
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
+
 		stage.getPlayer().setState(0);
 		stage.remove(stage.getPlayer());
+		stage.healthScreen[1].setIcon(null);
+
 	}
 
 	// 목숨 남아있을때 -> lostLifeMotion
 	public void lostLifeMotion() {
 		for (int i = 0; i <= 3; i++) {
 			setIcon(imageIconR[0]);
+			stage.healthScreen[playerLife].setIcon(imageIconR[4]);
+			
+			
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			setIcon(null);
+			stage.healthScreen[playerLife].setIcon(null);
+	
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
@@ -478,6 +487,7 @@ public class Player extends JLabel implements Moveable {
 		}
 		stage.getPlayer().setState(1);
 		setIcon(imageIconR[0]);
+		
 	}
 
 	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
@@ -494,6 +504,7 @@ public class Player extends JLabel implements Moveable {
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
 			playerLife--;
+
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
@@ -511,7 +522,9 @@ public class Player extends JLabel implements Moveable {
 					e.printStackTrace();
 				}
 			}
+
 		}
+
 	}
 
 	// 플레이어 에너미2랑 부딪힐 경우
@@ -520,6 +533,7 @@ public class Player extends JLabel implements Moveable {
 		int absYResult = Math.abs(y - stage.getEnemy2().getY());
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
+
 			playerLife--;
 			try {
 				Thread.sleep(200);
@@ -537,6 +551,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+
 			}
 		}
 	}
@@ -547,6 +562,7 @@ public class Player extends JLabel implements Moveable {
 		int absYResult = Math.abs(y - stage.getEnemy3().getY());
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
+
 			playerLife--;
 			try {
 				Thread.sleep(200);
@@ -564,6 +580,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+
 			}
 		}
 	}
@@ -588,14 +605,14 @@ public class Player extends JLabel implements Moveable {
 
 	// 먹기 구현
 	public void eated() {
-		
+
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
 			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
 				if (stage.getItem()[i].getIcon() != null) {
 					stage.getItem()[i].setIcon(null);
-					
+
 					a += 10;
 					score = Integer.toString(a);
 					System.out.println("점수 : " + a);
