@@ -22,6 +22,7 @@ import main.Components.Enemy2;
 import main.Components.Enemy3;
 import main.Components.Item;
 import main.Components.Player;
+import main.Service.BackgroundPlayerService2;
 
 public class Maingame extends JFrame {
 
@@ -83,7 +84,7 @@ public class Maingame extends JFrame {
 	public JLabel getScoreScreen() {
 		return scoreScreen;
 	}
-
+	
 	public void setScoreScreen(JLabel scoreScreen) {
 		this.scoreScreen = scoreScreen;
 	}
@@ -139,6 +140,8 @@ public class Maingame extends JFrame {
 			width += 30;
 
 		}
+		// 플레이어 충돌 감지기
+		new Thread(new BackgroundPlayerService2(this.player,this.enemy,this.enemy2,this.enemy3)).start();
 
 	}
 
@@ -262,9 +265,6 @@ public class Maingame extends JFrame {
 				case KeyEvent.VK_SPACE:
 					System.out.println(player.getX() + " , " + player.getY());	
 					System.out.println(player.getX() + " , " + player.getY());
-
-				default:
-
 				}
 			}
 
@@ -319,7 +319,6 @@ public class Maingame extends JFrame {
 
 	public static void main(String[] args) {
 		new Startgame();
-
 	}
 
 }
