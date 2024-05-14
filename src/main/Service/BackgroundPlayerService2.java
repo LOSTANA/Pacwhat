@@ -36,35 +36,37 @@ public class BackgroundPlayerService2 implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void sleep() {
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void test(String message) {
+		System.out.println(message);
+	}
 
 	@Override
 	public void run() {
 		while(true) {
-			// enemy1과의 충돌 측정
-			int distanceX1=Math.abs(player.getX()-enemy1.getX());
-			int distanceY1=Math.abs(player.getY()-enemy1.getY());
-			
-			// enemy2과의 충돌 측정
-			int distanceX2=Math.abs(player.getX()-enemy2.getX());
-			int distanceY2=Math.abs(player.getY()-enemy2.getY());
-			
-			// enemy3과의 충돌 측정
-			int distanceX3=Math.abs(player.getX()-enemy3.getX());
-			int distanceY3=Math.abs(player.getY()-enemy3.getY());
-			
-			// 만약 플레이어가 살아있다면
-			if(player.getState()==1) {
-				if(distanceX1<20 && distanceY1<20) {
-					player.isBeAttacked1();
-				} else if(distanceX2<20 && distanceY2<20) {
-					player.isBeAttacked2();
-				} else if(distanceX3<20 && distanceY3<20) {
-					player.isBeAttacked3();
-				} else {
-				}
+	        if(Math.abs((player.getX() + 28/ 2) - ( enemy1.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
+	                Math.abs( (player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
+	        	player.isBeAttacked1();
+	        	} else if (Math.abs((player.getX() + 28/ 2) - ( enemy2.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
+	        			Math.abs( (player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
+	        		player.isBeAttacked2();
+	        		} else if (Math.abs((player.getX() + 28/ 2) - ( enemy3.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
+			                Math.abs( (player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
+			        	player.isBeAttacked3();
+			        	} else {
+			        		
+			        	}
+				sleep();
 			}
 		}
-
-	}
 
 }

@@ -54,6 +54,7 @@ public class BackgroundItemService implements Runnable {
 			} else if ((topcolor.getRed() == 255 && topcolor.getGreen() == 0 && topcolor.getBlue() == 0)
 					|| (topcolor.getRed() == 0 && topcolor.getGreen() == 0 && topcolor.getBlue() == 255)) {
 				if (item.getState() == 0) {
+					
 					item.setIcon(null);
 					item.setState(1);
 
@@ -61,7 +62,7 @@ public class BackgroundItemService implements Runnable {
 			} else if ((bottomcolor.getRed() == 255 && bottomcolor.getGreen() == 0 && bottomcolor.getBlue() == 0)
 					|| (bottomcolor.getRed() == 0 && bottomcolor.getGreen() == 0 && bottomcolor.getBlue() == 255)) {
 				if (item.getState() == 0) {
-					item.setY(item.getY() - 5);
+					item.setY(item.getY() - 5 );
 					
 
 				}
