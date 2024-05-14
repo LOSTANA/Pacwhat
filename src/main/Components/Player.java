@@ -486,34 +486,41 @@ public class Player extends JLabel implements Moveable {
 
 	}
 
-	// 플레이어 에너미1랑 부딪힐 경우
-		public void isBeAttacked1() {
-			int absXResult = Math.abs(x - stage.getEnemy().getX());
-			int absYResult = Math.abs(y - stage.getEnemy().getY());
-			if (absXResult < 35 && absYResult < 35) {
-				this.state = 0;
+	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
+	public void beAttackedAlways() {
+		isBeAttacked2();
+		isBeAttacked1();
+		isBeAttacked3();
+	}
 
-				playerLife--;
+	// 플레이어 에너미1랑 부딪힐 경우
+	public void isBeAttacked1() {
+		int absXResult = Math.abs(x - stage.getEnemy().getX());
+		int absYResult = Math.abs(y - stage.getEnemy().getY());
+		if (absXResult < 35 && absYResult < 35) {
+			this.state = 0;
+
+			playerLife--;
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (stage.getPlayer().getState() == 0) {
+				if (playerLife == 0) {
+					beAttacked();
+				} else {
+					lostLifeMotion();
+				}
 				try {
-					Thread.sleep(200);
+					Thread.sleep(1150);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				if (stage.getPlayer().getState() == 0) {
-					if (playerLife == 0) {
-						beAttacked();
-					} else {
-						lostLifeMotion();
-					}
-					try {
-						Thread.sleep(1150);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
 
-				}
 			}
 		}
+	}
 
 	// 플레이어 에너미2랑 부딪힐 경우
 	public void isBeAttacked2() {
@@ -618,20 +625,26 @@ public class Player extends JLabel implements Moveable {
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
-			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
-				if (stage.getItem()[i].getIcon() != null) {
+			if (absXResult < 23 && absYResult < 23
+					&& (stage.getItem()[i].getState() == 0 || stage.getItem()[i].getState() == 2)) {
+				if (stage.getItem()[i].getState() == 0) {
 					stage.getItem()[i].setIcon(null);
+					stage.getItem()[i].setState(1);
 					eatedCount += 10;
-					score = Integer.toString(eatedCount);
-					System.out.println("점수 : " + eatedCount);
-					stage.scoreScreen.setText("점수 : " + eatedCount);
-					if (eatedCount == 1470) {
-						clearStage();
+				} else if (stage.getItem()[i].getState() == 2) {
+					stage.getItem()[i].setIcon(null);
+					stage.getItem()[i].setState(1);
+					eatedCount += 50;
 
-					}
 				}
 			}
+			score = Integer.toString(eatedCount);
+			stage.scoreScreen.setText("점수 : " + eatedCount);
+			if (eatedCount == 1470) {
+				clearStage();
+			}
 		}
+
 	}
 
 } // end of class
