@@ -7,16 +7,20 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import main.Maingame;
 import main.Components.Player;
 
 public class BackgroundPlayerService implements Runnable {
 
 	private BufferedImage image;
 	private Player player;
+	private Maingame stage;
+	
 
 	// 생성자 의존 설계
 	public BackgroundPlayerService(Player player) {
 		this.player = player;
+		this.stage=player.getStage();
 		try {
 			// 플레이어 캐릭터 기본 이미지 설정
 			image = ImageIO.read(new File("img/background/BackgroundService2.png"));
@@ -24,15 +28,23 @@ public class BackgroundPlayerService implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	@Override
 	public void run() {
 			// 플레이어 캐릭터 인근의 벽 감지
+		try {
 			while (true) {
 				Color leftColor = new Color(image.getRGB(player.getX() - 2, player.getY() + 14));
 				Color rightColor = new Color(image.getRGB(player.getX() + 30, player.getY() + 14));
 				Color topColor = new Color(image.getRGB(player.getX() + 14, player.getY() -2));
 				Color bottomColor = new Color(image.getRGB(player.getX() + 14, player.getY() + 30));
+				
+				System.out.println("와일문 돌아감");
+				if(player.isLeft()==false && player.isRight()==false && player.isUp()==false && player.isDown()) {
+					player.beAttackedAlways();
+				}
+				
 				
 				// 벽 감지 -> 벽 충돌
 				if (leftColor.getRed() == 255 && leftColor.getGreen() == 0 && leftColor.getBlue() == 0) {
@@ -56,19 +68,14 @@ public class BackgroundPlayerService implements Runnable {
 					player.setRightWallCrash(false);
 					player.setTopWallCrash(false);
 					player.setBottomWallCrash(false);
-				}
-				// 벽에 부딪히지 않았다면(=감지되지 않았다면) 마음대로 움직일 수 있다.
-				try {
-					Thread.sleep(3);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
+				}}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+			
+			
+			
 
-
-			}
 
 		}		
 	}

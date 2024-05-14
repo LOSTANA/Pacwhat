@@ -76,6 +76,18 @@ public class Maingame extends JFrame {
 		return scoreScreen;
 	}
 
+	public boolean crash(int playerX, int enemyX, int playerY, int enemyY) {
+		boolean check = false;
+
+		if ( Math.abs( player.getX() - enemy.getX())>20 && ( Math.abs( player.getY() - enemy.getY())>20)){
+			check=true;
+		} else { 
+			check = false;}
+		return check; //check의 값을 메소드에 리턴 시킵니다.
+		 }
+	
+	
+	
 	public void setScoreScreen(JLabel scoreScreen) {
 		this.scoreScreen = scoreScreen;
 	}
@@ -198,6 +210,7 @@ public class Maingame extends JFrame {
 						break;
 					}
 				case KeyEvent.VK_SPACE:
+					System.out.println(player.getX() + " , " + player.getY());	
 					System.out.println(player.getX() + " , " + player.getY());
 
 

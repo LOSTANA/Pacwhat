@@ -42,6 +42,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean rightWallCrash;
 	private boolean topWallCrash;
 	private boolean bottomWallCrash;
+	
 
 	// 플레이어 속도 상태 -- 추후 수정
 	private final int SPEED = 4;
@@ -299,7 +300,8 @@ public class Player extends JLabel implements Moveable {
 				}
 			}
 		}).start();
-	}
+	}		
+
 
 	// 왼쪽으로 입 벌렸다가 닫음
 	public void changeIconLeft() {
@@ -360,9 +362,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-					isBeAttacked3();
 					eated();
 
 				}
@@ -394,9 +393,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-					isBeAttacked3();
 					eated();
 				}
 			}
@@ -423,9 +419,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-					isBeAttacked3();
 					eated();
 				}
 			}
@@ -451,9 +444,6 @@ public class Player extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					isBeAttacked1();
-					isBeAttacked2();
-					isBeAttacked3();
 					eated();
 				}
 
@@ -461,7 +451,8 @@ public class Player extends JLabel implements Moveable {
 
 		}).start();
 	}
-
+	
+	
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
@@ -491,11 +482,9 @@ public class Player extends JLabel implements Moveable {
 
 	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
 	public void beAttackedAlways() {
-		while (true) {
 			isBeAttacked2();
 			isBeAttacked1();
 			isBeAttacked3();
-		}
 	}
 
 	// 플레이어 에너미1랑 부딪힐 경우
@@ -581,18 +570,18 @@ public class Player extends JLabel implements Moveable {
 
 	// 통로 넘어가기 왼쪽
 	public void bridgeLeft() {
-		if (x <= 10 && (y <= 400 && y >= 350)) {
+		if (x <= 10 && (y <= 470 && y >= 430)) {
 			x = 680;
-			y = 370;
+			y = 450;
 			setLocation(x, y);
 		}
 	}
 
 	// 통로 넘어가기 오른쪽
 	public void bridgeRight() {
-		if (x >= 690 && (y <= 400 && y >= 350)) {
+		if (x >= 690 && (y <= 470 && y >= 430)) {
 			x = 20;
-			y = 370;
+			y = 450;
 			setLocation(x, y);
 		}
 	}
@@ -611,11 +600,13 @@ public class Player extends JLabel implements Moveable {
 					score = Integer.toString(a);
 					System.out.println("점수 : " + a);
 					stage.scoreScreen.setText("점수 : " + a);
-					if (a == 1540) {
+					if (a == 1470) {
 						// next stage
 					}
 				}
 			}
 		}
 	}
-}
+
+	
+} // end of class
