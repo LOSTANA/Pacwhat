@@ -14,6 +14,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	Maingame stage;
 
+	
 	// 적군의 좌표값 위치 상태
 	private int x;
 
@@ -82,7 +83,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 		// 처음 실행 시 초기 값 셋팅 (수정)
 		x = 360;
-		y = 375;
+		y = 435;
 
 	}
 
@@ -109,7 +110,7 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 				}
-				for (int i = 0; i < 45; i++) {
+				for (int i = 0; i < 35; i++) {
 					// 적을 위로 50만큼 이동
 					y -= SPEED;
 					setLocation(x, y);
