@@ -88,6 +88,8 @@ public class Item extends JLabel {
 	public void setBonus(int bonus) {
 		this.bonus = bonus;
 	}
+	
+	
 
 	private void initData() {
 		coin = new ImageIcon("img/item/coin.png");
