@@ -39,7 +39,7 @@ public class BackgroundPlayerService2 implements Runnable {
 	
 	public void sleep() {
 		try {
-			Thread.sleep(200);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,7 +52,7 @@ public class BackgroundPlayerService2 implements Runnable {
 
 	@Override
 	public void run() {
-		while(true) {
+		while(player.getState()!=2) {
 	        if(Math.abs((player.getX() + 28/ 2) - ( enemy1.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 	                Math.abs( (player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
 	        	player.isBeAttacked1();
