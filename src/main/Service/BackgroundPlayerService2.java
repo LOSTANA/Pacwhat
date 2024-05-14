@@ -52,7 +52,7 @@ public class BackgroundPlayerService2 implements Runnable {
 
 	@Override
 	public void run() {
-		while(true) {
+		while(player.getState()==1) {
 	        if(Math.abs((player.getX() + 28/ 2) - ( enemy1.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 	                Math.abs( (player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
 	        	player.isBeAttacked1();
