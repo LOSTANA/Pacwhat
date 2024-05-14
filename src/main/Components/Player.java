@@ -461,6 +461,13 @@ public class Player extends JLabel implements Moveable {
 
 	}
 
+	// 공격가능한 상태
+	public void attackable() {
+		state = 2;
+		
+		
+	}
+	
 	// 목숨 남아있을때 -> lostLifeMotion
 	public void lostLifeMotion() {
 		for (int i = 0; i <= 3; i++) {
@@ -609,9 +616,8 @@ public class Player extends JLabel implements Moveable {
 
 			System.out.println("클리어 스테이지");
 		}
-
 	}
-
+	
 	// 먹기 구현
 	public void eated() {
 
@@ -627,11 +633,13 @@ public class Player extends JLabel implements Moveable {
 					stage.scoreScreen.setText("점수 : " + eatedCount);
 					if (eatedCount == 1470) {
 						clearStage();
-
 					}
 				}
 			}
 		}
 	}
+	
+	
+	
 
 } // end of class
