@@ -12,6 +12,7 @@ import java.awt.print.Printable;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,11 +29,9 @@ public class Maingame extends JFrame {
 
 	Maingame stage = this;
 	Random rd = new Random();
-
 	private JLabel backgroundMap;
 	private JPanel health;
 	private JPanel score;
-	private JPanel count;
 	public JLabel scoreScreen;
 	public JLabel[] healthScreen = new JLabel[4];
 	public Image heal;
@@ -44,7 +43,7 @@ public class Maingame extends JFrame {
 	public int width = 0;
 	public int height = 0;
 
-	private Item[] item = new Item[240];
+	private Item[] item = new Item[239];
 
 	public Maingame() {
 		initData();
@@ -99,6 +98,7 @@ public class Maingame extends JFrame {
 
 	private void initData() {
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.png"));
+		
 
 		setSize(750, 1000);
 		setContentPane(backgroundMap);
@@ -106,17 +106,19 @@ public class Maingame extends JFrame {
 
 		score = new JPanel();
 		score.setBackground(new Color(0, 0, 0));
-		score.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
+		score.setBounds(0,0,750,77);
+		
+		
 		health = new JPanel();
 		health.setBackground(new Color(0, 0, 0));
-		health.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
+		health.setBounds(0,885,750,80);
 
 		player = new Player(this);
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
 		enemy3 = new Enemy3(this);
 
-		for (int i = 0; i < 240; i++) {
+		for (int i = 0; i < 239; i++) {
 			item[i] = new Item(this);
 		}
 
@@ -144,11 +146,13 @@ public class Maingame extends JFrame {
 	}
 
 	private void setInitLayout() {
+		
 		setLayout(new BorderLayout());
 		setResizable(false);
 		setLocationRelativeTo(null);
-		add(score, BorderLayout.NORTH);
-		add(health, BorderLayout.SOUTH);
+		
+		add(score);
+		add(health);
 		score.add(scoreScreen);
 		for (int i = 0; i < 4; i++) {
 
@@ -161,24 +165,24 @@ public class Maingame extends JFrame {
 		add(enemy3);
 		add(new JLabel("테스트"));
 
-		for (int i = 1; i < 240; i++) {
+		for (int i = 1; i < 239; i++) {
 
 			if (i % 17 == 0) {
 				if (i == 0) {
 					item[i + 1].setX(item[i].getX() + 40);
 					item[i + 1].setY(item[i].getY());
 				} else {
-					if (i + 1 < 240) {
+					if (i + 1 < 239) {
 						item[i + 1].setY(item[i].getY() + 56);
 						item[i + 1].setX(item[0].getX());
 					}
 				}
 			} else {
 
-				if (i == 240) {
+				if (i == 239) {
 
 				} else {
-					if (i + 1 < 240) {
+					if (i + 1 < 239) {
 						item[i + 1].setX(item[i].getX() + 40);
 						item[i + 1].setY(item[i].getY());
 					} else {
@@ -192,15 +196,13 @@ public class Maingame extends JFrame {
 
 		}
 
-		
-
 		setVisible(true);
 		for (int i = 0; i < 4; i++) {
-			int a = rd.nextInt(240) + 1;
+			int a = rd.nextInt(239) + 1;
 			if (item[a].getIcon() == null) {
 				i--;
-				System.out.println(i+1 + "롤백");
-			} else if (item[a].getIcon() == item[a].getCoin()){
+				System.out.println(i + 1 + "롤백");
+			} else if (item[a].getIcon() == item[a].getCoin()) {
 
 				item[a].transitem(i);
 				System.out.println(a + "번째에 아이템 " + i + "생성");
@@ -260,15 +262,26 @@ public class Maingame extends JFrame {
 					} else {
 						break;
 					}
+
 				case KeyEvent.VK_SPACE:
-					System.out.println(player.getX() + " , " + player.getY());
-					System.out.println(player.getX() + " , " + player.getY());
-				
-				case KeyEvent.VK_ESCAPE:
-					dispose();
-					stage.setUndecorated(true);
-					stage.setBackground(new Color(0,0,0,112));
-					setVisible(true);
+					pause();
+					enemy.setLeft(false);
+					enemy.setRight(false);
+					enemy.setUp(false);
+					enemy.setDown(false);
+					enemy2.setLeft(false);
+					enemy2.setRight(false);
+					enemy2.setUp(false);
+					enemy2.setDown(false);
+					enemy3.setLeft(false);
+					enemy3.setRight(false);
+					enemy3.setUp(false);
+					enemy3.setDown(false);
+					player.setLeft(false);
+					player.setRight(false);
+					player.setUp(false);
+					player.setDown(false);
+
 				}
 			}
 
@@ -318,6 +331,10 @@ public class Maingame extends JFrame {
 
 		});
 
+	}
+
+	public void pause() {
+		new PauseGame(this);
 	}
 
 	public static void main(String[] args) {
