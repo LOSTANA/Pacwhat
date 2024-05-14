@@ -477,8 +477,7 @@ public class Player extends JLabel implements Moveable {
     }
 
 	// 공격가능한 상태  
-	public void attackable() {
-		state = 2;
+	public void eatFruits() {
 
 	}
 
@@ -639,6 +638,9 @@ public class Player extends JLabel implements Moveable {
 				state = 9;
 				eatedCount = 0;
 				stage.scoreScreen.setText("--- Clear!!! ---");
+				for (int i = 0; i < 239; i++) {	
+					stage.getItem()[i].setIcon(null);
+				}
 			}
 		}
 	}
@@ -658,12 +660,13 @@ public class Player extends JLabel implements Moveable {
 				} else if (stage.getItem()[i].getState() == 2) {
 					stage.getItem()[i].setIcon(null);
 					stage.getItem()[i].setState(1);
+					state = 2;
 					eatedCount += 50;
 				}
 			}
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
-			if (eatedCount == 1470) {
+			if (eatedCount >= 1700) {
 				clearStage();
 			}
 		}
