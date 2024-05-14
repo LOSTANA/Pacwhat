@@ -40,7 +40,7 @@ public class Maingame extends JFrame {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
-	
+
 	public int width = 0;
 	public int height = 0;
 
@@ -84,11 +84,10 @@ public class Maingame extends JFrame {
 	public JLabel getScoreScreen() {
 		return scoreScreen;
 	}
-	
+
 	public void setScoreScreen(JLabel scoreScreen) {
 		this.scoreScreen = scoreScreen;
 	}
-
 
 	public JLabel[] getHealthScreen() {
 		return healthScreen;
@@ -111,7 +110,6 @@ public class Maingame extends JFrame {
 		health = new JPanel();
 		health.setBackground(new Color(0, 0, 0));
 		health.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
-		
 
 		player = new Player(this);
 		enemy = new Enemy1(this);
@@ -126,14 +124,14 @@ public class Maingame extends JFrame {
 		scoreScreen.setText("점수 : 0");
 		scoreScreen.setFont(new Font("DungGeunMo", Font.BOLD, 38));
 		scoreScreen.setForeground(Color.WHITE);
-		
+
 		healthScreen[0] = new JLabel();
 		healthScreen[0].setText("목숨 : ");
 		healthScreen[0].setFont(new Font("DungGeunMo", Font.BOLD, 38));
 		healthScreen[0].setForeground(Color.WHITE);
-		
+
 		for (int i = 1; i < 4; i++) {
-		
+
 			healthScreen[i] = new JLabel(new ImageIcon("img/pacman/pac4_R.png"));
 			healthScreen[i].setSize(28, 28);
 			healthScreen[i].setLocation(width, height);
@@ -141,7 +139,7 @@ public class Maingame extends JFrame {
 
 		}
 		// 플레이어 충돌 감지기
-		new Thread(new BackgroundPlayerService2(this.player,this.enemy,this.enemy2,this.enemy3)).start();
+		new Thread(new BackgroundPlayerService2(this.player, this.enemy, this.enemy2, this.enemy3)).start();
 
 	}
 
@@ -153,7 +151,7 @@ public class Maingame extends JFrame {
 		add(health, BorderLayout.SOUTH);
 		score.add(scoreScreen);
 		for (int i = 0; i < 4; i++) {
-			
+
 			health.add(healthScreen[i]);
 
 		}
@@ -164,7 +162,7 @@ public class Maingame extends JFrame {
 		add(new JLabel("테스트"));
 
 		for (int i = 1; i < 240; i++) {
-  
+
 			if (i % 17 == 0) {
 				if (i == 0) {
 					item[i + 1].setX(item[i].getX() + 40);
@@ -191,27 +189,26 @@ public class Maingame extends JFrame {
 
 			}
 			add(item[i]);
-			
-			
+
 		}
-		
-		for(int i = 0;i<4;i++) {
+
+		for (int i = 0; i < 4; i++) {
 			int a = rd.nextInt(240);
-			if(item[a].getState() == 1 || item[a].getIcon() == null) {
+			if (item[a].getState() == 1 || item[a].getIcon() == null) {
 				i--;
-			}else {
-				
+			} else {
+
 				item[a].transitem(i);
-				System.out.println(a + "번째에 아이템 " + i +"생성");
-				
+				System.out.println(a + "번째에 아이템 " + i + "생성");
+
 			}
-			
+
 		}
 
 		setVisible(true);
 
 	}
-	
+
 //	static class DrawCount extends JPanel{
 //		
 //		count = new JPanel();
@@ -263,7 +260,7 @@ public class Maingame extends JFrame {
 						break;
 					}
 				case KeyEvent.VK_SPACE:
-					System.out.println(player.getX() + " , " + player.getY());	
+					System.out.println(player.getX() + " , " + player.getY());
 					System.out.println(player.getX() + " , " + player.getY());
 				}
 			}
