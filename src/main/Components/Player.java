@@ -467,7 +467,7 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
-	public void beAttacked() {
+	public void completelyDie() {
 
 		state = 0;
 		stage.remove(stage.getPlayer());
@@ -526,10 +526,10 @@ public class Player extends JLabel implements Moveable {
 				e.printStackTrace();
 			}
 			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
+				if (playerLife != 0) {
 					lostLifeMotion();
+				} else {
+					completelyDie();
 				}
 				try {
 					Thread.sleep(1150);
@@ -555,10 +555,10 @@ public class Player extends JLabel implements Moveable {
 				e.printStackTrace();
 			}
 			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
+				if (playerLife != 0) {
 					lostLifeMotion();
+				} else {
+					completelyDie();
 				}
 				try {
 					Thread.sleep(1150);
@@ -584,10 +584,10 @@ public class Player extends JLabel implements Moveable {
 				e.printStackTrace();
 			}
 			if (stage.getPlayer().getState() == 0) {
-				if (playerLife == 0) {
-					beAttacked();
-				} else {
+				if (playerLife != 0) {
 					lostLifeMotion();
+				} else {
+					completelyDie();
 				}
 				try {
 					Thread.sleep(1150);
