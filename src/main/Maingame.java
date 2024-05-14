@@ -192,11 +192,15 @@ public class Maingame extends JFrame {
 
 		}
 
+		
+
+		setVisible(true);
 		for (int i = 0; i < 4; i++) {
-			int a = rd.nextInt(240);
-			if (item[a].getState() == 1 || item[a].getIcon() == null) {
+			int a = rd.nextInt(240) + 1;
+			if (item[a].getIcon() == null) {
 				i--;
-			} else {
+				System.out.println(i+1 + "롤백");
+			} else if (item[a].getIcon() == item[a].getCoin()){
 
 				item[a].transitem(i);
 				System.out.println(a + "번째에 아이템 " + i + "생성");
@@ -204,9 +208,6 @@ public class Maingame extends JFrame {
 			}
 
 		}
-
-		setVisible(true);
-
 	}
 
 //	static class DrawCount extends JPanel{
@@ -262,6 +263,12 @@ public class Maingame extends JFrame {
 				case KeyEvent.VK_SPACE:
 					System.out.println(player.getX() + " , " + player.getY());
 					System.out.println(player.getX() + " , " + player.getY());
+				
+				case KeyEvent.VK_ESCAPE:
+					dispose();
+					stage.setUndecorated(true);
+					stage.setBackground(new Color(0,0,0,112));
+					setVisible(true);
 				}
 			}
 
