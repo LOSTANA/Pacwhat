@@ -467,8 +467,6 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
-	// 플레이어 완전히 죽었을때 ( life -> 0)
-    // state 1 -- > 0
     public void completelyDie() {
 
         state = 0;
@@ -506,7 +504,9 @@ public class Player extends JLabel implements Moveable {
             } 
 
         }
-
+        if (playerLife > 0) {
+        	state =1;
+        }
         setIcon(imageIconR[0]);
 
     }
