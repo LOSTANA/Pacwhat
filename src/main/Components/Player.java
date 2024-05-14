@@ -6,7 +6,6 @@ import javax.swing.JLabel;
 import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
-import main.Service.BackgroundPlayerService2;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
@@ -14,9 +13,8 @@ public class Player extends JLabel implements Moveable {
 	Maingame stage;
 
 	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
-	// 플레이어 죽은 상태로 아이템 먹어지는거 수정 해야함
 
-	// 플레이어 살아있는상태 1, 죽은상태 0
+	// 플레이어 살아있는상태 1, 죽은상태 0, 에너미를 먹을수 있는 상태 2 , 클리어 9
 	private int state;
 	private Item[] item;
 
@@ -26,9 +24,11 @@ public class Player extends JLabel implements Moveable {
 	// 점수
 	private String score;
 
+	private BackgroundPlayerService backgroundPlayerService;
+
 	private int x;
 	private int y;
-	private int a = 0;
+	private int eatedCount = 0;
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
 
@@ -499,8 +499,8 @@ public class Player extends JLabel implements Moveable {
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
-			playerLife--;
 
+			playerLife--;
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
@@ -517,10 +517,9 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+
 			}
-
 		}
-
 	}
 
 	// 플레이어 에너미2랑 부딪힐 경우
@@ -599,6 +598,27 @@ public class Player extends JLabel implements Moveable {
 		}
 	}
 
+	// 클리어 스테이지
+	// 추후 수정
+	public void clearStage() {
+
+		while (true) {
+
+			left = false;
+			right = false;
+			up = false;
+			down = false;
+
+			eatedCount = 0;
+			state = 9;
+			eatedCount = 0;
+			stage.scoreScreen.setText("--- Clear!!! ---");
+
+			System.out.println("클리어 스테이지");
+		}
+
+	}
+
 	// 먹기 구현
 	public void eated() {
 
@@ -610,20 +630,20 @@ public class Player extends JLabel implements Moveable {
 				if (stage.getItem()[i].getState() == 0) {
 					stage.getItem()[i].setIcon(null);
 					stage.getItem()[i].setState(1);
-					a += 10;
+					eatedCount += 10;
 				} else if (stage.getItem()[i].getState() == 2) {
 					stage.getItem()[i].setIcon(null);
 					stage.getItem()[i].setState(1);
-					a += 50;
+					eatedCount += 50;
+
 				}
 			}
-			score = Integer.toString(a);
-			stage.scoreScreen.setText("점수 : " + a);
-			if (a == 1470) {
-				// next stage
+			score = Integer.toString(eatedCount);
+			stage.scoreScreen.setText("점수 : " + eatedCount);
+			if (eatedCount == 1470) {
+				clearStage();
 			}
 		}
-		
 
 	}
 

@@ -278,7 +278,6 @@ public class Maingame extends JFrame {
 					player.setRight(false);
 					break;
 				case KeyEvent.VK_UP:
-					System.out.println(1);
 					player.setUp(false);
 					break;
 				case KeyEvent.VK_DOWN:
