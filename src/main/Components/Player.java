@@ -467,44 +467,49 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
-	public void completelyDie() {
+	// 플레이어 완전히 죽었을때 ( life -> 0)
+    // state 1 -- > 0
+    public void completelyDie() {
 
-		state = 0;
-		stage.remove(stage.getPlayer());
-		stage.getPlayer().setIcon(null);
-		stage.healthScreen[1].setIcon(null);
-	}
+        state = 0;
+        stage.getPlayer().setIcon(null);
+        stage.healthScreen[1].setIcon(null);
+        stage.remove(stage.getPlayer());
+        stage.healthScreen[0].setText("----- YOU DIE -----");
+    }
 
-	// 공격가능한 상태
+	// 공격가능한 상태  
 	public void attackable() {
 		state = 2;
 
 	}
 
-	// 목숨 남아있을때 -> lostLifeMotion
 	public void lostLifeMotion() {
-		for (int i = 0; i <= 3; i++) {
-			setIcon(imageIconR[0]);
-			stage.healthScreen[playerLife].setIcon(imageIconR[4]);
+        if(playerLife>=0) {
+            for (int i = 0; i <= 3; i++) {
+                setIcon(imageIconR[0]);
+                stage.healthScreen[playerLife+1].setIcon(imageIconR[4]);
 
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			setIcon(null);
-			stage.healthScreen[playerLife].setIcon(null);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                setIcon(null);
+                stage.healthScreen[playerLife+1].setIcon(null);
 
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		stage.getPlayer().setState(1);
-		setIcon(imageIconR[0]);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } 
 
-	}
+        }
+
+        setIcon(imageIconR[0]);
+
+    }
 
 	public void beAttackedAlways() {
 		isBeAttacked2();

@@ -96,6 +96,7 @@ public class Maingame extends JFrame {
 	public void setHealthScreen(JLabel[] healthScreen) {
 		this.healthScreen = healthScreen;
 	}
+	
 
 	private void initData() {
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.png"));
@@ -138,6 +139,7 @@ public class Maingame extends JFrame {
 			width += 30;
 
 		}
+		
 		// 플레이어 충돌 감지기
 		new Thread(new BackgroundPlayerService2(this.player, this.enemy, this.enemy2, this.enemy3)).start();
 
