@@ -43,7 +43,6 @@ public class Player extends JLabel implements Moveable {
 	private boolean rightWallCrash;
 	private boolean topWallCrash;
 	private boolean bottomWallCrash;
-	
 
 	// 플레이어 속도 상태 -- 추후 수정
 	private final int SPEED = 4;
@@ -301,8 +300,7 @@ public class Player extends JLabel implements Moveable {
 				}
 			}
 		}).start();
-	}		
-
+	}
 
 	// 왼쪽으로 입 벌렸다가 닫음
 	public void changeIconLeft() {
@@ -452,8 +450,7 @@ public class Player extends JLabel implements Moveable {
 
 		}).start();
 	}
-	
-	
+
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void beAttacked() {
@@ -469,8 +466,7 @@ public class Player extends JLabel implements Moveable {
 		for (int i = 0; i <= 3; i++) {
 			setIcon(imageIconR[0]);
 			stage.healthScreen[playerLife].setIcon(imageIconR[4]);
-			
-			
+
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
@@ -478,7 +474,7 @@ public class Player extends JLabel implements Moveable {
 			}
 			setIcon(null);
 			stage.healthScreen[playerLife].setIcon(null);
-	
+
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
@@ -487,14 +483,14 @@ public class Player extends JLabel implements Moveable {
 		}
 		stage.getPlayer().setState(1);
 		setIcon(imageIconR[0]);
-		
+
 	}
 
 	// 에너미가 플레이어에 부딪히는 경우(플레이어 가만히 있을때)
 	public void beAttackedAlways() {
-			isBeAttacked2();
-			isBeAttacked1();
-			isBeAttacked3();
+		isBeAttacked2();
+		isBeAttacked1();
+		isBeAttacked3();
 	}
 
 	// 플레이어 에너미1랑 부딪힐 경우
@@ -609,21 +605,26 @@ public class Player extends JLabel implements Moveable {
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
-			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
-				if (stage.getItem()[i].getIcon() != null) {
+			if (absXResult < 23 && absYResult < 23
+					&& (stage.getItem()[i].getState() == 0 || stage.getItem()[i].getState() == 2)) {
+				if (stage.getItem()[i].getState() == 0) {
 					stage.getItem()[i].setIcon(null);
-
+					stage.getItem()[i].setState(1);
 					a += 10;
-					score = Integer.toString(a);
-					System.out.println("점수 : " + a);
-					stage.scoreScreen.setText("점수 : " + a);
-					if (a == 1470) {
-						// next stage
-					}
+				} else if (stage.getItem()[i].getState() == 2) {
+					stage.getItem()[i].setIcon(null);
+					stage.getItem()[i].setState(1);
+					a += 50;
 				}
 			}
+			score = Integer.toString(a);
+			stage.scoreScreen.setText("점수 : " + a);
+			if (a == 1470) {
+				// next stage
+			}
 		}
+		
+
 	}
 
-	
 } // end of class
