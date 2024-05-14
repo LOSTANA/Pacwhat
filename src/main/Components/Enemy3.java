@@ -15,6 +15,7 @@ public class Enemy3 extends JLabel implements Moveable {
 
 	Maingame stage;
 
+	private int direction;
 	
 	// 적군의 좌표값 위치 상태
 	private int x;
@@ -117,7 +118,7 @@ public class Enemy3 extends JLabel implements Moveable {
 	// 적의 방향을 무작위로 변경하는 값
 	private void change() {
 		Random random = new Random();
-		int direction = random.nextInt(4); // 0~3 무작위 숫자 생성
+		direction = random.nextInt(4); // 0~3 무작위 숫자 생성
 
 		switch (direction) {
 		case 0:
@@ -400,6 +401,14 @@ public class Enemy3 extends JLabel implements Moveable {
 
 	public int getSPEED() {
 		return SPEED;
+	}
+	
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
 
 }
