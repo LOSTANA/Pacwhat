@@ -624,18 +624,18 @@ public class Player extends JLabel implements Moveable {
 		clearFlag = true;
 		System.out.println("클리어 스테이지");
 		while (clearFlag) {
+			while (true) {
 
-			left = false;
-			right = false;
-			up = false;
-			down = false;
+				left = false;
+				right = false;
+				up = false;
+				down = false;
 
-			eatedCount = 0;
-			state = 9;
-			stage.scoreScreen.setText("--- Clear!!! ---");
-
+				state = 9;
+				eatedCount = 0;
+				stage.scoreScreen.setText("--- Clear!!! ---");
+			}
 		}
-
 	}
 
 	// 먹기 구현
