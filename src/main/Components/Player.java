@@ -472,7 +472,7 @@ public class Player extends JLabel implements Moveable {
 		state = 0;
 		stage.remove(stage.getPlayer());
 		stage.getPlayer().setIcon(null);
-		stage.healthScreen[playerLife].setIcon(null);
+		stage.healthScreen[1].setIcon(null);
 	}
 
 	// 공격가능한 상태
