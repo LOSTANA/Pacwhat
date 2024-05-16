@@ -300,7 +300,7 @@ public class Player extends JLabel implements Moveable {
 						}
 						setIcon(imageIconR[i]);
 						try {
-							Thread.sleep(80);
+							Thread.sleep(30);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -312,7 +312,7 @@ public class Player extends JLabel implements Moveable {
 						}
 						setIcon(imageIconR[i - 1]);
 						try {
-							Thread.sleep(80);
+							Thread.sleep(30);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -334,7 +334,7 @@ public class Player extends JLabel implements Moveable {
 							break;
 						}
 						try {
-							Thread.sleep(80);
+							Thread.sleep(30);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -346,7 +346,7 @@ public class Player extends JLabel implements Moveable {
 							break;
 						}
 						try {
-							Thread.sleep(80);
+							Thread.sleep(30);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -473,7 +473,12 @@ public class Player extends JLabel implements Moveable {
 	// 아이템 먹고 에너미랑 부딪히기
 	public void eatable() {
 		if(state == 2) {
-			
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			state = 1;
 		}
 		
 	}
@@ -511,7 +516,6 @@ public class Player extends JLabel implements Moveable {
             } 
 
         }
-        setIcon(imageIconR[0]);
     }
 
 	public void beAttackedAlways() {
@@ -633,8 +637,7 @@ public class Player extends JLabel implements Moveable {
 
 		clearFlag = true;
 		System.out.println("클리어 스테이지");
-		while (clearFlag) {
-			while (true) {
+			while (clearFlag) {
 
 				left = false;
 				right = false;
@@ -648,7 +651,6 @@ public class Player extends JLabel implements Moveable {
 					stage.getItem()[i].setIcon(null);
 				}
 			}
-		}
 	}
 
 	// 먹기 구현
@@ -666,9 +668,8 @@ public class Player extends JLabel implements Moveable {
 				} else if (stage.getItem()[i].getState() == 2) {
 					stage.getItem()[i].setIcon(null);
 					stage.getItem()[i].setState(1);
-					state = 2;
+					this.state = 2;
 					eatedCount += 50;
-					eatable();
 				}
 			}
 			score = Integer.toString(eatedCount);
