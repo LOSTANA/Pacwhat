@@ -217,8 +217,8 @@ public class PauseGame extends JFrame {
 			g.setColor(new Color(255, 255, 255));
 			g.drawString("게임을 재시작하려면 클릭해주세요!", 140, 450);
 			g.setFont(new Font("DungGeunMo", Font.BOLD, 25));
-			g.drawString("Pause Game!", 300, 500);
-			g.drawString("(ESC 클릭시 게임 종료)", 300, 520);
+			g.drawString("Pause Game!", 320, 500);
+			g.drawString("(ESC 클릭시 게임 종료)", 250, 540);
 
 		}
 

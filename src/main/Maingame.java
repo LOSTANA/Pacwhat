@@ -367,9 +367,8 @@ public class Maingame extends JFrame {
 	public void pause() {
 		new PauseGame(this);
 	}
+	
 
-	public static void main(String[] args) {
-		new Startgame();
-	}
+	
 
 }
