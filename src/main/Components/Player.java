@@ -227,9 +227,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	public void setScore(String score) {
-
 		this.score = score;
-
 	}
 
 	public Maingame getStage() {
@@ -464,9 +462,14 @@ public class Player extends JLabel implements Moveable {
 
 		}).start();
 	}
-
-	// 플레이어 완전히 죽었을때 ( life -> 0)
-	// state 1 -- > 0
+	// 아이템 먹고 에너미랑 부딪히기
+	public void eatable() {
+		if(state == 2) {
+			
+		}
+		
+	}
+	
 	// 플레이어 완전히 죽었을때 ( life -> 0)
     // state 1 -- > 0
     public void completelyDie() {
@@ -477,11 +480,6 @@ public class Player extends JLabel implements Moveable {
         stage.remove(stage.getPlayer());
         stage.healthScreen[0].setText("----- YOU DIE -----");
     }
-
-	// 공격가능한 상태  
-	public void eatFruits() {
-
-	}
 
 	public void lostLifeMotion() {
         if(playerLife>=0) {
@@ -505,9 +503,7 @@ public class Player extends JLabel implements Moveable {
             } 
 
         }
-
         setIcon(imageIconR[0]);
-
     }
 
 	public void beAttackedAlways() {
@@ -540,7 +536,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
+				state = 1;
 			}
 		}
 	}
@@ -569,6 +565,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				state = 1;
 
 			}
 		}
@@ -598,6 +595,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				state = 1;
 
 			}
 		}
