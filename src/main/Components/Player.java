@@ -367,15 +367,9 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 
 				while (left) {
-					if (state == 0) {
-						break;
-					}
 					x = x - SPEED;
 					setLocation(x, y);
-
-					if (x <= 70) {
 						bridgeLeft();
-					}
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
@@ -394,21 +388,14 @@ public class Player extends JLabel implements Moveable {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
 		changeIconRight();
-		System.out.println("라이트1");
 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (right) {
-					if (state == 0) {
-						System.out.println("라이트x");
-						break;
-					}
 					x = x + SPEED;
 					setLocation(x, y);
-					if (x >= 680) {
 						bridgeRight();
-					}
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
@@ -430,9 +417,6 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (up) {
-					if (state == 0) {
-						break;
-					}
 					y = y - SPEED;
 					setLocation(x, y);
 					try {
@@ -455,9 +439,6 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (down) {
-					if (state == 0) {
-						break;
-					}
 					y = y + SPEED;
 					setLocation(x, y);
 					try {
@@ -471,18 +452,6 @@ public class Player extends JLabel implements Moveable {
 			} // end of while
 
 		}).start();
-	}
-	// 아이템 먹고 에너미랑 부딪히기
-	public void eatable() {
-		if(state == 2) {
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			state = 1;
-		}
-		
 	}
 	
 	// 플레이어 완전히 죽었을때 ( life -> 0)
@@ -532,7 +501,6 @@ public class Player extends JLabel implements Moveable {
 		int absYResult = Math.abs(y - stage.getEnemy().getY());
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
-
 			playerLife--;
 			try {
 				Thread.sleep(200);
@@ -561,7 +529,6 @@ public class Player extends JLabel implements Moveable {
 		int absYResult = Math.abs(y - stage.getEnemy2().getY());
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
-
 			playerLife--;
 			try {
 				Thread.sleep(200);
@@ -638,7 +605,6 @@ public class Player extends JLabel implements Moveable {
 	public void clearStage() {
 
 		clearFlag = true;
-		System.out.println("클리어 스테이지");
 			while (clearFlag) {
 
 				left = false;
@@ -672,7 +638,9 @@ public class Player extends JLabel implements Moveable {
 					stage.getItem()[i].setState(1);
 					this.state = 2;
 					eatedCount += 50;
+					continue;
 				}
+				state = 1;
 			}
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
