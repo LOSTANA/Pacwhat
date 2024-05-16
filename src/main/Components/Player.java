@@ -23,6 +23,12 @@ public class Player extends JLabel implements Moveable {
 
 	// 점수
 	private String score;
+	
+	// 최근기록
+	private String lastScore;
+	
+	// 최고기록
+	private String bestScore;
 
 	private boolean clearFlag;
 
@@ -284,6 +290,22 @@ public class Player extends JLabel implements Moveable {
 
 	public void setEatedCount(int eatedCount) {
 		this.eatedCount = eatedCount;
+	}
+	
+	public String getLastScore() {
+		return lastScore;
+	}
+
+	public void setLastScore(String lastScore) {
+		this.lastScore = lastScore;
+	}
+
+	public String getBestScore() {
+		return bestScore;
+	}
+
+	public void setBestScore(String bestScore) {
+		this.bestScore = bestScore;
 	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
@@ -622,6 +644,8 @@ public class Player extends JLabel implements Moveable {
 				down = false;
 
 				state = 9;
+				
+				
 				eatedCount = 0;
 				stage.scoreScreen.setText("--- Clear!!! ---");
 				for (int i = 0; i < 239; i++) {	
