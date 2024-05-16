@@ -227,9 +227,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	public void setScore(String score) {
-
 		this.score = score;
-
 	}
 
 	public Maingame getStage() {
@@ -278,6 +276,14 @@ public class Player extends JLabel implements Moveable {
 
 	public void setClearFlag(boolean clearFlag) {
 		this.clearFlag = clearFlag;
+	}
+	
+	public int getEatedCount() {
+		return eatedCount;
+	}
+
+	public void setEatedCount(int eatedCount) {
+		this.eatedCount = eatedCount;
 	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
@@ -388,12 +394,14 @@ public class Player extends JLabel implements Moveable {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
 		changeIconRight();
+		System.out.println("라이트1");
 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (right) {
 					if (state == 0) {
+						System.out.println("라이트x");
 						break;
 					}
 					x = x + SPEED;
@@ -464,9 +472,14 @@ public class Player extends JLabel implements Moveable {
 
 		}).start();
 	}
-
-	// 플레이어 완전히 죽었을때 ( life -> 0)
-	// state 1 -- > 0
+	// 아이템 먹고 에너미랑 부딪히기
+	public void eatable() {
+		if(state == 2) {
+			
+		}
+		
+	}
+	
 	// 플레이어 완전히 죽었을때 ( life -> 0)
     // state 1 -- > 0
     public void completelyDie() {
@@ -477,11 +490,6 @@ public class Player extends JLabel implements Moveable {
         stage.remove(stage.getPlayer());
         stage.healthScreen[0].setText("----- YOU DIE -----");
     }
-
-	// 공격가능한 상태  
-	public void eatFruits() {
-
-	}
 
 	public void lostLifeMotion() {
         if(playerLife>=0) {
@@ -505,9 +513,7 @@ public class Player extends JLabel implements Moveable {
             } 
 
         }
-
         setIcon(imageIconR[0]);
-
     }
 
 	public void beAttackedAlways() {
@@ -540,7 +546,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
+				state = 1;
 			}
 		}
 	}
@@ -569,6 +575,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				state = 1;
 
 			}
 		}
@@ -598,6 +605,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				state = 1;
 
 			}
 		}
@@ -662,6 +670,7 @@ public class Player extends JLabel implements Moveable {
 					stage.getItem()[i].setState(1);
 					state = 2;
 					eatedCount += 50;
+					eatable();
 				}
 			}
 			score = Integer.toString(eatedCount);
