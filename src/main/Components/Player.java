@@ -23,6 +23,12 @@ public class Player extends JLabel implements Moveable {
 
 	// 점수
 	private String score;
+	
+	// 최근기록
+	private String lastScore;
+	
+	// 최고기록
+	private String bestScore;
 
 	private boolean clearFlag;
 
@@ -285,6 +291,22 @@ public class Player extends JLabel implements Moveable {
 	public void setEatedCount(int eatedCount) {
 		this.eatedCount = eatedCount;
 	}
+	
+	public String getLastScore() {
+		return lastScore;
+	}
+
+	public void setLastScore(String lastScore) {
+		this.lastScore = lastScore;
+	}
+
+	public String getBestScore() {
+		return bestScore;
+	}
+
+	public void setBestScore(String bestScore) {
+		this.bestScore = bestScore;
+	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
 	public void changeIconRight() {
@@ -367,6 +389,9 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 
 				while (left) {
+					if(playerLife <= 0) {
+						break;
+					}
 					x = x - SPEED;
 					setLocation(x, y);
 						bridgeLeft();
@@ -393,6 +418,9 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (right) {
+					if(playerLife <= 0) {
+						break;
+					}
 					x = x + SPEED;
 					setLocation(x, y);
 						bridgeRight();
@@ -417,6 +445,9 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (up) {
+					if(playerLife <= 0) {
+						break;
+					}
 					y = y - SPEED;
 					setLocation(x, y);
 					try {
@@ -439,6 +470,9 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (down) {
+					if(playerLife <= 0) {
+						break;
+					}
 					y = y + SPEED;
 					setLocation(x, y);
 					try {
@@ -470,7 +504,6 @@ public class Player extends JLabel implements Moveable {
             for (int i = 0; i <= 3; i++) {
                 setIcon(imageIconR[0]);
                 stage.healthScreen[playerLife+1].setIcon(imageIconR[4]);
-
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
@@ -478,7 +511,6 @@ public class Player extends JLabel implements Moveable {
                 }
                 setIcon(null);
                 stage.healthScreen[playerLife+1].setIcon(null);
-
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
@@ -604,7 +636,6 @@ public class Player extends JLabel implements Moveable {
 	// 추후 수정
 	public void clearStage() {
 
-		clearFlag = true;
 			while (clearFlag) {
 
 				left = false;
@@ -613,6 +644,8 @@ public class Player extends JLabel implements Moveable {
 				down = false;
 
 				state = 9;
+				
+				
 				eatedCount = 0;
 				stage.scoreScreen.setText("--- Clear!!! ---");
 				for (int i = 0; i < 239; i++) {	
@@ -645,6 +678,7 @@ public class Player extends JLabel implements Moveable {
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
 			if (eatedCount >= 1700) {
+				clearFlag = true;
 				clearStage();
 			}
 		}
