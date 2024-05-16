@@ -2,6 +2,7 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -18,6 +19,7 @@ import main.Components.Enemy3;
 import main.Components.Item;
 import main.Components.Player;
 import main.Service.BackgroundPlayerService2;
+import main.Service.BackgroundPlayerService3;
 
 public class Maingame extends JFrame {
 
@@ -104,7 +106,22 @@ public class Maingame extends JFrame {
 		health = new JPanel();
 		health.setBackground(new Color(0, 0, 0));
 		health.setBounds(0, 885, 750, 80);
+		health.setLayout(new FlowLayout(FlowLayout.LEFT,10,0));
+		healthScreen[0] = new JLabel();
+		healthScreen[0].setText("목숨 : ");
+		healthScreen[0].setFont(new Font("DungGeunMo", Font.BOLD, 38));
+		healthScreen[0].setForeground(Color.WHITE);
 
+		for (int i = 1; i < 4; i++) {
+
+			healthScreen[i] = new JLabel(new ImageIcon("img/pacman/pac4_R.png"));
+			healthScreen[i].setSize(28, 28);
+			healthScreen[i].setLocation(width, height);
+			width += 30;
+			
+			health.add(healthScreen[i],BorderLayout.WEST);
+
+		}
 		player = new Player(this);
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
@@ -119,23 +136,12 @@ public class Maingame extends JFrame {
 		scoreScreen.setFont(new Font("DungGeunMo", Font.BOLD, 38));
 		scoreScreen.setForeground(Color.WHITE);
 
-		healthScreen[0] = new JLabel();
-		healthScreen[0].setText("목숨 : ");
-		healthScreen[0].setFont(new Font("DungGeunMo", Font.BOLD, 38));
-		healthScreen[0].setForeground(Color.WHITE);
-
-		for (int i = 1; i < 4; i++) {
-
-			healthScreen[i] = new JLabel(new ImageIcon("img/pacman/pac4_R.png"));
-			healthScreen[i].setSize(28, 28);
-			healthScreen[i].setLocation(width, height);
-			width += 30;
-
-		}
+		
 
 		// 플레이어 충돌 감지기
-		new Thread(new BackgroundPlayerService2(this.player, this.enemy, this.enemy2, this.enemy3)).start();
-
+		
+		new Thread(new BackgroundPlayerService3(this.player, this.enemy, this.enemy2, this.enemy3)).start();
+		
 	}
 
 	private void setInitLayout() {
@@ -204,18 +210,6 @@ public class Maingame extends JFrame {
 
 		}
 	}
-
-//	static class DrawCount extends JPanel{
-//		
-//		count = new JPanel();
-//		
-//		public DrawCount() {
-//			
-//			
-//			JLabel label = new JLabel();
-//			add(label);
-//		}
-//	}
 
 	private void addEventListener() {
 

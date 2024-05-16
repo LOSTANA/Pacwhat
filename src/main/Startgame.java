@@ -2,22 +2,17 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -175,7 +170,7 @@ public class Startgame extends JFrame {
 				g.drawString("점수가 없습니다!", 250, 400);
 				g.drawString("플레이 해서 최고점수에 도전하세요!!", 100, 450);
 			} else {
-				g.drawString("최근 플레이 점수 : " + stage.getPlayer().getScore(), 160, 400);
+				g.drawString("최근 플레이 점수 : " + stage.getPlayer().getScore(), 200, 400);
 			}
 			g.setFont(new Font("DungGeunMo", Font.BOLD, 25));
 			g.setColor(new Color(255, 255, 0));
