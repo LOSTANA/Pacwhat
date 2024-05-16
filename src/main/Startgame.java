@@ -109,7 +109,6 @@ public class Startgame extends JFrame {
 		public void paint(Graphics g) {
 
 			super.paint(g);
-			;
 			g.drawImage(logo, 130, 161, 500, 161, null);
 			g.drawImage(pacman, 230, 520, 50, 50, null);
 			g.drawImage(ghost1, 310, 520, 50, 50, null);

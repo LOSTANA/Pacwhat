@@ -89,11 +89,9 @@ public class Maingame extends JFrame {
 	public void setHealthScreen(JLabel[] healthScreen) {
 		this.healthScreen = healthScreen;
 	}
-	
 
 	private void initData() {
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.png"));
-		
 
 		setSize(750, 1000);
 		setContentPane(backgroundMap);
@@ -101,12 +99,11 @@ public class Maingame extends JFrame {
 
 		score = new JPanel();
 		score.setBackground(new Color(0, 0, 0));
-		score.setBounds(0,0,750,77);
-		
-		
+		score.setBounds(0, 0, 750, 77);
+
 		health = new JPanel();
 		health.setBackground(new Color(0, 0, 0));
-		health.setBounds(0,885,750,80);
+		health.setBounds(0, 885, 750, 80);
 
 		player = new Player(this);
 		enemy = new Enemy1(this);
@@ -135,18 +132,18 @@ public class Maingame extends JFrame {
 			width += 30;
 
 		}
-		
+
 		// 플레이어 충돌 감지기
 		new Thread(new BackgroundPlayerService2(this.player, this.enemy, this.enemy2, this.enemy3)).start();
 
 	}
 
 	private void setInitLayout() {
-		
+
 		setLayout(new BorderLayout());
 		setResizable(false);
 		setLocationRelativeTo(null);
-		
+
 		add(score);
 		add(health);
 		score.add(scoreScreen);
@@ -189,7 +186,7 @@ public class Maingame extends JFrame {
 
 			}
 			add(item[i]);
-			
+
 		}
 
 		setVisible(true);
@@ -277,7 +274,40 @@ public class Maingame extends JFrame {
 					player.setRight(false);
 					player.setUp(false);
 					player.setDown(false);
-
+					
+					if(enemy.isLeft() == true) {
+						enemy.setLeft(false);
+					}else if(enemy.isLeft() == true){
+						enemy.setRight(false);
+					}else if(enemy.isUp() == true) {
+						enemy.setUp(false);
+					}else if(enemy.isDown() == true) {
+						enemy.setDown(false);
+					}
+					
+					if(enemy2.isLeft() == true) {
+						enemy2.setLeft(false);
+					}else if(enemy2.isLeft() == true){
+						enemy2.setRight(false);
+					}else if(enemy2.isUp() == true) {
+						enemy2.setUp(false);
+					}else if(enemy2.isDown() == true) {
+						enemy2.setDown(false);
+					}
+					
+					if(enemy3.isLeft() == true) {
+						enemy3.setLeft(false);
+					}else if(enemy3.isLeft() == true){
+						enemy3.setRight(false);
+					}else if(enemy3.isUp() == true) {
+						enemy3.setUp(false);
+					}else if(enemy3.isDown() == true) {
+						enemy3.setDown(false);
+					}
+					
+				case KeyEvent.VK_1:
+					System.out.println("좌표 x : " + player.getX() + ", 좌표 y : " + player.getY());
+					
 				}
 			}
 
