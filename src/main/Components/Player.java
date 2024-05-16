@@ -14,6 +14,10 @@ public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
 
+	private Enemy1 enemy;
+	private Enemy2 enemy2;
+	private Enemy3 enemy3;
+
 	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
 
 	// 플레이어 살아있는상태 1, 죽은상태 0, 에너미를 먹을수 있는 상태 2 , 클리어 9
@@ -26,12 +30,6 @@ public class Player extends JLabel implements Moveable {
 	// 점수
 	private String score;
 
-	// 최근기록
-	private String lastScore;
-
-	// 최고기록
-	private String bestScore;
-
 	private boolean clearFlag;
 
 	private BackgroundPlayerService backgroundPlayerService;
@@ -42,6 +40,8 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
 	private ImageIcon playernull;
+	private ImageIcon[] imageIconU = new ImageIcon[5];
+	private ImageIcon[] imageIconD = new ImageIcon[5];
 
 	// 플레이어 움직임
 	private boolean left;
@@ -64,8 +64,9 @@ public class Player extends JLabel implements Moveable {
 		this.stage = stage;
 		initData();
 		setInitLayout();
+
 		new Thread(new BackgroundPlayerService(this)).start();
-		
+
 	}
 
 	private void initData() {
@@ -82,8 +83,22 @@ public class Player extends JLabel implements Moveable {
 		imageIconL[2] = new ImageIcon("img/pacman/pac2_L.png");
 		imageIconL[3] = new ImageIcon("img/pacman/pac3_L.png");
 		imageIconL[4] = new ImageIcon("img/pacman/pac4_L.png");
-		
+
 		playernull = new ImageIcon("img/pacman/null.png");
+
+		// 위쪽 이미지 배열
+		imageIconU[0] = new ImageIcon("img/pacman/pac0_U.png");
+		imageIconU[1] = new ImageIcon("img/pacman/pac1_U.png");
+		imageIconU[2] = new ImageIcon("img/pacman/pac2_U.png");
+		imageIconU[3] = new ImageIcon("img/pacman/pac3_U.png");
+		imageIconU[4] = new ImageIcon("img/pacman/pac4_U.png");
+
+		// 아래쪽 이미지 배열
+		imageIconD[0] = new ImageIcon("img/pacman/pac0_D.png");
+		imageIconD[1] = new ImageIcon("img/pacman/pac1_D.png");
+		imageIconD[2] = new ImageIcon("img/pacman/pac2_D.png");
+		imageIconD[3] = new ImageIcon("img/pacman/pac3_D.png");
+		imageIconD[4] = new ImageIcon("img/pacman/pac4_D.png");
 
 		// 초기위치값 임시로 설정 -- 추후 수정예정
 		x = 355;
@@ -115,11 +130,10 @@ public class Player extends JLabel implements Moveable {
 		setIcon(imageIconR[0]);
 		setSize(28, 28);
 		setLocation(x, y);
-		
+
 		new Thread(new BackgroundPlayerService2(this, stage.getEnemy(), stage.getEnemy2(), stage.getEnemy3())).start();
 		new Thread(new BackgroundPlayerService3(this, stage.getEnemy(), stage.getEnemy2(), stage.getEnemy3())).start();
-		
-			
+
 	}
 
 	// getter, setter
@@ -303,20 +317,20 @@ public class Player extends JLabel implements Moveable {
 		this.eatedCount = eatedCount;
 	}
 
-	public String getLastScore() {
-		return lastScore;
+	public ImageIcon[] getImageIconU() {
+		return imageIconU;
 	}
 
-	public void setLastScore(String lastScore) {
-		this.lastScore = lastScore;
+	public void setImageIconU(ImageIcon[] imageIconU) {
+		this.imageIconU = imageIconU;
 	}
 
-	public String getBestScore() {
-		return bestScore;
+	public ImageIcon[] getImageIconD() {
+		return imageIconD;
 	}
 
-	public void setBestScore(String bestScore) {
-		this.bestScore = bestScore;
+	public void setImageIconD(ImageIcon[] imageIconD) {
+		this.imageIconD = imageIconD;
 	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
@@ -333,7 +347,7 @@ public class Player extends JLabel implements Moveable {
 						}
 						setIcon(imageIconR[i]);
 						try {
-							Thread.sleep(30);
+							Thread.sleep(20);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -345,7 +359,7 @@ public class Player extends JLabel implements Moveable {
 						}
 						setIcon(imageIconR[i - 1]);
 						try {
-							Thread.sleep(30);
+							Thread.sleep(20);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -367,7 +381,7 @@ public class Player extends JLabel implements Moveable {
 							break;
 						}
 						try {
-							Thread.sleep(30);
+							Thread.sleep(20);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -379,7 +393,75 @@ public class Player extends JLabel implements Moveable {
 							break;
 						}
 						try {
-							Thread.sleep(30);
+							Thread.sleep(20);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}).start();
+	}
+
+	// 위쪽으로 입 벌렸다가 닫음
+	public void changeIconUp() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (up) {
+					for (int i = 0; i < 5; i++) {
+						setIcon(imageIconU[i]);
+						if (up == false) {
+							break;
+						}
+						try {
+							Thread.sleep(20);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+
+					for (int i = 5; i > 0; i--) {
+						setIcon(imageIconU[i - 1]);
+						if (up == false) {
+							break;
+						}
+						try {
+							Thread.sleep(20);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}).start();
+	}
+
+	// 아래쪽으로 입 벌렸다가 닫음
+	public void changeIconDown() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (down) {
+					for (int i = 0; i < 5; i++) {
+						setIcon(imageIconD[i]);
+						if (down == false) {
+							break;
+						}
+						try {
+							Thread.sleep(20);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+
+					for (int i = 5; i > 0; i--) {
+						setIcon(imageIconD[i - 1]);
+						if (down == false) {
+							break;
+						}
+						try {
+							Thread.sleep(20);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -448,9 +530,10 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	@Override
-	public void up() {
+	synchronized public void up() {
 		playerWay = PlayerWay.UP;
 		up = true;
+		changeIconUp();
 
 		new Thread(new Runnable() {
 			@Override
@@ -473,9 +556,10 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	@Override
-	public void down() {
+	synchronized public void down() {
 		playerWay = PlayerWay.DOWN;
 		down = true;
+		changeIconDown();
 
 		new Thread(new Runnable() {
 			@Override
@@ -521,21 +605,26 @@ public class Player extends JLabel implements Moveable {
 	public void lostLifeMotion() {
 		if (playerLife >= 0) {
 			for (int i = 0; i <= 3; i++) {
-				setIcon(imageIconR[0]);
+
+				setIcon(imageIconR[2]);
+
 				stage.healthScreen[playerLife + 1].setIcon(imageIconR[4]);
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				setIcon(null);
-				stage.healthScreen[playerLife + 1].setIcon(playernull);
+
+				stage.healthScreen[playerLife + 1].setIcon(null);
+
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+
+			setIcon(imageIconR[2]);
 
 		}
 	}
@@ -569,8 +658,8 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				state = 1;
 			}
+			state = 1;
 		}
 	}
 
@@ -597,9 +686,8 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				state = 1;
-
 			}
+			state = 1;
 		}
 	}
 
@@ -609,7 +697,6 @@ public class Player extends JLabel implements Moveable {
 		int absYResult = Math.abs(y - stage.getEnemy3().getY());
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
-
 			playerLife--;
 			try {
 				Thread.sleep(200);
@@ -627,9 +714,8 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				state = 1;
-
 			}
+			state = 1;
 		}
 	}
 
@@ -669,6 +755,7 @@ public class Player extends JLabel implements Moveable {
 			for (int i = 0; i < 239; i++) {
 				stage.getItem()[i].setIcon(null);
 			}
+
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -676,6 +763,7 @@ public class Player extends JLabel implements Moveable {
 				e.printStackTrace();
 			}
 			stage.start(stage);
+
 		}
 	}
 
@@ -685,6 +773,7 @@ public class Player extends JLabel implements Moveable {
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
+
 			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
 
 				stage.getItem()[i].setIcon(null);
@@ -697,6 +786,8 @@ public class Player extends JLabel implements Moveable {
 				stage.getItem()[i].setState(1);
 				state = 2;
 				eatedCount += 50;
+				stage.playerAttackable();
+				
 
 			}
 			score = Integer.toString(eatedCount);
@@ -709,5 +800,7 @@ public class Player extends JLabel implements Moveable {
 
 		}
 	}
+	
+	
 
 } // end of class

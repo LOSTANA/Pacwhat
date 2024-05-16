@@ -1,8 +1,8 @@
+
 package main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -35,11 +35,15 @@ public class Maingame extends JFrame {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
+	
+	private Thread back2;
+	private Thread back3;
 
 	public int width = 0;
 	public int height = 0;
 
 	private Item[] item = new Item[239];
+	
 
 	public Maingame() {
 		initData();
@@ -106,22 +110,7 @@ public class Maingame extends JFrame {
 		health = new JPanel();
 		health.setBackground(new Color(0, 0, 0));
 		health.setBounds(0, 885, 750, 80);
-		health.setLayout(new FlowLayout(FlowLayout.LEFT,10,0));
-		healthScreen[0] = new JLabel();
-		healthScreen[0].setText("목숨 : ");
-		healthScreen[0].setFont(new Font("DungGeunMo", Font.BOLD, 38));
-		healthScreen[0].setForeground(Color.WHITE);
 
-		for (int i = 1; i < 4; i++) {
-
-			healthScreen[i] = new JLabel(new ImageIcon("img/pacman/pac4_R.png"));
-			healthScreen[i].setSize(28, 28);
-			healthScreen[i].setLocation(width, height);
-			width += 30;
-			
-			health.add(healthScreen[i],BorderLayout.WEST);
-
-		}
 		player = new Player(this);
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
@@ -136,14 +125,31 @@ public class Maingame extends JFrame {
 		scoreScreen.setFont(new Font("DungGeunMo", Font.BOLD, 38));
 		scoreScreen.setForeground(Color.WHITE);
 
+		healthScreen[0] = new JLabel();
+		healthScreen[0].setText("목숨 : ");
+		healthScreen[0].setFont(new Font("DungGeunMo", Font.BOLD, 38));
+		healthScreen[0].setForeground(Color.WHITE);
 		
-
 		// 플레이어 충돌 감지기
-		
-		new Thread(new BackgroundPlayerService3(this.player, this.enemy, this.enemy2, this.enemy3)).start();
-		
-	}
+			
+				
 
+		for (int i = 1; i < 4; i++) {
+
+			healthScreen[i] = new JLabel(new ImageIcon("img/pacman/pac4_R.png"));
+			healthScreen[i].setSize(28, 28);
+			healthScreen[i].setLocation(width, height);
+			width += 30;
+
+
+			
+		}
+
+	}
+	
+	
+	
+	
 	private void setInitLayout() {
 
 		setLayout(new BorderLayout());
@@ -210,6 +216,8 @@ public class Maingame extends JFrame {
 
 		}
 	}
+
+
 
 	private void addEventListener() {
 
@@ -356,7 +364,30 @@ public class Maingame extends JFrame {
 
 		});
 
+		back2 = new Thread(new BackgroundPlayerService2(player, enemy, enemy2, enemy3));
+	    back3 = new Thread(new BackgroundPlayerService3(player, enemy, enemy2, enemy3));	
+		
+	   
 	}
+	
+	 public void playerAttackable() {
+			if(player.getState()==2) {
+				System.out.println("어태커블 작동");
+				back2.interrupt();
+				System.out.println("어태커블 -back3 시작");
+				back3.start();
+			}
+		}
+		
+		public void backToNormal() {
+			if(player.getState()!=2) {
+				System.out.println("백투노말 작동");
+				back3.interrupt();
+				System.out.println("백투노말 -back2 시작");
+				back2.start();
+			}
+		}
+	
 
 	public void pause() {
 		new PauseGame(this);
