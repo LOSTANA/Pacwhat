@@ -49,13 +49,18 @@ public class BackgroundPlayerService2 implements Runnable {
 	@Override
 	public void run() {
 		
+		// 플레이어 state가 1일 때(=살아 있을 때)
+		// 플레이어-에너미 좌표를 확인 후, 중첩 시 공격 처리
 		while(player.getState()!=2) {
+			// 에너미1-좌표 감지 
 	        if(Math.abs((player.getX() + 28/ 2) - ( enemy1.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 	                Math.abs( (player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
 	        	player.isBeAttacked1();
+	        	// 에너미2-좌표 감지 
 	        	} else if (Math.abs((player.getX() + 28/ 2) - ( enemy2.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 	        			Math.abs( (player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
 	        		player.isBeAttacked2();
+	        		// 에너미3-좌표 감지 
 	        		} else if (Math.abs((player.getX() + 28/ 2) - ( enemy3.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 			                Math.abs( (player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
 			        	player.isBeAttacked3();
@@ -64,37 +69,6 @@ public class BackgroundPlayerService2 implements Runnable {
 			        	}
 				sleep(200);
 			}
-		
-		while(player.getState()==2) {
-			for(int i=0; i<100; i++) {
-				System.out.println("적 공격 시작");
-				if(Math.abs((player.getX() + 28/ 2) - ( enemy1.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
-		                Math.abs( (player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
-					System.out.println("적 공격 시작1");
-					System.out.println(player.getEatedCount());
-					System.out.println(player.getScore());				
-		        	player.setEatedCount(player.getEatedCount()+100);
-		        	
-		        	} else if (Math.abs((player.getX() + 28/ 2) - ( enemy2.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
-		        			Math.abs( (player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
-		        		System.out.println("적 공격 시작2");
-						System.out.println(player.getScore());	
-		        		player.setEatedCount(player.getEatedCount()+100);
-		        		
-		        		} else if (Math.abs((player.getX() + 28/ 2) - ( enemy3.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
-				                Math.abs( (player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
-		        			System.out.println("적 공격 시작3");
-		        			System.out.println(player.getEatedCount());
-		    				System.out.println(player.getScore());	
-		        			player.setEatedCount(player.getEatedCount()+100);
-				        	} else {
-				        		
-				        	}
-			sleep(300);
-			System.out.println(i);
-			}
-			player.setState(1);
-		}
 		}
 
 }

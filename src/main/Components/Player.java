@@ -568,6 +568,7 @@ public class Player extends JLabel implements Moveable {
 		}).start();
 	}
 
+<<<<<<< HEAD
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void completelyDie() {
@@ -578,6 +579,22 @@ public class Player extends JLabel implements Moveable {
 		stage.remove(stage.getPlayer());
 		stage.healthScreen[0].setText("----- YOU DIE -----");
 	}
+=======
+        state = 0;
+        stage.getPlayer().setIcon(null);
+        stage.healthScreen[1].setIcon(null);
+        stage.remove(stage.getPlayer());
+        stage.healthScreen[0].setText("----- YOU DIE -----");
+        
+        try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        stage.start(stage);
+    }
+>>>>>>> 88b41e7fe4fc79a2e64806eda6f6df40f9ae3b0c
 
 	public void lostLifeMotion() {
 		if (playerLife >= 0) {

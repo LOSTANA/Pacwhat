@@ -25,8 +25,18 @@ import javax.swing.JPanel;
 public class Startgame extends JFrame {
 
 	private DrawLogo drawLogo;
+	private Maingame stage;
 
 	public Startgame() {
+
+		initData();
+		setInitLayout();
+		addEventListener();
+
+	}
+
+	public Startgame(Maingame stage) {
+		this.stage = stage;
 		initData();
 		setInitLayout();
 		addEventListener();
@@ -37,8 +47,13 @@ public class Startgame extends JFrame {
 
 		setSize(750, 1000);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		if(stage == null) {
 		drawLogo = new DrawLogo();
+		}
+		else
+		{
+			drawLogo = new DrawLogo(stage);
+		}
 
 		setLayout(new BorderLayout());
 		drawLogo.setBackground(Color.BLACK);
@@ -117,8 +132,21 @@ public class Startgame extends JFrame {
 		private Image ghost1;
 		private Image ghost2;
 		private Image ghost3;
+		private Maingame stage;
 
 		public DrawLogo() {
+			logo = new ImageIcon("img/pacman_logo.png").getImage();
+			pacman = new ImageIcon("img/pacman/pac4_R.png").getImage();
+			ghost1 = new ImageIcon("img/ghost1/cyanR2.png").getImage();
+			ghost2 = new ImageIcon("img/ghost2/pinkR1.png").getImage();
+			ghost3 = new ImageIcon("img/ghost3/redR3.png").getImage();
+
+			JLabel label = new JLabel();
+			add(label);
+		}
+
+		public DrawLogo(Maingame stage) {
+			this.stage = stage;
 			logo = new ImageIcon("img/pacman_logo.png").getImage();
 			pacman = new ImageIcon("img/pacman/pac4_R.png").getImage();
 			ghost1 = new ImageIcon("img/ghost1/cyanR2.png").getImage();
@@ -133,6 +161,7 @@ public class Startgame extends JFrame {
 		public void paint(Graphics g) {
 
 			super.paint(g);
+
 			g.drawImage(logo, 130, 161, 500, 161, null);
 			g.drawImage(pacman, 230, 520, 50, 50, null);
 			g.drawImage(ghost1, 310, 520, 50, 50, null);
@@ -141,11 +170,23 @@ public class Startgame extends JFrame {
 			g.setFont(new Font("DungGeunMo", Font.BOLD, 30));
 			g.setColor(new Color(255, 255, 0));
 			g.drawString("게임을 시작하려면 클릭해주세요!", 140, 720);
+			g.setColor(new Color(255, 255, 255));
+			if (stage == null) {
+				g.drawString("점수가 없습니다!", 250, 400);
+				g.drawString("플레이 해서 최고점수에 도전하세요!!", 100, 450);
+			} else {
+				g.drawString("최근 플레이 점수 : " + stage.getPlayer().getScore(), 160, 400);
+			}
 			g.setFont(new Font("DungGeunMo", Font.BOLD, 25));
-			g.drawString("Click to play game!", 230, 750);
+			g.setColor(new Color(255, 255, 0));
+			g.drawString("Click to play game!", 230, 850);
 
 		}
 
+	}
+
+	public static void main(String[] args) {
+		new Startgame();
 	}
 
 }
