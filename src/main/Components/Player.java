@@ -394,12 +394,14 @@ public class Player extends JLabel implements Moveable {
 		playerWay = PlayerWay.RIGHT;
 		right = true;
 		changeIconRight();
+		System.out.println("라이트1");
 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (right) {
 					if (state == 0) {
+						System.out.println("라이트x");
 						break;
 					}
 					x = x + SPEED;
