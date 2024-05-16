@@ -2,17 +2,11 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.print.Printable;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,7 +37,7 @@ public class Maingame extends JFrame {
 	public int width = 0;
 	public int height = 0;
 
-	private Item[] item = new Item[239];
+	private Item[] item = new Item[240];
 
 	public Maingame() {
 		initData();
@@ -119,7 +113,7 @@ public class Maingame extends JFrame {
 		enemy2 = new Enemy2(this);
 		enemy3 = new Enemy3(this);
 
-		for (int i = 0; i < 239; i++) {
+		for (int i = 0; i < 240; i++) {
 			item[i] = new Item(this);
 		}
 
@@ -167,24 +161,24 @@ public class Maingame extends JFrame {
 		add(enemy3);
 		add(new JLabel("테스트"));
 
-		for (int i = 1; i < 239; i++) {
+		for (int i = 1; i < 240; i++) {
 
 			if (i % 17 == 0) {
 				if (i == 0) {
 					item[i + 1].setX(item[i].getX() + 40);
 					item[i + 1].setY(item[i].getY());
 				} else {
-					if (i + 1 < 239) {
+					if (i + 1 < 240) {
 						item[i + 1].setY(item[i].getY() + 56);
 						item[i + 1].setX(item[0].getX());
 					}
 				}
 			} else {
 
-				if (i == 239) {
+				if (i == 240) {
 
 				} else {
-					if (i + 1 < 239) {
+					if (i + 1 < 240) {
 						item[i + 1].setX(item[i].getX() + 40);
 						item[i + 1].setY(item[i].getY());
 					} else {
@@ -195,7 +189,7 @@ public class Maingame extends JFrame {
 
 			}
 			add(item[i]);
-
+			
 		}
 
 		setVisible(true);
