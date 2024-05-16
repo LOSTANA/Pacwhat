@@ -497,6 +497,14 @@ public class Player extends JLabel implements Moveable {
         stage.healthScreen[1].setIcon(null);
         stage.remove(stage.getPlayer());
         stage.healthScreen[0].setText("----- YOU DIE -----");
+        
+        try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        stage.start(stage);
     }
 
 	public void lostLifeMotion() {

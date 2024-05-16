@@ -367,9 +367,13 @@ public class Maingame extends JFrame {
 	public void pause() {
 		new PauseGame(this);
 	}
-
-	public static void main(String[] args) {
-		new Startgame();
+	public void start(Maingame stage) {
+		this.stage = stage;
+		new Startgame(this);
+		dispose();
 	}
+
+
+	
 
 }
