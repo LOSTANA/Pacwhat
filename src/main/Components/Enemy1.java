@@ -96,7 +96,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 에너미 스타트
-	private void enemyStart() {
+	public void enemyStart() {
 
 		new Thread(new Runnable() {
 			@Override

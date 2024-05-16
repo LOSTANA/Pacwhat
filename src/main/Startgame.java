@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -85,6 +87,28 @@ public class Startgame extends JFrame {
 
 			}
 		});
+		this.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_SPACE:
+					Maingame start = new Maingame();
+					dispose();
+				}
+
+			}
+		});
 	}
 
 	static class DrawLogo extends JPanel {
@@ -109,7 +133,6 @@ public class Startgame extends JFrame {
 		public void paint(Graphics g) {
 
 			super.paint(g);
-			;
 			g.drawImage(logo, 130, 161, 500, 161, null);
 			g.drawImage(pacman, 230, 520, 50, 50, null);
 			g.drawImage(ghost1, 310, 520, 50, 50, null);
@@ -120,7 +143,6 @@ public class Startgame extends JFrame {
 			g.drawString("게임을 시작하려면 클릭해주세요!", 140, 720);
 			g.setFont(new Font("DungGeunMo", Font.BOLD, 25));
 			g.drawString("Click to play game!", 230, 750);
-			
 
 		}
 
