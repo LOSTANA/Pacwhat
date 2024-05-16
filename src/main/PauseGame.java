@@ -2,12 +2,7 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
+import java.awt.Panel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -18,16 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.Startgame.DrawLogo;
-import main.Components.Enemy1;
 
 public class PauseGame extends JFrame {
 
 	private Maingame stage;
 
-	private JPanel panel1;
-
-	private DrawLogo drawLogo;
+	private Panel panel1;
 
 	public PauseGame(Maingame stage) {
 		this.stage = stage;
@@ -37,26 +28,34 @@ public class PauseGame extends JFrame {
 	}
 
 	private void initData() {
-
+		
+		panel1 = new Panel();
+		
+		
 		setSize(750, 1000);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JLabel label = new JLabel("일시정지");
+		panel1.setLayout(new BorderLayout());
+		panel1.add(label,BorderLayout.CENTER);
+		
 
-		drawLogo = new DrawLogo();
-
-		setLayout(new BorderLayout());
+		
 		
 
 	}
 
 	private void setInitLayout() {
 
+		add(panel1);
 		setUndecorated(true);
+		panel1.setBackground(new Color(0, 0, 0, 112));
 		setLayout(new BorderLayout());
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setBackground(new Color(0, 0, 0, 112));
-		
 		setVisible(true);
+		
+		
 
 	}
 
@@ -128,7 +127,7 @@ public class PauseGame extends JFrame {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-
+				
 			}
 
 			@Override
@@ -178,21 +177,6 @@ public class PauseGame extends JFrame {
 
 			}
 		});
-	}
-
-	static class DrawLogo extends JPanel {
-
-		public DrawLogo() {
-			JLabel label = new JLabel("일시정지");
-			label.setOpaque(true);
-			label.setFont(new Font("DungGeunMo", Font.BOLD, 38));
-			label.setForeground(Color.WHITE);
-			label.setBackground(new Color(0, 0, 0, 112));
-			
-			
-			add(label);
-		}
-
 	}
 
 }
