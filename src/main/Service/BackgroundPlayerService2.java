@@ -37,21 +37,18 @@ public class BackgroundPlayerService2 implements Runnable {
 		}
 	}
 	
-	public void sleep() {
+	public void sleep(int time) {
 		try {
-			Thread.sleep(100);
+			Thread.sleep(time);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public void test(String message) {
-		System.out.println(message);
-	}
 
 	@Override
 	public void run() {
+		
 		while(player.getState()!=2) {
 	        if(Math.abs((player.getX() + 28/ 2) - ( enemy1.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 	                Math.abs( (player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
@@ -65,8 +62,39 @@ public class BackgroundPlayerService2 implements Runnable {
 			        	} else {
 			        		
 			        	}
-				sleep();
+				sleep(200);
 			}
+		
+		while(player.getState()==2) {
+			for(int i=0; i<100; i++) {
+				System.out.println("적 공격 시작");
+				if(Math.abs((player.getX() + 28/ 2) - ( enemy1.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
+		                Math.abs( (player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
+					System.out.println("적 공격 시작1");
+					System.out.println(player.getEatedCount());
+					System.out.println(player.getScore());				
+		        	player.setEatedCount(player.getEatedCount()+100);
+		        	
+		        	} else if (Math.abs((player.getX() + 28/ 2) - ( enemy2.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
+		        			Math.abs( (player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
+		        		System.out.println("적 공격 시작2");
+						System.out.println(player.getScore());	
+		        		player.setEatedCount(player.getEatedCount()+100);
+		        		
+		        		} else if (Math.abs((player.getX() + 28/ 2) - ( enemy3.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
+				                Math.abs( (player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
+		        			System.out.println("적 공격 시작3");
+		        			System.out.println(player.getEatedCount());
+		    				System.out.println(player.getScore());	
+		        			player.setEatedCount(player.getEatedCount()+100);
+				        	} else {
+				        		
+				        	}
+			sleep(300);
+			System.out.println(i);
+			}
+			player.setState(1);
+		}
 		}
 
 }
