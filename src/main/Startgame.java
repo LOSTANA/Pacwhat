@@ -47,8 +47,13 @@ public class Startgame extends JFrame {
 
 		setSize(750, 1000);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		if(stage == null) {
 		drawLogo = new DrawLogo();
+		}
+		else
+		{
+			drawLogo = new DrawLogo(stage);
+		}
 
 		setLayout(new BorderLayout());
 		drawLogo.setBackground(Color.BLACK);
@@ -170,7 +175,7 @@ public class Startgame extends JFrame {
 				g.drawString("점수가 없습니다!", 250, 400);
 				g.drawString("플레이 해서 최고점수에 도전하세요!!", 100, 450);
 			} else {
-				g.drawString("최근 플레이 점수 : " + stage.getPlayer().getScore(), 140, 400);
+				g.drawString("최근 플레이 점수 : " + stage.getPlayer().getScore(), 160, 400);
 			}
 			g.setFont(new Font("DungGeunMo", Font.BOLD, 25));
 			g.setColor(new Color(255, 255, 0));
