@@ -2,60 +2,51 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Panel;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 public class PauseGame extends JFrame {
 
+	private DrawLogo drawLogo;
 	private Maingame stage;
-
-	private Panel panel1;
 
 	public PauseGame(Maingame stage) {
 		this.stage = stage;
 		initData();
 		setInitLayout();
 		addEventListener();
+
 	}
 
 	private void initData() {
-		
-		panel1 = new Panel();
-		
-		
+
 		setSize(750, 1000);
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JLabel label = new JLabel("일시정지");
-		panel1.setLayout(new BorderLayout());
-		panel1.add(label,BorderLayout.CENTER);
-		
+		setUndecorated(true);
+		setBackground(new Color(0, 0, 0, 122));
 
-		
-		
+		drawLogo = new DrawLogo();
 
+		setLayout(new BorderLayout());
+		drawLogo.setBackground(new Color(255, 255, 255, 0));
 	}
 
 	private void setInitLayout() {
 
-		add(panel1);
-		setUndecorated(true);
-		panel1.setBackground(new Color(0, 0, 0, 112));
-		setLayout(new BorderLayout());
+		add(drawLogo, BorderLayout.CENTER);
+
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
-		
 
 	}
 
@@ -70,38 +61,6 @@ public class PauseGame extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				dispose();
-				setVisible(false);
-
-				if (stage.getEnemy().getDirection() == 0) {
-					stage.getEnemy().left();
-				} else if (stage.getEnemy().getDirection() == 1) {
-					stage.getEnemy().right();
-				} else if (stage.getEnemy().getDirection() == 2) {
-					stage.getEnemy().up();
-				} else {
-					stage.getEnemy().down();
-				}
-
-				if (stage.getEnemy2().getDirection() == 0) {
-					stage.getEnemy2().left();
-				} else if (stage.getEnemy2().getDirection() == 1) {
-					stage.getEnemy2().right();
-				} else if (stage.getEnemy2().getDirection() == 2) {
-					stage.getEnemy2().up();
-				} else {
-					stage.getEnemy2().down();
-				}
-
-				if (stage.getEnemy3().getDirection() == 0) {
-					stage.getEnemy3().left();
-				} else if (stage.getEnemy3().getDirection() == 1) {
-					stage.getEnemy3().right();
-				} else if (stage.getEnemy3().getDirection() == 2) {
-					stage.getEnemy3().up();
-				} else {
-					stage.getEnemy3().down();
-				}
 
 			}
 
@@ -119,29 +78,10 @@ public class PauseGame extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		this.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_SPACE:
-					dispose();
-					setVisible(false);
+				if (stage.getEnemy().getX() <= 415 && stage.getEnemy().getX() >= 291 && stage.getEnemy().getY() >= 412
+						&& stage.getEnemy().getY() <= 468) {
+					stage.getEnemy().enemyStart();
+				} else {
 
 					if (stage.getEnemy().getDirection() == 0) {
 						stage.getEnemy().left();
@@ -152,7 +92,11 @@ public class PauseGame extends JFrame {
 					} else {
 						stage.getEnemy().down();
 					}
-
+				}
+				if (stage.getEnemy2().getX() <= 415 && stage.getEnemy2().getX() >= 291
+						&& stage.getEnemy2().getY() >= 412 && stage.getEnemy2().getY() <= 468) {
+					stage.getEnemy2().enemyStart();
+				} else {
 					if (stage.getEnemy2().getDirection() == 0) {
 						stage.getEnemy2().left();
 					} else if (stage.getEnemy2().getDirection() == 1) {
@@ -162,7 +106,12 @@ public class PauseGame extends JFrame {
 					} else {
 						stage.getEnemy2().down();
 					}
+				}
 
+				if (stage.getEnemy3().getX() <= 415 && stage.getEnemy3().getX() >= 291
+						&& stage.getEnemy3().getY() >= 412 && stage.getEnemy3().getY() <= 468) {
+					stage.getEnemy3().enemyStart();
+				} else {
 					if (stage.getEnemy3().getDirection() == 0) {
 						stage.getEnemy3().left();
 					} else if (stage.getEnemy3().getDirection() == 1) {
@@ -172,11 +121,107 @@ public class PauseGame extends JFrame {
 					} else {
 						stage.getEnemy3().down();
 					}
+				}
+				dispose();
+			}
+
+		});
+
+		this.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_SPACE:
+
+					if (stage.getEnemy().getX() <= 415 && stage.getEnemy().getX() >= 291
+							&& stage.getEnemy().getY() >= 412 && stage.getEnemy().getY() <= 468) {
+						stage.getEnemy().enemyStart();
+					} else {
+
+						if (stage.getEnemy().getDirection() == 0) {
+							stage.getEnemy().left();
+						} else if (stage.getEnemy().getDirection() == 1) {
+							stage.getEnemy().right();
+						} else if (stage.getEnemy().getDirection() == 2) {
+							stage.getEnemy().up();
+						} else {
+							stage.getEnemy().down();
+						}
+					}
+					if (stage.getEnemy2().getX() <= 415 && stage.getEnemy2().getX() >= 291
+							&& stage.getEnemy2().getY() >= 412 && stage.getEnemy2().getY() <= 468) {
+						stage.getEnemy2().enemyStart();
+					} else {
+						if (stage.getEnemy2().getDirection() == 0) {
+							stage.getEnemy2().left();
+						} else if (stage.getEnemy2().getDirection() == 1) {
+							stage.getEnemy2().right();
+						} else if (stage.getEnemy2().getDirection() == 2) {
+							stage.getEnemy2().up();
+						} else {
+							stage.getEnemy2().down();
+						}
+					}
+
+					if (stage.getEnemy3().getX() <= 415 && stage.getEnemy3().getX() >= 291
+							&& stage.getEnemy3().getY() >= 412 && stage.getEnemy3().getY() <= 468) {
+						stage.getEnemy3().enemyStart();
+					} else {
+						if (stage.getEnemy3().getDirection() == 0) {
+							stage.getEnemy3().left();
+						} else if (stage.getEnemy3().getDirection() == 1) {
+							stage.getEnemy3().right();
+						} else if (stage.getEnemy3().getDirection() == 2) {
+							stage.getEnemy3().up();
+						} else {
+							stage.getEnemy3().down();
+						}
+					}
+					dispose();
+					break;
+
+				case KeyEvent.VK_ESCAPE:
+
+					System.exit(0);
+					break;
 
 				}
-
 			}
 		});
+	}
+
+	static class DrawLogo extends JPanel {
+		private Image logo;
+
+		public DrawLogo() {
+
+			JLabel label = new JLabel();
+			add(label);
+		}
+
+		@Override
+		public void paint(Graphics g) {
+
+			super.paint(g);
+
+			g.setFont(new Font("DungGeunMo", Font.BOLD, 30));
+			g.setColor(new Color(255, 255, 255));
+			g.drawString("게임을 재시작하려면 클릭해주세요!", 140, 450);
+			g.setFont(new Font("DungGeunMo", Font.BOLD, 25));
+			g.drawString("Pause Game!", 300, 500);
+			g.drawString("(ESC 클릭시 게임 종료)", 300, 520);
+
+		}
+
 	}
 
 }
