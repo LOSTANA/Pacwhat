@@ -12,11 +12,10 @@ import main.State.PlayerWay;
 public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
-	
+
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
-
 
 	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
 
@@ -64,9 +63,7 @@ public class Player extends JLabel implements Moveable {
 		initData();
 		setInitLayout();
 
-		Thread playerBackground1 = new Thread(new BackgroundPlayerService(this)).start();
-		Thread playerBackground2 = new Thread(new BackgroundPlayerService2(this, this.enemy, this.enemy2, this.enemy3)).start();
-		Thread playerBackground3 = new Thread(new BackgroundPlayerService3(this, this.enemy, this.enemy2, this.enemy3)).start();
+		new Thread(new BackgroundPlayerService(this)).start();
 	}
 
 	private void initData() {
@@ -586,20 +583,20 @@ public class Player extends JLabel implements Moveable {
 		stage.healthScreen[1].setIcon(null);
 		stage.remove(stage.getPlayer());
 		stage.healthScreen[0].setText("----- YOU DIE -----");
-        
-        try {
+
+		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        stage.start(stage);
-    }
+		stage.start(stage);
+	}
 
 	public void lostLifeMotion() {
 		if (playerLife >= 0) {
 			for (int i = 0; i <= 3; i++) {
-				setIcon(imageIconR[0]);
+				setIcon(imageIconR[2]);
 				stage.healthScreen[playerLife + 1].setIcon(imageIconR[4]);
 				try {
 					Thread.sleep(200);
@@ -614,7 +611,7 @@ public class Player extends JLabel implements Moveable {
 					e.printStackTrace();
 				}
 			}
-
+			setIcon(imageIconR[2]);
 		}
 	}
 
@@ -647,8 +644,8 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				state = 1;
 			}
+			state = 1;
 		}
 	}
 
@@ -675,9 +672,8 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				state = 1;
-
 			}
+			state = 1;
 		}
 	}
 
@@ -687,7 +683,6 @@ public class Player extends JLabel implements Moveable {
 		int absYResult = Math.abs(y - stage.getEnemy3().getY());
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
-
 			playerLife--;
 			try {
 				Thread.sleep(200);
@@ -705,9 +700,8 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				state = 1;
-
 			}
+			state = 1;
 		}
 	}
 
@@ -777,7 +771,6 @@ public class Player extends JLabel implements Moveable {
 				clearStage();
 			}
 		}
-
 	}
 
 } // end of class
