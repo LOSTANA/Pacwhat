@@ -277,6 +277,14 @@ public class Player extends JLabel implements Moveable {
 	public void setClearFlag(boolean clearFlag) {
 		this.clearFlag = clearFlag;
 	}
+	
+	public int getEatedCount() {
+		return eatedCount;
+	}
+
+	public void setEatedCount(int eatedCount) {
+		this.eatedCount = eatedCount;
+	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
 	public void changeIconRight() {
@@ -660,6 +668,7 @@ public class Player extends JLabel implements Moveable {
 					stage.getItem()[i].setState(1);
 					state = 2;
 					eatedCount += 50;
+					eatable();
 				}
 			}
 			score = Integer.toString(eatedCount);
