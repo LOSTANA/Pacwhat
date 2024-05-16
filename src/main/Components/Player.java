@@ -367,6 +367,9 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 
 				while (left) {
+					if(playerLife <= 0) {
+						break;
+					}
 					x = x - SPEED;
 					setLocation(x, y);
 						bridgeLeft();
@@ -393,6 +396,9 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (right) {
+					if(playerLife <= 0) {
+						break;
+					}
 					x = x + SPEED;
 					setLocation(x, y);
 						bridgeRight();
@@ -417,6 +423,9 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (up) {
+					if(playerLife <= 0) {
+						break;
+					}
 					y = y - SPEED;
 					setLocation(x, y);
 					try {
@@ -439,6 +448,9 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (down) {
+					if(playerLife <= 0) {
+						break;
+					}
 					y = y + SPEED;
 					setLocation(x, y);
 					try {
@@ -470,7 +482,6 @@ public class Player extends JLabel implements Moveable {
             for (int i = 0; i <= 3; i++) {
                 setIcon(imageIconR[0]);
                 stage.healthScreen[playerLife+1].setIcon(imageIconR[4]);
-
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
@@ -478,7 +489,6 @@ public class Player extends JLabel implements Moveable {
                 }
                 setIcon(null);
                 stage.healthScreen[playerLife+1].setIcon(null);
-
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
@@ -604,7 +614,6 @@ public class Player extends JLabel implements Moveable {
 	// 추후 수정
 	public void clearStage() {
 
-		clearFlag = true;
 			while (clearFlag) {
 
 				left = false;
@@ -645,6 +654,7 @@ public class Player extends JLabel implements Moveable {
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
 			if (eatedCount >= 1700) {
+				clearFlag = true;
 				clearStage();
 			}
 		}
