@@ -6,11 +6,17 @@ import javax.swing.JLabel;
 import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
+import main.Service.BackgroundPlayerService2;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
+	
+	private Enemy1 enemy;
+	private Enemy2 enemy2;
+	private Enemy3 enemy3;
+
 
 	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
 
@@ -57,7 +63,10 @@ public class Player extends JLabel implements Moveable {
 		this.stage = stage;
 		initData();
 		setInitLayout();
-		new Thread(new BackgroundPlayerService(this)).start();
+
+		Thread playerBackground1 = new Thread(new BackgroundPlayerService(this)).start();
+		Thread playerBackground2 = new Thread(new BackgroundPlayerService2(this, this.enemy, this.enemy2, this.enemy3)).start();
+		Thread playerBackground3 = new Thread(new BackgroundPlayerService3(this, this.enemy, this.enemy2, this.enemy3)).start();
 	}
 
 	private void initData() {
@@ -568,7 +577,6 @@ public class Player extends JLabel implements Moveable {
 		}).start();
 	}
 
-<<<<<<< HEAD
 	// 플레이어 완전히 죽었을때 ( life -> 0)
 	// state 1 -- > 0
 	public void completelyDie() {
@@ -578,13 +586,6 @@ public class Player extends JLabel implements Moveable {
 		stage.healthScreen[1].setIcon(null);
 		stage.remove(stage.getPlayer());
 		stage.healthScreen[0].setText("----- YOU DIE -----");
-	}
-=======
-        state = 0;
-        stage.getPlayer().setIcon(null);
-        stage.healthScreen[1].setIcon(null);
-        stage.remove(stage.getPlayer());
-        stage.healthScreen[0].setText("----- YOU DIE -----");
         
         try {
 			Thread.sleep(500);
@@ -594,7 +595,6 @@ public class Player extends JLabel implements Moveable {
 		}
         stage.start(stage);
     }
->>>>>>> 88b41e7fe4fc79a2e64806eda6f6df40f9ae3b0c
 
 	public void lostLifeMotion() {
 		if (playerLife >= 0) {
