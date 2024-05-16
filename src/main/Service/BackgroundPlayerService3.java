@@ -13,7 +13,7 @@ import main.Components.Enemy2;
 import main.Components.Enemy3;
 import main.Components.Player;
 
-public class BackgroundPlayerService2 implements Runnable {
+public class BackgroundPlayerService3 implements Runnable {
 
 	private BufferedImage image;
 	private Player player;
@@ -23,7 +23,7 @@ public class BackgroundPlayerService2 implements Runnable {
 	private Enemy3 enemy3;
 
 	// 생성자 의존 설계
-	public BackgroundPlayerService2(Player player, Enemy1 enemy1, Enemy2 enemy2, Enemy3 enemy3) {
+	public BackgroundPlayerService3(Player player, Enemy1 enemy1, Enemy2 enemy2, Enemy3 enemy3) {
 		this.player = player;
 		this.stage = player.getStage();
 		this.enemy1 = enemy1;
@@ -52,16 +52,23 @@ public class BackgroundPlayerService2 implements Runnable {
 
 	@Override
 	public void run() {
-		while(player.getState()!=2) {
+		while(player.getState()==2) {
+			test("반전 탐지기 시작");
 	        if(Math.abs((player.getX() + 28/ 2) - ( enemy1.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 	                Math.abs( (player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
-	        	player.isBeAttacked1();
+	        	test("반전 탐지기 작동 전");
+	        	player.setEatedCount(player.getEatedCount()+500);
+	        	test("반전 탐지기 작동 후");
 	        	} else if (Math.abs((player.getX() + 28/ 2) - ( enemy2.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 	        			Math.abs( (player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
-	        		player.isBeAttacked2();
+	        		test("반전 탐지기 작동 전");
+	        		player.setEatedCount(player.getEatedCount()+500);
+	        		test("반전 탐지기 작동 후");
 	        		} else if (Math.abs((player.getX() + 28/ 2) - ( enemy3.getX() + 28 / 2)) < ( 28 / 2 + 28 / 2) &&
 			                Math.abs( (player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < ( 28 /2 + 28 / 2)) {
-			        	player.isBeAttacked3();
+	        			test("반전 탐지기 작동 전");
+	        			player.setEatedCount(player.getEatedCount()+500);
+	        			test("반전 탐지기 작동 후");
 			        	} else {
 			        		
 			        	}
