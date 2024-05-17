@@ -640,7 +640,7 @@ public class Player extends JLabel implements Moveable {
 			this.state = 0;
 			playerLife--;
 			try {
-				Thread.sleep(200);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
