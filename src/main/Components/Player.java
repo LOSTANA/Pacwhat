@@ -7,7 +7,6 @@ import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
 import main.Service.BackgroundPlayerService2;
-import main.Service.BackgroundPlayerService3;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
@@ -616,7 +615,7 @@ public class Player extends JLabel implements Moveable {
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
-					
+					e.printStackTrace();
 				}
 			}
 
@@ -758,9 +757,10 @@ public class Player extends JLabel implements Moveable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			stage.start(stage);
+			
 
 		}
+		stage.start(stage);
 	}
 
 	// 먹기 구현
@@ -779,21 +779,15 @@ public class Player extends JLabel implements Moveable {
 			} else if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 2) {
 				if(this.state==2) {
 					eatedCount+=200;
-					break;
+					return;
+				}
+				else {
+					state = 2;
+					eatedCount += 50;
 				}
 
 				stage.getItem()[i].setIcon(null);
 				stage.getItem()[i].setState(1);
-				state = 2;
-				eatedCount += 50;
-				stage.playerAttackable();
-				if(stage.getPlayer().getState()==1) {
-					try {
-						stage.backToNormal();
-					} catch (InterruptedException e) {
-						
-					}
-				}
 
 			}
 			score = Integer.toString(eatedCount);
