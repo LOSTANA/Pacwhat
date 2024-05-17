@@ -16,10 +16,8 @@ public class Player extends JLabel implements Moveable {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
-	
-	public boolean strong=false;
 
-	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
+	public boolean strong = false;
 
 	// 플레이어 살아있는상태 1, 죽은상태 0, 에너미를 먹을수 있는 상태 2 , 클리어 9
 	private int state;
@@ -40,7 +38,6 @@ public class Player extends JLabel implements Moveable {
 	private int eatedCount;
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
-	private ImageIcon playernull;
 	private ImageIcon[] imageIconU = new ImageIcon[5];
 	private ImageIcon[] imageIconD = new ImageIcon[5];
 
@@ -65,9 +62,7 @@ public class Player extends JLabel implements Moveable {
 		this.stage = stage;
 		initData();
 		setInitLayout();
-
 		new Thread(new BackgroundPlayerService(this)).start();
-
 	}
 
 	private void initData() {
@@ -84,8 +79,6 @@ public class Player extends JLabel implements Moveable {
 		imageIconL[2] = new ImageIcon("img/pacman/pac2_L.png");
 		imageIconL[3] = new ImageIcon("img/pacman/pac3_L.png");
 		imageIconL[4] = new ImageIcon("img/pacman/pac4_L.png");
-
-		playernull = new ImageIcon("img/pacman/null.png");
 
 		// 위쪽 이미지 배열
 		imageIconU[0] = new ImageIcon("img/pacman/pac0_U.png");
@@ -124,14 +117,12 @@ public class Player extends JLabel implements Moveable {
 		clearFlag = false; // 클리어시 true
 
 		playerWay = PlayerWay.RIGHT;
-
 	}
 
 	private void setInitLayout() {
 		setIcon(imageIconR[0]);
 		setSize(28, 28);
 		setLocation(x, y);
-
 	}
 
 	// getter, setter
@@ -337,9 +328,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (right) {
-
 					for (int i = 0; i < 5; i++) {
-
 						if (right == false) {
 							break;
 						}
@@ -478,7 +467,6 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-
 				while (left) {
 					if (playerLife <= 0) {
 						break;
@@ -492,7 +480,6 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					eated();
-
 				}
 			}
 		}).start();
@@ -575,9 +562,7 @@ public class Player extends JLabel implements Moveable {
 					}
 					eated();
 				}
-
-			} // end of while
-
+			}
 		}).start();
 	}
 
@@ -590,11 +575,9 @@ public class Player extends JLabel implements Moveable {
 		stage.healthScreen[1].setIcon(null);
 		stage.remove(stage.getPlayer());
 		stage.healthScreen[0].setText("----- YOU DIE -----");
-
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		stage.start(stage);
@@ -603,34 +586,22 @@ public class Player extends JLabel implements Moveable {
 	public void lostLifeMotion() {
 		if (playerLife >= 0) {
 			for (int i = 0; i <= 3; i++) {
-
 				setIcon(imageIconR[2]);
-
 				stage.healthScreen[playerLife + 1].setIcon(imageIconR[4]);
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
 				stage.healthScreen[playerLife + 1].setIcon(null);
-
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-
 			setIcon(imageIconR[2]);
-
 		}
-	}
-
-	public void beAttackedAlways() {
-		isBeAttacked2();
-		isBeAttacked1();
-		isBeAttacked3();
 	}
 
 	// 플레이어 에너미1랑 부딪힐 경우
@@ -740,20 +711,16 @@ public class Player extends JLabel implements Moveable {
 	public void clearStage() {
 
 		while (clearFlag) {
-
 			left = false;
 			right = false;
 			up = false;
 			down = false;
-
 			state = 9;
-
 			eatedCount = 0;
 			stage.scoreScreen.setText("--- Clear!!! ---");
 			for (int i = 0; i < 239; i++) {
 				stage.getItem()[i].setIcon(null);
 			}
-
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -761,51 +728,40 @@ public class Player extends JLabel implements Moveable {
 				e.printStackTrace();
 			}
 			stage.start(stage);
-
 		}
 	}
 
 	// 먹기 구현
 	public void eated() {
-
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
 
 			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
-
 				stage.getItem()[i].setIcon(null);
 				stage.getItem()[i].setState(1);
 				eatedCount += 10;
-
 			} else if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 2) {
-				
-				if(this.state==2 && strong==false) {
+				if (this.state == 2 && strong == false) {
 					stage.getItem()[i].setIcon(null);
 					stage.getItem()[i].setState(1);
-					strong=true;
+					strong = true;
 					return;
-				}
-				else {
+				} else {
 					stage.getItem()[i].setIcon(null);
 					stage.getItem()[i].setState(1);
 					state = 2;
 					eatedCount += 50;
 				}
-
 				stage.getItem()[i].setIcon(null);
 				stage.getItem()[i].setState(1);
-
 			}
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
 			if (eatedCount >= 1700) {
 				clearFlag = true;
 				clearStage();
-
 			}
-
 		}
 	}
-
-} // end of class
+}
