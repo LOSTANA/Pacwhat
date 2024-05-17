@@ -63,6 +63,11 @@ public class BackgroundPlayerService2 implements Runnable {
 		System.out.println("백그2 시작");
 		while(flag) {
 			if(player.getState()==2) {
+				System.out.println("백그2 종료1");
+				flag=false;
+				break;
+			}
+			if(player.getState()==1) {
 				if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
 						&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
 					player.isBeAttacked1();
@@ -74,17 +79,17 @@ public class BackgroundPlayerService2 implements Runnable {
 				} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
 						&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
 					player.isBeAttacked3();
-				} else {
-
-				}
+			} 
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Thread.currentThread().interrupt();
 				}
 			}
-		}
+			}
+
+		player.setState(2);
+		System.out.println("백그 2 종료2");
 	}
 
 }

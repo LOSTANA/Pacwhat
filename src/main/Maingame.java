@@ -48,7 +48,7 @@ public class Maingame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-		
+		backToNormal();
 
 	}
 
@@ -203,7 +203,7 @@ public class Maingame extends JFrame {
 
 		setVisible(true);
 		for (int i = 0; i < 4; i++) {
-			int a = rd.nextInt(239) + 1;
+			int a = rd.nextInt(238) + 1;
 			if (item[a].getIcon() == null) {
 				i--;
 				System.out.println(i + 1 + "롤백");
@@ -212,11 +212,12 @@ public class Maingame extends JFrame {
 				item[a].transitem(i);
 				System.out.println(a + "번째에 아이템 " + i + "생성");
 
+			} else {
+				
 			}
 
 		}
 		
-		backToNormal();
 	}
 
 
@@ -373,31 +374,55 @@ public class Maingame extends JFrame {
 	}
 	
 	 public void playerAttackable() {
+
+			player.setState(2);
 			if(player.getState()==2) {
+				System.out.println("어태커블 들어옴");
 				if(back2 != null) {
-				back2.interrupt();
+					System.out.println("어태커블 걸러짐");
+					try {
+						back2.interrupt();
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
 				if(back2.interrupted()) {
 				System.out.println("어태커블 작동");
 				}
 				System.out.println("어태커블 -back3 시작");
 				back3.start();
 			}
+				else {
+					System.out.println(player.getState());
+				}
+			}
+			if(player.getState()==1) {
+				System.out.println("어태커블로 돌아옴");
+				back3.stop();
+				System.out.println("백투노말 고");
+				backToNormal();
 			}
 		}
 		
 		public void backToNormal() {
 			if(player.getState()!=2) {
 				if(back3 !=null) {
-				back3.interrupt();
+					System.out.println("노말 걸러짐");
+					back3.interrupt();
 				if(back3.interrupted()) {
 					System.out.println("백투노말 작동");
 				}
 				
 				System.out.println("백투노말 -back2 시작");
 				back2.start();
+				System.out.println("백2 시작");
 				}
+				}
+			if(player.getState()==2) {
+				back2.stop();
+				System.out.println("어태커블 고");
+				playerAttackable();
 			}
-		}
+			}
 	
 
 	public void pause() {

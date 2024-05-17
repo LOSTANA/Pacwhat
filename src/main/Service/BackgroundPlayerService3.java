@@ -64,7 +64,12 @@ public class BackgroundPlayerService3 implements Runnable {
 			// for 문 반복문으로 0.2초x30번 반복(6초 동안 지속)
 			
 			while(flag) {
-				if(player.getState() == 2) {
+				if(player.getState()==1) {
+					System.out.println("백그3 종료");
+					flag=false;
+					break;
+					
+				} else if (player.getState() == 2) {
 					System.out.println("if 통과");
 					for (int i = 0; i < 10; i++) {
 						System.out.println("while 시작");
@@ -95,17 +100,19 @@ public class BackgroundPlayerService3 implements Runnable {
 						} else {
 							System.out.println("if 통과 못함");
 						}
-						try {
-							Thread.sleep(800);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 						// System.out.println(i+"번째");
+						
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+						}
 					}
 					// 무적상태 (6초 후) 원래 상태로 복귀
+					System.out.println("set state==1");
 					player.setState(1);
-				}
+					return;
+				} 
 			}
 			
 	
