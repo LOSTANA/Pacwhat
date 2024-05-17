@@ -99,7 +99,7 @@ public class BackgroundPlayerService3 implements Runnable {
 					}
 					// 무적상태 (6초 후) 원래 상태로 복귀
 					player.setState(1);
-					System.out.println("백그3 끝");
+					
 				}
 			}
 			

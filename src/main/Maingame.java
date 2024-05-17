@@ -1,4 +1,3 @@
-
 package main;
 
 import java.awt.BorderLayout;
@@ -48,7 +47,7 @@ public class Maingame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-		player.back2Start();
+
 	}
 
 	public Player getPlayer() {
@@ -131,10 +130,8 @@ public class Maingame extends JFrame {
 		enemy2 = new Enemy2(this);
 		enemy3 = new Enemy3(this);
 		
-		back2 = new Thread(new BackgroundPlayerService2(player,enemy,enemy2,enemy3));
-		back3 = new Thread(new BackgroundPlayerService3(player,enemy,enemy2,enemy3));
 
-		
+		back3 = new Thread(new BackgroundPlayerService3(player, enemy, enemy2, enemy3));
 
 		for (int i = 0; i < 239; i++) {
 			item[i] = new Item(this);
@@ -216,7 +213,7 @@ public class Maingame extends JFrame {
 
 		setVisible(true);
 		for (int i = 0; i < 4; i++) {
-			int a = rd.nextInt(239) + 1;
+			int a = rd.nextInt(238) + 1;
 			if (item[a].getIcon() == null) {
 				i--;
 				System.out.println(i + 1 + "롤백");
@@ -228,6 +225,8 @@ public class Maingame extends JFrame {
 			}
 
 		}
+
+		new Thread(new BackgroundPlayerService2(this)).start();
 
 	}
 
@@ -378,8 +377,7 @@ public class Maingame extends JFrame {
 
 	}
 
-
-		// if (player.getState() == 2) {
+	// if (player.getState() == 2) {
 //			if (back2 != null) {
 //				if (back3.isAlive()) {
 //
@@ -398,7 +396,7 @@ public class Maingame extends JFrame {
 //		}
 //	}
 
-		// if (player.getState() != 2) {
+	// if (player.getState() != 2) {
 //			if (back3 != null) {
 //				if (back2.isAlive()) {
 //
@@ -415,8 +413,37 @@ public class Maingame extends JFrame {
 //			} else {
 //			}
 //		}
-	//}
+	// }
 
+
+//	
+//	 public void playerAttackable() {
+//			if(player.getState()==2) {
+//				if(back2 != null) {
+//				back2.interrupt();
+//				if(back2.interrupted()) {
+//				System.out.println("어태커블 작동");
+//				}
+//				System.out.println("어태커블 -back3 시작");
+//				back3.start();
+//			}
+//			}
+//		}
+//		
+//		public void backToNormal() {
+//			if(player.getState()!=2) {
+//				if(back3 !=null) {
+//				back3.interrupt();
+//				if(back3.interrupted()) {
+//					System.out.println("백투노말 작동");
+//				}
+//				
+//				System.out.println("백투노말 -back2 시작");
+//				back2.start();
+//				}
+//			}
+//		}
+//	
 	public void pause() {
 		new PauseGame(this);
 	}
@@ -426,5 +453,4 @@ public class Maingame extends JFrame {
 		new Startgame(this);
 		dispose();
 	}
-
 }

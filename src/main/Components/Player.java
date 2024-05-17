@@ -67,7 +67,9 @@ public class Player extends JLabel implements Moveable {
 		setInitLayout();
 
 		new Thread(new BackgroundPlayerService(this)).start();
-		back2Start();
+		
+		
+		
 	}
 
 	private void initData() {
@@ -792,7 +794,7 @@ public class Player extends JLabel implements Moveable {
 				stage.getItem()[i].setState(1);
 				state = 2;
 				eatedCount += 50;
-				back3Start();
+				stage.getEnemy().beAttcked();
 				
 
 			}
@@ -808,17 +810,8 @@ public class Player extends JLabel implements Moveable {
 			}
 
 		}
-	
 	}
 	
-	public void back2Start() {
-		stage.getBack2().start();
-		stage.getBack3().stop();
-	}
-	public void back3Start() {
-		stage.getBack3().start();
-		stage.getBack2().stop();
-	}
 	
 
 } // end of class

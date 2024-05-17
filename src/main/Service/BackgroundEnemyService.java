@@ -8,11 +8,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import main.Components.Enemy1;
+import main.Components.Player;
 
 public class BackgroundEnemyService {
 
 	private BufferedImage image;
 	private Enemy1 enemy;
+	private Player player;
 
 	public BackgroundEnemyService(Enemy1 enemy) {
 		this.enemy = enemy;
@@ -61,5 +63,7 @@ public class BackgroundEnemyService {
 		return false;
 
 	}
+	
+	
 
 }

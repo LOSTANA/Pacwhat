@@ -115,6 +115,12 @@ public class Startgame extends JFrame {
 				case KeyEvent.VK_SPACE:
 					Maingame start = new Maingame();
 					dispose();
+					break;
+				case KeyEvent.VK_ESCAPE:
+					System.exit(0);
+					break;
+				
+				
 				}
 
 			}
