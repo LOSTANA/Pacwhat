@@ -35,7 +35,7 @@ public class Maingame extends JFrame {
 	private Enemy3 enemy3;
 	
 	private Thread back2;
-	private Thread back3;
+
 
 	public int width = 0;
 	public int height = 0;
@@ -265,6 +265,11 @@ public class Maingame extends JFrame {
 					enemy.setRight(false);
 					enemy.setUp(false);
 					enemy.setDown(false);
+					enemy.setScreamLeft(false);
+					enemy.setScreamRight(false);
+					enemy.setScreamUp(false);
+					enemy.setScreamDown(false);
+					
 					enemy2.setLeft(false);
 					enemy2.setRight(false);
 					enemy2.setUp(false);

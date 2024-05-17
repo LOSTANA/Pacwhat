@@ -727,8 +727,14 @@ public class Player extends JLabel implements Moveable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+<<<<<<< HEAD
 			stage.start(stage);
+=======
+			
+
+>>>>>>> 888c1e448d61d9aa72fbb90b0f006e86b55e6ad2
 		}
+		stage.start(stage);
 	}
 
 	// 먹기 구현
