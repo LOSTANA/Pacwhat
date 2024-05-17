@@ -35,7 +35,7 @@ public class Startgame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-
+		
 	}
 
 	private void initData() {
@@ -112,9 +112,15 @@ public class Startgame extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
-				case KeyEvent.VK_1:
+				case KeyEvent.VK_SPACE:
 					Maingame start = new Maingame();
 					dispose();
+					break;
+				case KeyEvent.VK_ESCAPE:
+					System.exit(0);
+					break;
+				
+				
 				}
 
 			}
