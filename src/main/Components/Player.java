@@ -16,6 +16,8 @@ public class Player extends JLabel implements Moveable {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
+	
+	public boolean strong=false;
 
 	// 플레이어 가만히 있을 때 에너미 부딪혀도 목숨 줄어들게
 
@@ -776,11 +778,16 @@ public class Player extends JLabel implements Moveable {
 				eatedCount += 10;
 
 			} else if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 2) {
-				if(this.state==2) {
-					eatedCount+=200;
+				
+				if(this.state==2 && strong==false) {
+					stage.getItem()[i].setIcon(null);
+					stage.getItem()[i].setState(1);
+					strong=true;
 					return;
 				}
 				else {
+					stage.getItem()[i].setIcon(null);
+					stage.getItem()[i].setState(1);
 					state = 2;
 					eatedCount += 50;
 				}
