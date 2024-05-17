@@ -777,8 +777,7 @@ public class Player extends JLabel implements Moveable {
 				stage.getItem()[i].setState(1);
 				eatedCount += 10;
 
-			} else if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 2
-					&& this.state!=2) {
+			} else if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 2) {
 
 				stage.getItem()[i].setIcon(null);
 				stage.getItem()[i].setState(1);

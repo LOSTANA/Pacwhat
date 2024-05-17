@@ -7,20 +7,23 @@ import javax.swing.JLabel;
 
 import main.Maingame;
 import main.Interface.Moveable;
-import main.Service.BackgroundEnemyService2;
 import main.Service.BackgroundEnemyService3;
 import main.State.EnemyWay;
 
 public class Enemy3 extends JLabel implements Moveable {
 
 	Maingame stage;
+	Player player;
+	Enemy3 enemy;
+
+	private boolean flag = true;
 
 	private int direction;
-	
+
 	// 적군의 좌표값 위치 상태
 	private int x;
 	private int y;
-	private ImageIcon enemyR, enemyL, enemyD, enemyU;
+	private ImageIcon enemyR, enemyL, enemyD, enemyU, enemyS, enemyT;
 	private BackgroundEnemyService3 backgroundEnemyService3;
 
 	// 움직임의 상태
@@ -38,11 +41,20 @@ public class Enemy3 extends JLabel implements Moveable {
 	private boolean upWallCrash;
 	private boolean downWallCrash;
 
+	// 스크림모드의 움직임상태
+	private boolean screamLeft;
+	private boolean screamRight;
+	private boolean screamUp;
+	private boolean screamDown;
+
 	// 적군 속도 상태
 	private final int SPEED = 2; // 수정
 
 	// enemy 스타트 시간 0.1초단위
-	private final int enemyStart = 150;
+	private final int enemyStart = 100;
+
+	// enemy 피격 박스
+	int beattackedBox = 28;
 
 	public Enemy3(Maingame stage) {
 		this.stage = stage;
@@ -54,10 +66,12 @@ public class Enemy3 extends JLabel implements Moveable {
 
 	private void initData() {
 
-		enemyR = new ImageIcon("img/ghostmove/redR.gif");
-		enemyL = new ImageIcon("img/ghostmove/redL.gif");
-		enemyD = new ImageIcon("img/ghostmove/redD.gif");
-		enemyU = new ImageIcon("img/ghostmove/redU.gif");
+		enemyR = new ImageIcon("img/ghostmove/pinkR.gif");
+		enemyL = new ImageIcon("img/ghostmove/pinkL.gif");
+		enemyD = new ImageIcon("img/ghostmove/pinkD.gif");
+		enemyU = new ImageIcon("img/ghostmove/pinkU.gif");
+		enemyS = new ImageIcon("img/ghostmove/ghostDie.gif");
+		enemyT = new ImageIcon("img/ghostmove/ghostDieTime.gif");
 
 		backgroundEnemyService3 = new BackgroundEnemyService3(this);
 
@@ -66,11 +80,15 @@ public class Enemy3 extends JLabel implements Moveable {
 		right = false;
 		up = false;
 		down = false;
+		screamLeft = false;
+		screamRight = false;
+		screamUp = false;
+		screamDown = false;
 
 		enemyWay = EnemyWay.RIGHT;
 
 		// 처음 실행 시 초기 값 셋팅 (수정)
-		x = 365;
+		x = 355;
 		y = 435;
 
 	}
@@ -81,6 +99,286 @@ public class Enemy3 extends JLabel implements Moveable {
 		setSize(28, 28); // 수정 해야됨
 		setLocation(x, y);
 
+	}
+
+	// 에너미가 공격 당하는 상태
+	public void beAttcked() {
+
+		if (stage.getState() == 2) {
+			System.out.println("작동3");
+			setIcon(enemyS);
+			screamchange();
+		}
+		if (stage.getState() != 2) {
+			change();
+		}
+	}
+
+	// 리스폰
+	private void enemyRestart() {
+
+		setLocation(x = 360, y = 435);
+		setIcon(enemyU);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i < 30; i++) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				for (int i = 0; i < 35; i++) {
+					y -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+
+					}
+					right();
+				}
+			}
+		}).start();
+	}
+
+	// 스크림적의 방향을 무작위로 변경하는 값
+	private void screamchange() {
+		Random random = new Random();
+		int direction = random.nextInt(4); // 0~3 무작위 숫자 생성
+
+		switch (direction) {
+		case 0:
+			// 방어적 코드
+			if (!leftWallCrash) {
+				screamLeft();
+			}
+			break;
+		case 1:
+			// 방어적 코드
+			if (!rightWallCrash) {
+				screamRight();
+			}
+			break;
+		case 2:
+			// 방어적 코드
+			if (!upWallCrash) {
+				screamUp();
+			}
+			break;
+		case 3:
+			// 방어적 코드
+			if (!downWallCrash) {
+				screamDown();
+			}
+			break;
+		default:
+			// 이동할 수 있는 방향이 없는 경우
+			break;
+		}
+	}
+
+	// 스크림 모드 왼쪽
+	private void screamLeft() {
+		this.enemyWay = EnemyWay.LEFT;
+		screamLeft = true;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (screamLeft) {
+					x -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					// 왼쪽 상단
+					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+						enemyRestart();
+					}
+					// 오른쪽상단
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() == enemy.getY()) {
+						enemyRestart();
+					}
+					// 왼쪽하단
+					if (player.getX() == enemy.getX()
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+						enemyRestart();
+					}
+					// 오른쪽 하단
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+
+						enemyRestart();
+					}
+					if (stage.getState() == 1) {
+						screamLeft = false;
+						change();
+					}
+					if (backgroundEnemyService3.leftWall()) {
+						break;
+					}
+				}
+				if (backgroundEnemyService3.leftWall()) {
+					screamLeft = false;
+					screamchange();
+				}
+			}
+		}).start();
+	}
+
+	// 스크림 모드 오른쪽
+	private void screamRight() {
+		this.enemyWay = EnemyWay.LEFT;
+		screamRight = true;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (screamRight) {
+					x -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					// 왼쪽 상단
+					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+						enemyRestart();
+					}
+					// 오른쪽상단
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() == enemy.getY()) {
+						enemyRestart();
+					}
+					// 왼쪽하단
+					if (player.getX() == enemy.getX()
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+						enemyRestart();
+					}
+					// 오른쪽 하단
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+						enemyRestart();
+					}
+					if (stage.getState() == 1) {
+						screamRight = false;
+						change();
+					}
+					if (backgroundEnemyService3.leftWall()) {
+						break;
+					}
+				}
+				if (backgroundEnemyService3.leftWall()) {
+					screamRight = false;
+					screamchange();
+				}
+			}
+		}).start();
+	}
+
+	// 스크림 모드 위
+	private void screamUp() {
+		this.enemyWay = EnemyWay.LEFT;
+		screamUp = true;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (screamUp) {
+					x -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					// 왼쪽 상단
+					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+						enemyRestart();
+					}
+					// 오른쪽상단
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() == enemy.getY()) {
+						enemyRestart();
+					}
+					// 왼쪽하단
+					if (player.getX() == enemy.getX()
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+						enemyRestart();
+					}
+					// 오른쪽 하단
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+						enemyRestart();
+					}
+					if (backgroundEnemyService3.leftWall()) {
+						break;
+					}
+					if (stage.getState() == 1) {
+						screamUp = false;
+						change();
+					}
+				}
+				if (backgroundEnemyService3.leftWall()) {
+					screamUp = false;
+					screamchange();
+				}
+			}
+		}).start();
+	}
+
+	// 스크림 모드 아래
+	private void screamDown() {
+		this.enemyWay = EnemyWay.LEFT;
+		screamDown = true;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (screamDown) {
+					x -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					// 왼쪽 상단
+					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+						enemyRestart();
+					}
+					// 오른쪽상단
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() == enemy.getY()) {
+						enemyRestart();
+					}
+					// 왼쪽하단
+					if (player.getX() == enemy.getX()
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+						enemyRestart();
+					}
+					// 오른쪽 하단
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+						enemyRestart();
+					}
+					if (backgroundEnemyService3.leftWall()) {
+						break;
+					}
+					if (stage.getState() == 1) {
+						screamDown = false;
+						change();
+					}
+				}
+				if (backgroundEnemyService3.leftWall()) {
+					screamDown = false;
+					screamchange();
+				}
+			}
+		}).start();
 	}
 
 	// 에너미 스타트
@@ -109,7 +407,7 @@ public class Enemy3 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 				}
-				right();
+				left();
 			}
 		}).start();
 
@@ -167,6 +465,10 @@ public class Enemy3 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					if (stage.getState() == 2) {
+						left = false;
+						beAttcked();
+					}
 					if (backgroundEnemyService3.leftWall()) {
 						break;
 					}
@@ -196,6 +498,10 @@ public class Enemy3 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					if (stage.getState() == 2) {
+						right = false;
+						beAttcked();
+					}
 					if (backgroundEnemyService3.rightWall()) {
 						break;
 					}
@@ -224,6 +530,10 @@ public class Enemy3 extends JLabel implements Moveable {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					}
+					if (stage.getState() == 2) {
+						up = false;
+						beAttcked();
 					}
 					if (backgroundEnemyService3.upWall()) {
 						break;
@@ -255,6 +565,10 @@ public class Enemy3 extends JLabel implements Moveable {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					}
+					if (stage.getState() == 2) {
+						down = false;
+						beAttcked();
 					}
 					if (backgroundEnemyService3.downWall()) {
 						break;
@@ -402,7 +716,7 @@ public class Enemy3 extends JLabel implements Moveable {
 	public int getSPEED() {
 		return SPEED;
 	}
-	
+
 	public int getDirection() {
 		return direction;
 	}

@@ -381,8 +381,6 @@ public class Maingame extends JFrame {
 				}
 				System.out.println("어태커블 -back3 시작");
 				back3.start();
-				back3.interrupt();
-				back2.start();
 			}
 			}
 		}
