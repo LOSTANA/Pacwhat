@@ -51,7 +51,7 @@ public class Enemy3 extends JLabel implements Moveable {
 	private final int SPEED = 2; // 수정
 
 	// enemy 스타트 시간 0.1초단위
-	private final int enemyStart = 100;
+	private final int enemyStart = 150;
 
 	// enemy 피격 박스
 	int beattackedBox = 28;
@@ -66,10 +66,10 @@ public class Enemy3 extends JLabel implements Moveable {
 
 	private void initData() {
 
-		enemyR = new ImageIcon("img/ghostmove/pinkR.gif");
-		enemyL = new ImageIcon("img/ghostmove/pinkL.gif");
-		enemyD = new ImageIcon("img/ghostmove/pinkD.gif");
-		enemyU = new ImageIcon("img/ghostmove/pinkU.gif");
+		enemyR = new ImageIcon("img/ghostmove/redR.gif");
+		enemyL = new ImageIcon("img/ghostmove/redL.gif");
+		enemyD = new ImageIcon("img/ghostmove/redD.gif");
+		enemyU = new ImageIcon("img/ghostmove/redU.gif");
 		enemyS = new ImageIcon("img/ghostmove/ghostDie.gif");
 		enemyT = new ImageIcon("img/ghostmove/ghostDieTime.gif");
 
@@ -88,7 +88,7 @@ public class Enemy3 extends JLabel implements Moveable {
 		enemyWay = EnemyWay.RIGHT;
 
 		// 처음 실행 시 초기 값 셋팅 (수정)
-		x = 355;
+		x = 350;
 		y = 435;
 
 	}
