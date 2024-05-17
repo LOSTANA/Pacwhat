@@ -18,7 +18,6 @@ import main.Components.Enemy3;
 import main.Components.Item;
 import main.Components.Player;
 import main.Service.BackgroundPlayerService2;
-import main.Service.BackgroundPlayerService3;
 
 public class Maingame extends JFrame {
 
@@ -48,8 +47,6 @@ public class Maingame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-		backToNormal();
-
 	}
 
 	public Player getPlayer() {
@@ -169,6 +166,7 @@ public class Maingame extends JFrame {
 		add(enemy2);
 		add(enemy3);
 		add(new JLabel("테스트"));
+		
 
 		for (int i = 1; i < 239; i++) {
 
@@ -368,62 +366,10 @@ public class Maingame extends JFrame {
 		});
 
 		back2 = new Thread(new BackgroundPlayerService2(player, enemy, enemy2, enemy3));
-	    back3 = new Thread(new BackgroundPlayerService3(player, enemy, enemy2, enemy3));	
-		
-	   
+		back2.start();
 	}
 	
-	 public void playerAttackable() {
-
-			player.setState(2);
-			if(player.getState()==2) {
-				System.out.println("어태커블 들어옴");
-				if(back2 != null) {
-					System.out.println("어태커블 걸러짐");
-					try {
-						back2.interrupt();
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
-				if(back2.interrupted()) {
-				System.out.println("어태커블 작동");
-				}
-				System.out.println("어태커블 -back3 시작");
-				back3.start();
-			}
-				else {
-					System.out.println(player.getState());
-				}
-			}
-			if(player.getState()==1) {
-				System.out.println("어태커블로 돌아옴");
-				back3.stop();
-				System.out.println("백투노말 고");
-				backToNormal();
-			}
-		}
-		
-		public void backToNormal() {
-			if(player.getState()!=2) {
-				if(back3 !=null) {
-					System.out.println("노말 걸러짐");
-					back3.interrupt();
-				if(back3.interrupted()) {
-					System.out.println("백투노말 작동");
-				}
-				
-				System.out.println("백투노말 -back2 시작");
-				back2.start();
-				System.out.println("백2 시작");
-				}
-				}
-			if(player.getState()==2) {
-				back2.stop();
-				System.out.println("어태커블 고");
-				playerAttackable();
-			}
-			}
-	
+	 
 
 	public void pause() {
 		new PauseGame(this);
