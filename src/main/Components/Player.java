@@ -29,7 +29,6 @@ public class Player extends JLabel implements Moveable {
 
 	// 점수
 	private String score;
-	private int finalscore;
 
 	private boolean clearFlag;
 
@@ -67,9 +66,6 @@ public class Player extends JLabel implements Moveable {
 		setInitLayout();
 
 		new Thread(new BackgroundPlayerService(this)).start();
-		
-		
-		
 	}
 
 	private void initData() {
@@ -133,7 +129,7 @@ public class Player extends JLabel implements Moveable {
 		setIcon(imageIconR[0]);
 		setSize(28, 28);
 		setLocation(x, y);
-		
+
 	}
 
 	// getter, setter
@@ -331,13 +327,6 @@ public class Player extends JLabel implements Moveable {
 
 	public void setImageIconD(ImageIcon[] imageIconD) {
 		this.imageIconD = imageIconD;
-	}
-	public int getFinalscore() {
-		return finalscore;
-	}
-
-	public void setFinalscore(int finalscore) {
-		this.finalscore = finalscore;
 	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
@@ -627,7 +616,7 @@ public class Player extends JLabel implements Moveable {
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					
 				}
 			}
 
@@ -769,10 +758,9 @@ public class Player extends JLabel implements Moveable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			stage.start(stage);
 
 		}
-		stage.start(stage);
 	}
 
 	// 먹기 구현
@@ -789,21 +777,28 @@ public class Player extends JLabel implements Moveable {
 				eatedCount += 10;
 
 			} else if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 2) {
+				if(this.state==2) {
+					eatedCount+=200;
+					break;
+				}
 
 				stage.getItem()[i].setIcon(null);
 				stage.getItem()[i].setState(1);
 				state = 2;
 				eatedCount += 50;
-				stage.getEnemy().beAttcked();
-				
+				stage.playerAttackable();
+				if(stage.getPlayer().getState()==1) {
+					try {
+						stage.backToNormal();
+					} catch (InterruptedException e) {
+						
+					}
+				}
 
 			}
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
-			
 			if (eatedCount >= 1700) {
-				finalscore = eatedCount;
-				stage.scoreScreen.setText("점수 : " + finalscore + "(Clear)");
 				clearFlag = true;
 				clearStage();
 

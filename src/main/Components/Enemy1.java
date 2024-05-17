@@ -18,9 +18,9 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	private int direction;
 
+	
 	// 적군의 좌표값 위치 상태
 	private int x;
-	private int y;
 
 	public BackgroundEnemyService getBackgroundEnemyService() {
 		return backgroundEnemyService;
@@ -34,6 +34,7 @@ public class Enemy1 extends JLabel implements Moveable {
 		return stage;
 	}
 
+	private int y;
 	private ImageIcon enemyR, enemyL, enemyD, enemyU, enemyS, enemyT;
 	private BackgroundEnemyService backgroundEnemyService;
 
@@ -58,8 +59,6 @@ public class Enemy1 extends JLabel implements Moveable {
 	private boolean screamUp;
 	private boolean screamDown;
 
-	
-	private int state = 1;
 	// 적군 속도 상태
 	private final int SPEED = 2; // 수정
 
@@ -71,8 +70,6 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	public Enemy1(Maingame stage) {
 		this.stage = stage;
-		this.player = stage.getPlayer();
-		
 		initData();
 		setInitLayout();
 
@@ -85,8 +82,8 @@ public class Enemy1 extends JLabel implements Moveable {
 		enemyL = new ImageIcon("img/ghostmove/cyanL.gif");
 		enemyD = new ImageIcon("img/ghostmove/cyanD.gif");
 		enemyU = new ImageIcon("img/ghostmove/cyanU.gif");
-		enemyS = new ImageIcon("img/ghost1/ghostDie2.gif");
-		enemyT = new ImageIcon("img/ghost1/ghostDieTime.gif");
+		enemyS = new ImageIcon("img/ghostmove/ghostDie.gif");
+		enemyT = new ImageIcon("img/ghostmove/ghostDieTime.gif");
 
 		backgroundEnemyService = new BackgroundEnemyService(this);
 
@@ -117,6 +114,17 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 에너미가 공격 당하는 상태
+	public void beAttcked() {
+
+		if (stage.getState() == 2) {
+			System.out.println("작동3");
+			setIcon(enemyS);
+			screamchange();
+		}
+		if (stage.getState() != 2) {
+			change();
+		}
+	}
 
 	// 리스폰
 	private void enemyRestart() {
@@ -151,7 +159,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	// 스크림적의 방향을 무작위로 변경하는 값
 	private void screamchange() {
 		Random random = new Random();
-		direction = random.nextInt(4); // 0~3 무작위 숫자 생성
+		int direction = random.nextInt(4); // 0~3 무작위 숫자 생성
 
 		switch (direction) {
 		case 0:
@@ -200,28 +208,28 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (stage.getPlayer().getX() == x && stage.getPlayer().getY() == y) {
+					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-							&& stage.getPlayer().getY() == y) {
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() == enemy.getY()) {
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (stage.getPlayer().getX() == x
-							&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
+					if (player.getX() == enemy.getX()
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-							&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
 
 						enemyRestart();
 					}
-					if (stage.getPlayer().getState() == 1) {
+					if (stage.getState() == 1) {
 						screamLeft = false;
-						beAttcked();
+						change();
 					}
 					if (backgroundEnemyService.leftWall()) {
 						break;
@@ -237,7 +245,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	// 스크림 모드 오른쪽
 	private void screamRight() {
-		this.enemyWay = EnemyWay.RIGHT;
+		this.enemyWay = EnemyWay.LEFT;
 		screamRight = true;
 		new Thread(new Runnable() {
 			@Override
@@ -251,33 +259,33 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (stage.getPlayer().getX() == x && stage.getPlayer().getY() == y) {
+					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-							&& stage.getPlayer().getY() == y) {
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() == enemy.getY()) {
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (stage.getPlayer().getX() == x
-							&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
+					if (player.getX() == enemy.getX()
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-							&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
 						enemyRestart();
 					}
-					if (stage.getPlayer().getState() == 1) {
+					if (stage.getState() == 1) {
 						screamRight = false;
-						beAttcked();
+						change();
 					}
-					if (backgroundEnemyService.rightWall()) {
+					if (backgroundEnemyService.leftWall()) {
 						break;
 					}
 				}
-				if (backgroundEnemyService.rightWall()) {
+				if (backgroundEnemyService.leftWall()) {
 					screamRight = false;
 					screamchange();
 				}
@@ -287,7 +295,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	// 스크림 모드 위
 	private void screamUp() {
-		this.enemyWay = EnemyWay.UP;
+		this.enemyWay = EnemyWay.LEFT;
 		screamUp = true;
 		new Thread(new Runnable() {
 			@Override
@@ -301,33 +309,33 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (stage.getPlayer().getX() == x && player.getY() == y) {
+					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-							&& stage.getPlayer().getY() == y) {
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() == enemy.getY()) {
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (stage.getPlayer().getX() == x
-							&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
+					if (player.getX() == enemy.getX()
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-							&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
 						enemyRestart();
 					}
-					if (backgroundEnemyService.upWall()) {
+					if (backgroundEnemyService.leftWall()) {
 						break;
 					}
-					if (stage.getPlayer().getState() == 1) {
+					if (stage.getState() == 1) {
 						screamUp = false;
-						beAttcked();
+						change();
 					}
 				}
-				if (backgroundEnemyService.upWall()) {
+				if (backgroundEnemyService.leftWall()) {
 					screamUp = false;
 					screamchange();
 				}
@@ -337,7 +345,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	// 스크림 모드 아래
 	private void screamDown() {
-		this.enemyWay = EnemyWay.DOWN;
+		this.enemyWay = EnemyWay.LEFT;
 		screamDown = true;
 		new Thread(new Runnable() {
 			@Override
@@ -351,33 +359,33 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (stage.getPlayer().getX() == x && stage.getPlayer().getY() == y) {
+					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-							&& stage.getPlayer().getY() == y) {
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() == enemy.getY()) {
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (stage.getPlayer().getX() == x
-							&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
+					if (player.getX() == enemy.getX()
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-							&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
+					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
+							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
 						enemyRestart();
 					}
-					if (backgroundEnemyService.downWall()) {
+					if (backgroundEnemyService.leftWall()) {
 						break;
 					}
-					if (stage.getPlayer().getState() == 1) {
+					if (stage.getState() == 1) {
 						screamDown = false;
-						beAttcked();
+						change();
 					}
 				}
-				if (backgroundEnemyService.downWall()) {
+				if (backgroundEnemyService.leftWall()) {
 					screamDown = false;
 					screamchange();
 				}
@@ -425,53 +433,27 @@ public class Enemy1 extends JLabel implements Moveable {
 		switch (direction) {
 		case 0:
 			// 방어적 코드
-			if (stage.getPlayer().getState() == 1) {
-				if (!leftWallCrash) {
-					left();
-				}
-			} else if (stage.getPlayer().getState() == 2) {
-				if (!leftWallCrash) {
-					screamLeft();
-				}
+			if (!leftWallCrash) {
+				left();
 			}
 			break;
 		case 1:
 			// 방어적 코드
-			if (stage.getPlayer().getState() == 1) {
-				if (!rightWallCrash) {
-					right();
-				}
-			} else if (stage.getPlayer().getState() == 2) {
-				if (!leftWallCrash) {
-					screamRight();
-				}
+			if (!rightWallCrash) {
+				right();
 			}
 			break;
 		case 2:
 			// 방어적 코드
-			if (stage.getPlayer().getState() == 1) {
-				if (!upWallCrash) {
-					up();
-				}
-			} else if (stage.getPlayer().getState() == 2) {
-				if (!upWallCrash) {
-					screamUp();
-				}
+			if (!upWallCrash) {
+				up();
 			}
-
 			break;
 		case 3:
 			// 방어적 코드
-			if (stage.getPlayer().getState() == 1) {
-				if (!downWallCrash) {
-					down();
-				}
-			} else if (stage.getPlayer().getState() == 2) {
-				if (!downWallCrash) {
-					screamDown();
-				}
+			if (!downWallCrash) {
+				down();
 			}
-
 			break;
 		default:
 			// 이동할 수 있는 방향이 없는 경우
@@ -481,357 +463,137 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	@Override
 	public void left() {
-
-		if (state != 2) {
-			this.enemyWay = EnemyWay.LEFT;
-			left = true;
-			setIcon(enemyR);
-
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					while (right) {
-						y -= SPEED;
-						setLocation(x, y);
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						if (stage.getPlayer().getState() == 2) {
-							left = false;
-							beAttcked();
-						}
-						if (backgroundEnemyService.leftWall()) {
-							break;
-						}
+		this.enemyWay = EnemyWay.LEFT;
+		left = true;
+		setIcon(enemyL);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (left) {
+					x -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (stage.getState() == 2) {
+						left = false;
+						beAttcked();
 					}
 					if (backgroundEnemyService.leftWall()) {
-						left = false;
-						change();
+						break;
 					}
 				}
-			}).start();
-		} else if (state == 2) {
-
-			this.enemyWay = EnemyWay.RIGHT;
-			left = true;
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					while (left) {
-						x -= SPEED;
-						setLocation(x, y);
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						// 왼쪽 상단
-						if (stage.getPlayer().getX() == x && stage.getPlayer().getY() == y) {
-							enemyRestart();
-						}
-						// 오른쪽상단
-						if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-								&& stage.getPlayer().getY() == y) {
-							enemyRestart();
-						}
-						// 왼쪽하단
-						if (stage.getPlayer().getX() == x
-								&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
-							enemyRestart();
-						}
-						// 오른쪽 하단
-						if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-								&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
-							enemyRestart();
-						}
-						if (backgroundEnemyService.leftWall()) {
-							
-							break;
-						}
-						if (stage.getPlayer().getState() == 1) {
-							left = false;
-							beAttcked();
-						}
-					}
-					if (backgroundEnemyService.leftWall()) {
-						left = false;
-						change();
-					}
+				if (backgroundEnemyService.leftWall()) {
+					left = false;
+					change();
 				}
-
-			}).start();
-
-		}
+			}
+		}).start();
 	}
 
 	@Override
 	public void right() {
+		this.enemyWay = EnemyWay.RIGHT;
+		right = true;
+		setIcon(enemyR);
 
-		if (state != 2) {
-			this.enemyWay = EnemyWay.RIGHT;
-			right = true;
-			setIcon(enemyR);
-
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					while (right) {
-						y -= SPEED;
-						setLocation(x, y);
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						if (stage.getPlayer().getState() == 2) {
-							right = false;
-							beAttcked();
-						}
-						if (backgroundEnemyService.rightWall()) {
-							
-						}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (right) {
+					x += SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (stage.getState() == 2) {
+						right = false;
+						beAttcked();
 					}
 					if (backgroundEnemyService.rightWall()) {
-						right = false;
-						change();
+						break;
 					}
 				}
-			}).start();
-		} else if (state == 2) {
-
-			this.enemyWay = EnemyWay.RIGHT;
-			right = true;
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					while (right) {
-						x -= SPEED;
-						setLocation(x, y);
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						// 왼쪽 상단
-						if (stage.getPlayer().getX() == x && stage.getPlayer().getY() == y) {
-							enemyRestart();
-						}
-						// 오른쪽상단
-						if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-								&& stage.getPlayer().getY() == y) {
-							enemyRestart();
-						}
-						// 왼쪽하단
-						if (stage.getPlayer().getX() == x
-								&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
-							enemyRestart();
-						}
-						// 오른쪽 하단
-						if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-								&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
-							enemyRestart();
-						}
-						if (backgroundEnemyService.rightWall()) {
-							
-							break;
-						}
-						if (stage.getPlayer().getState() == 1) {
-							right = false;
-							beAttcked();
-						}
-					}
-					if (backgroundEnemyService.rightWall()) {
-						right = false;
-						change();
-					}
+				if (backgroundEnemyService.rightWall()) {
+					right = false;
+					change();
 				}
-
-			}).start();
-
-		}
+			}
+		}).start();
 	}
 
 	@Override
 	public void up() {
+		this.enemyWay = EnemyWay.UP;
+		up = true;
+		setIcon(enemyU);
 
-		if (state != 2) {
-			this.enemyWay = EnemyWay.UP;
-			up = true;
-			setIcon(enemyU);
-
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					while (up) {
-						y -= SPEED;
-						setLocation(x, y);
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						if (stage.getPlayer().getState() == 2) {
-							up = false;
-							beAttcked();
-						}
-						if (backgroundEnemyService.upWall()) {
-							
-							break;
-						}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (up) {
+					y -= SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (stage.getState() == 2) {
+						up = false;
+						beAttcked();
 					}
 					if (backgroundEnemyService.upWall()) {
-						up = false;
-						change();
+						break;
 					}
 				}
-			}).start();
-		} else if (state == 2) {
-
-			this.enemyWay = EnemyWay.UP;
-			up = true;
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					while (up) {
-						x -= SPEED;
-						setLocation(x, y);
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						// 왼쪽 상단
-						if (stage.getPlayer().getX() == x && stage.getPlayer().getY() == y) {
-							enemyRestart();
-						}
-						// 오른쪽상단
-						if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-								&& stage.getPlayer().getY() == y) {
-							enemyRestart();
-						}
-						// 왼쪽하단
-						if (stage.getPlayer().getX() == x
-								&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
-							enemyRestart();
-						}
-						// 오른쪽 하단
-						if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-								&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
-							enemyRestart();
-						}
-						if (backgroundEnemyService.upWall()) {
-						
-							break;
-						}
-						if (stage.getPlayer().getState() == 1) {
-							up = false;
-							beAttcked();
-						}
-					}
-					if (backgroundEnemyService.upWall()) {
-						up = false;
-						change();
-					}
+				if (backgroundEnemyService.upWall()) {
+					up = false;
+					change();
 				}
-
-			}).start();
-
-		}
+			}
+		}).start();
 	}
 
 	@Override
 	public void down() {
-		if (state != 2) {
-			this.enemyWay = EnemyWay.DOWN;
-			down = true;
-			setIcon(enemyD);
-			if (backgroundEnemyService.downWall()) {
-				down = false;
-			}
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					while (down) {
-						y += SPEED;
-						setLocation(x, y);
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						if (stage.getPlayer().getState() == 2) {
-							down = false;
-							beAttcked();
-						}
-						if (backgroundEnemyService.downWall()) {
-							
-							break;
-						}
-					}
-					if (backgroundEnemyService.downWall()) {
-						down = false;
-						change();
-					}
-
-				}
-			}).start();
-
-		} else if (state == 2) {
-			this.enemyWay = EnemyWay.DOWN;
-			down = true;
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					while (down) {
-						x -= SPEED;
-						setLocation(x, y);
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						// 왼쪽 상단
-						if (stage.getPlayer().getX() == x && stage.getPlayer().getY() == y) {
-							enemyRestart();
-						}
-						// 오른쪽상단
-						if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-								&& stage.getPlayer().getY() == y) {
-							enemyRestart();
-						}
-						// 왼쪽하단
-						if (stage.getPlayer().getX() == x
-								&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
-							enemyRestart();
-						}
-						// 오른쪽 하단
-						if (stage.getPlayer().getX() + beattackedBox == x + beattackedBox
-								&& stage.getPlayer().getY() + beattackedBox == y + beattackedBox) {
-							enemyRestart();
-						}
-						if (backgroundEnemyService.downWall()) {
-							
-							break;
-						}
-						if (stage.getPlayer().getState() == 1) {
-							screamDown = false;
-							beAttcked();
-						}
-					}
-					if (backgroundEnemyService.downWall()) {
-						down = false;
-						change();
-					}
-				}
-
-			}).start();
+		this.enemyWay = EnemyWay.DOWN;
+		down = true;
+		setIcon(enemyD);
+		if (backgroundEnemyService.downWall()) {
+			down = false;
 		}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (down) {
+					y += SPEED;
+					setLocation(x, y);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if (stage.getState() == 2) {
+						down = false;
+						beAttcked();
+					}
+					if (backgroundEnemyService.downWall()) {
+						break;
+					}
+				}
+				if (backgroundEnemyService.downWall()) {
+					down = false;
+					change();
+				}
+
+			}
+		}).start();
+
 	}
 
 	// get,set
@@ -973,43 +735,6 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	public void setDirection(int direction) {
 		this.direction = direction;
-	}
-
-	public void beAttcked() {
-
-		System.out.println("작동3");
-
-		if (stage.getPlayer().getState() == 2) {
-			state = stage.getPlayer().getState();
-			System.out.println("enemy 피격모드 작동");
-			setIcon(enemyS);
-			// screamchange();
-			if (direction == 0) {
-				left();
-			} else if (direction == 1) {
-				right();
-			} else if (direction == 2) {
-				up();
-			} else {
-				down();
-			}
-		} else if (stage.getPlayer().getState() != 2) {
-			state = stage.getPlayer().getState();
-			setIcon(enemyR);
-			System.out.println("enemy 공격모드 작동");
-
-			// change();
-			if (direction == 0) {
-				left();
-			} else if (direction == 1) {
-				right();
-			} else if (direction == 2) {
-				up();
-			} else {
-				down();
-			}
-		}
-
 	}
 
 }

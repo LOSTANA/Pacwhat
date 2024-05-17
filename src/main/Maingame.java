@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.lang.Thread.State;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -35,6 +34,7 @@ public class Maingame extends JFrame {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
+	
 	private Thread back2;
 	private Thread back3;
 
@@ -42,11 +42,17 @@ public class Maingame extends JFrame {
 	public int height = 0;
 
 	private Item[] item = new Item[239];
+	
 
 	public Maingame() {
 		initData();
 		setInitLayout();
 		addEventListener();
+		try {
+			backToNormal();
+		} catch (InterruptedException e) {
+			
+		}
 
 	}
 
@@ -94,22 +100,6 @@ public class Maingame extends JFrame {
 		this.healthScreen = healthScreen;
 	}
 
-	public Thread getBack2() {
-		return back2;
-	}
-
-	public void setBack2(Thread back2) {
-		this.back2 = back2;
-	}
-
-	public Thread getBack3() {
-		return back3;
-	}
-
-	public void setBack3(Thread back3) {
-		this.back3 = back3;
-	}
-
 	private void initData() {
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.png"));
 
@@ -129,9 +119,6 @@ public class Maingame extends JFrame {
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
 		enemy3 = new Enemy3(this);
-		
-
-		back3 = new Thread(new BackgroundPlayerService3(player, enemy, enemy2, enemy3));
 
 		for (int i = 0; i < 239; i++) {
 			item[i] = new Item(this);
@@ -146,8 +133,10 @@ public class Maingame extends JFrame {
 		healthScreen[0].setText("목숨 : ");
 		healthScreen[0].setFont(new Font("DungGeunMo", Font.BOLD, 38));
 		healthScreen[0].setForeground(Color.WHITE);
-
+		
 		// 플레이어 충돌 감지기
+			
+				
 
 		for (int i = 1; i < 4; i++) {
 
@@ -156,10 +145,15 @@ public class Maingame extends JFrame {
 			healthScreen[i].setLocation(width, height);
 			width += 30;
 
+
+			
 		}
 
 	}
-
+	
+	
+	
+	
 	private void setInitLayout() {
 
 		setLayout(new BorderLayout());
@@ -222,13 +216,15 @@ public class Maingame extends JFrame {
 				item[a].transitem(i);
 				System.out.println(a + "번째에 아이템 " + i + "생성");
 
+			} else {
+				
 			}
 
 		}
-
-		new Thread(new BackgroundPlayerService2(this)).start();
-
+		
 	}
+
+
 
 	private void addEventListener() {
 
@@ -375,82 +371,80 @@ public class Maingame extends JFrame {
 
 		});
 
+		back2 = new Thread(new BackgroundPlayerService2(player, enemy, enemy2, enemy3));
+	    back3 = new Thread(new BackgroundPlayerService3(player, enemy, enemy2, enemy3));	
+		
+	   
 	}
+	
+	 public void playerAttackable() {
 
-	// if (player.getState() == 2) {
-//			if (back2 != null) {
-//				if (back3.isAlive()) {
-//
-//				} else {
-//					back2.interrupt();
-//					if (back2.interrupted()) {
-//						System.out.println("어태커블 작동");
-//					}
-//					System.out.println("어태커블 -back3 시작");
-//					back3.start();
-//				}
-//			} else if (back2 == null) {
-//
-//			}
-//
-//		}
-//	}
+			player.setState(2);
+			if(player.getState()==2) {
+				System.out.println("어태커블 들어옴");
+				if(back2 != null) {
+					System.out.println("어태커블 걸러짐");
+					try {
+						back2.sleep(10L);
+						back2.interrupt();
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				if(back2.interrupted()) {
+				System.out.println("어태커블 작동");
+				}
+				System.out.println("어태커블 -back3 시작");
+				back3.start();
+			}
+				else {
+					System.out.println(player.getState());
+				}
+			}
+			if(player.getState()==1) {
+				System.out.println("어태커블로 돌아옴");
+				back3.stop();
+				System.out.println("백투노말 고");
+				try {
+					backToNormal();
+				} catch (InterruptedException e) {
+				
+				}
+			}
+		}
+		
+		public void backToNormal() throws InterruptedException{
+			if(player.getState()!=2) {
+				if(back3 !=null) {
+					System.out.println("노말 걸러짐");
+					back3.interrupt();
+				if(back3.interrupted()) {
+					System.out.println("백투노말 작동");
+				}
+				
+				System.out.println("백투노말 -back2 시작");
+				back2.start();
+				System.out.println("백2 시작");
+				}
+				}
+			if(player.getState()==2) {
+				
+				back2.interrupt();
+				System.out.println("어태커블 고");
+				playerAttackable();
+			}
+			}
+	
 
-	// if (player.getState() != 2) {
-//			if (back3 != null) {
-//				if (back2.isAlive()) {
-//
-//				} else {
-//					back3.interrupt();
-//					if (back3.interrupted()) {
-//						System.out.println("백투노말 작동");
-//					}
-//
-//					System.out.println("백투노말 -back2 시작");
-//					back2.start();
-//				}
-//
-//			} else {
-//			}
-//		}
-	// }
-
-
-//	
-//	 public void playerAttackable() {
-//			if(player.getState()==2) {
-//				if(back2 != null) {
-//				back2.interrupt();
-//				if(back2.interrupted()) {
-//				System.out.println("어태커블 작동");
-//				}
-//				System.out.println("어태커블 -back3 시작");
-//				back3.start();
-//			}
-//			}
-//		}
-//		
-//		public void backToNormal() {
-//			if(player.getState()!=2) {
-//				if(back3 !=null) {
-//				back3.interrupt();
-//				if(back3.interrupted()) {
-//					System.out.println("백투노말 작동");
-//				}
-//				
-//				System.out.println("백투노말 -back2 시작");
-//				back2.start();
-//				}
-//			}
-//		}
-//	
 	public void pause() {
 		new PauseGame(this);
 	}
-
 	public void start(Maingame stage) {
 		this.stage = stage;
 		new Startgame(this);
 		dispose();
 	}
+
+
+	
+
 }

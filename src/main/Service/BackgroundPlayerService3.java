@@ -1,5 +1,6 @@
 package main.Service;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +21,8 @@ public class BackgroundPlayerService3 implements Runnable {
 	private Enemy1 enemy1;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
-
 	private boolean flag = true;
 	
-
 	// 생성자 의존 설계
 	public BackgroundPlayerService3(Player player, Enemy1 enemy1, Enemy2 enemy2, Enemy3 enemy3) {
 		this.player = player;
@@ -38,7 +37,14 @@ public class BackgroundPlayerService3 implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void go() {
+		flag=true;
+	}
+	
+	public void finish() {
+		flag=false;
+	}
 
 	public boolean isFlag() {
 		return flag;
@@ -57,8 +63,13 @@ public class BackgroundPlayerService3 implements Runnable {
 			System.out.println("백그3 시작");
 			// for 문 반복문으로 0.2초x30번 반복(6초 동안 지속)
 			
-			while(flag) {
-				if(player.getState() == 2) {
+			while(!Thread.interrupted()) {
+				if(player.getState()==1) {
+					System.out.println("백그3 종료");
+					flag=false;
+					break;
+					
+				} else if (player.getState() == 2) {
 					System.out.println("if 통과");
 					for (int i = 0; i < 10; i++) {
 						System.out.println("while 시작");
@@ -89,25 +100,22 @@ public class BackgroundPlayerService3 implements Runnable {
 						} else {
 							System.out.println("if 통과 못함");
 						}
-						try {
-							Thread.sleep(800);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 						// System.out.println(i+"번째");
+						
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							
+						}
 					}
 					// 무적상태 (6초 후) 원래 상태로 복귀
+					System.out.println("set state==1");
 					player.setState(1);
 					
-				}
+				} 
 			}
 			
 	
 	}	
 	
-	public void stop() {
-		flag=false;
-	}
-
 }
