@@ -18,7 +18,6 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	private int direction;
 
-	
 	// 적군의 좌표값 위치 상태
 	private int x;
 
@@ -66,11 +65,11 @@ public class Enemy1 extends JLabel implements Moveable {
 	private final int enemyStart = 50;
 
 	// enemy 피격 박스
-	int beattackedBox = 28;
+	int beattackedBox = 5;
 
 	public Enemy1(Maingame stage) {
 		this.stage = stage;
-		
+
 		initData();
 		setInitLayout();
 
@@ -104,7 +103,6 @@ public class Enemy1 extends JLabel implements Moveable {
 		x = 360;
 		y = 435;
 		player = stage.getPlayer();
-		
 
 	}
 
@@ -130,13 +128,19 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 리스폰
-	private void enemyRestart() {
+	public void enemyRestart() {
+		System.out.println("먹혔음 리스폰");
+		screamLeft = false;
+		screamRight = false;
+		screamUp = false;
+		screamDown = false;
 
-		setLocation(x = 360, y = 435);
-		setIcon(enemyU);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+
+				setIcon(enemyU);
+				setLocation(x = 360, y = 435);
 				for (int i = 0; i < 30; i++) {
 					try {
 						Thread.sleep(100);
@@ -197,6 +201,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	// 스크림 모드 왼쪽
 	private void screamLeft() {
+		;
 		this.enemyWay = EnemyWay.LEFT;
 		screamLeft = true;
 		new Thread(new Runnable() {
@@ -210,24 +215,24 @@ public class Enemy1 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					// 왼쪽 상단
-					if (player.getX() == x && player.getY() == y) {
+					// 왼쪽
+					if ((player.getX() - x >= -10 && player.getX() - x <= 0)
+							&& (player.getY() <= y + 14 && player.getY() >= y - 14)) {
 						enemyRestart();
 					}
-					// 오른쪽상단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() == y) {
+					// 오른쪽
+					if ((player.getX() - x <= 10 && player.getX() - x >= 0)
+							&& (player.getY() <= y + 14 && player.getY() >= y - 14)) {
 						enemyRestart();
 					}
-					// 왼쪽하단
-					if (player.getX() == x
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					// 상단
+					if ((player.getX() <= x + 14 && player.getX() >= x - 14)
+							&& (player.getY() - y >= 0 && player.getY() - y <= 10)) {
 						enemyRestart();
 					}
-					// 오른쪽 하단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() + beattackedBox == y + beattackedBox) {
-
+					// 하단
+					if ((player.getX() <= x + 14 && player.getX() >= x - 14)
+							&& (player.getY() - y <= 0 && player.getY() - y >= 10)) {
 						enemyRestart();
 					}
 					if (player.getState() == 1) {
@@ -248,6 +253,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	// 스크림 모드 오른쪽
 	private void screamRight() {
+
 		this.enemyWay = EnemyWay.RIGHT;
 		screamRight = true;
 		new Thread(new Runnable() {
@@ -261,23 +267,20 @@ public class Enemy1 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					// 왼쪽 상단
-					if (player.getX() == x && player.getY() == y) {
+					// 왼쪽
+					if ((player.getX() - x >= -10 && player.getX() - x <= 0) && player.getY() == y + 14) {
 						enemyRestart();
 					}
-					// 오른쪽상단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() == y) {
+					// 오른쪽
+					if ((player.getX() - x <= 10 && player.getX() - x >= 0) && player.getY() == y + 14) {
 						enemyRestart();
 					}
-					// 왼쪽하단
-					if (player.getX() == x
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					// 상단
+					if (player.getX() == x + 14 && (player.getY() - y >= 0 && player.getY() - y <= 10)) {
 						enemyRestart();
 					}
-					// 오른쪽 하단
-					if (player.getX() + beattackedBox == x+ beattackedBox
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					// 하단
+					if (player.getX() == x + 14 && (player.getY() - y <= 0 && player.getY() - y >= 10)) {
 						enemyRestart();
 					}
 					if (player.getState() == 1) {
@@ -311,23 +314,20 @@ public class Enemy1 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					// 왼쪽 상단
-					if (player.getX() == x && player.getY() == y) {
+					// 왼쪽
+					if ((player.getX() - x >= -10 && player.getX() - x <= 0) && player.getY() == y + 14) {
 						enemyRestart();
 					}
-					// 오른쪽상단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() == y) {
+					// 오른쪽
+					if ((player.getX() - x <= 10 && player.getX() - x >= 0) && player.getY() == y + 14) {
 						enemyRestart();
 					}
-					// 왼쪽하단
-					if (player.getX() == x
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					// 상단
+					if (player.getX() == x + 14 && (player.getY() - y >= 0 && player.getY() - y <= 10)) {
 						enemyRestart();
 					}
-					// 오른쪽 하단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					// 하단
+					if (player.getX() == x + 14 && (player.getY() - y <= 0 && player.getY() - y >= 10)) {
 						enemyRestart();
 					}
 					if (backgroundEnemyService.upWall()) {
@@ -354,30 +354,27 @@ public class Enemy1 extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (screamDown) {
-					y+= SPEED;
+					y += SPEED;
 					setLocation(x, y);
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					// 왼쪽 상단
-					if (player.getX() == x && player.getY() == y) {
+					// 왼쪽
+					if ((player.getX() - x >= -10 && player.getX() - x <= 0) && player.getY() == y + 14) {
 						enemyRestart();
 					}
-					// 오른쪽상단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() == y) {
+					// 오른쪽
+					if ((player.getX() - x <= 10 && player.getX() - x >= 0) && player.getY() == y + 14) {
 						enemyRestart();
 					}
-					// 왼쪽하단
-					if (player.getX() == x
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					// 상단
+					if (player.getX() == x + 14 && (player.getY() - y <= 0 && player.getY() - y >= -10)) {
 						enemyRestart();
 					}
-					// 오른쪽 하단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					// 하단
+					if (player.getX() == x + 14 && (player.getY() - y >= 0 && player.getY() - y <= 10)) {
 						enemyRestart();
 					}
 					if (backgroundEnemyService.downWall()) {
