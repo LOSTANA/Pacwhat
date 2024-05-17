@@ -117,7 +117,7 @@ public class Startgame extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
-				case KeyEvent.VK_SPACE:
+				case KeyEvent.VK_1:
 					Maingame start = new Maingame();
 					dispose();
 				}

@@ -38,6 +38,14 @@ public class BackgroundPlayerService2 implements Runnable {
 		}
 	}
 	
+	public void go() {
+		flag=true;
+	}
+	
+	public void finish() {
+		flag=false;
+	}
+	
 	public boolean isFlag() {
 		return flag;
 	}
@@ -49,6 +57,8 @@ public class BackgroundPlayerService2 implements Runnable {
 	@Override
 	public void run() {
 
+		
+		
 		// 플레이어 state가 1일 때(=살아 있을 때)
 		// 플레이어-에너미 좌표를 확인 후, 중첩 시 공격 처리
 		System.out.println("백그2 시작");
@@ -76,10 +86,6 @@ public class BackgroundPlayerService2 implements Runnable {
 				}
 			}
 		}
-	}
-	
-	public void stop() {
-		flag=false;
 	}
 
 }
