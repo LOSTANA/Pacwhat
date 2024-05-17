@@ -35,7 +35,7 @@ public class Startgame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-
+		
 	}
 
 	private void initData() {

@@ -70,9 +70,9 @@ public class BackgroundPlayerService2 implements Runnable {
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("백그2종료");
 				}
+				
 			}
 		}
 	}

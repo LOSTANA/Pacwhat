@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.lang.Thread.State;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -35,7 +36,6 @@ public class Maingame extends JFrame {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
-
 	private Thread back2;
 	private Thread back3;
 
@@ -48,7 +48,7 @@ public class Maingame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-
+		player.back2Start();
 	}
 
 	public Player getPlayer() {
@@ -95,6 +95,22 @@ public class Maingame extends JFrame {
 		this.healthScreen = healthScreen;
 	}
 
+	public Thread getBack2() {
+		return back2;
+	}
+
+	public void setBack2(Thread back2) {
+		this.back2 = back2;
+	}
+
+	public Thread getBack3() {
+		return back3;
+	}
+
+	public void setBack3(Thread back3) {
+		this.back3 = back3;
+	}
+
 	private void initData() {
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.png"));
 
@@ -114,6 +130,11 @@ public class Maingame extends JFrame {
 		enemy = new Enemy1(this);
 		enemy2 = new Enemy2(this);
 		enemy3 = new Enemy3(this);
+		
+		back2 = new Thread(new BackgroundPlayerService2(player,enemy,enemy2,enemy3));
+		back3 = new Thread(new BackgroundPlayerService3(player,enemy,enemy2,enemy3));
+
+		
 
 		for (int i = 0; i < 239; i++) {
 			item[i] = new Item(this);
@@ -208,7 +229,6 @@ public class Maingame extends JFrame {
 
 		}
 
-		backToNormal();
 	}
 
 	private void addEventListener() {
@@ -356,46 +376,46 @@ public class Maingame extends JFrame {
 
 		});
 
-		back2 = new Thread(new BackgroundPlayerService2(player, enemy, enemy2, enemy3));
-		back3 = new Thread(new BackgroundPlayerService3(player, enemy, enemy2, enemy3));
-
 	}
 
-	public void playerAttackable() {
-		if (player.getState() == 2) {
-			if (back2 != null) {
-				if (back3.isAlive()) {
-					
-				} else {
-					back2.interrupt();
-					if (back2.interrupted()) {
-						System.out.println("어태커블 작동");
-					}
-					System.out.println("어태커블 -back3 시작");
-					back3.start();
-				}
-			}
-		}
-	}
 
-	public void backToNormal() {
-		if (player.getState() != 2) {
-			if (back3 != null) {
-				if (back2.isAlive()) {
-					
-				} else {
-					back3.interrupt();
-					if (back3.interrupted()) {
-						System.out.println("백투노말 작동");
-					}
+		// if (player.getState() == 2) {
+//			if (back2 != null) {
+//				if (back3.isAlive()) {
+//
+//				} else {
+//					back2.interrupt();
+//					if (back2.interrupted()) {
+//						System.out.println("어태커블 작동");
+//					}
+//					System.out.println("어태커블 -back3 시작");
+//					back3.start();
+//				}
+//			} else if (back2 == null) {
+//
+//			}
+//
+//		}
+//	}
 
-					System.out.println("백투노말 -back2 시작");
-					back2.start();
-				}
-
-			}
-		}
-	}
+		// if (player.getState() != 2) {
+//			if (back3 != null) {
+//				if (back2.isAlive()) {
+//
+//				} else {
+//					back3.interrupt();
+//					if (back3.interrupted()) {
+//						System.out.println("백투노말 작동");
+//					}
+//
+//					System.out.println("백투노말 -back2 시작");
+//					back2.start();
+//				}
+//
+//			} else {
+//			}
+//		}
+	//}
 
 	public void pause() {
 		new PauseGame(this);
