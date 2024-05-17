@@ -673,9 +673,20 @@ public class Player extends JLabel implements Moveable {
 			for (int i = 0; i < 239; i++) {
 				stage.getItem()[i].setIcon(null);
 			}
+<<<<<<< HEAD
 			sleep(5);
 			stage.start(stage);
+=======
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+>>>>>>> af3ea5a5fb902b482864b995379fbacb7c0e7d38
 		}
+		stage.start(stage);
 	}
 
 	// 먹기 구현

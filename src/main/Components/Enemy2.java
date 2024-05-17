@@ -90,12 +90,13 @@ public class Enemy2 extends JLabel implements Moveable {
 		// 처음 실행 시 초기 값 셋팅 (수정)
 		x = 355;
 		y = 435;
+		player = stage.getPlayer();
 
 	}
 
 	private void setInitLayout() {
 
-		setIcon(enemyU);
+		setIcon(enemyD);
 		setSize(28, 28); // 수정 해야됨
 		setLocation(x, y);
 
@@ -104,12 +105,11 @@ public class Enemy2 extends JLabel implements Moveable {
 	// 에너미가 공격 당하는 상태
 	public void beAttcked() {
 
-		if (stage.getState() == 2) {
-			System.out.println("작동3");
+		if (player.getState() == 2) {
 			setIcon(enemyS);
 			screamchange();
 		}
-		if (stage.getState() != 2) {
+		if (stage.getPlayer().getState() != 2) {
 			change();
 		}
 	}
@@ -196,26 +196,24 @@ public class Enemy2 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+					if (player.getX() == x && player.getY() == y) {
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
-							&& player.getY() == enemy.getY()) {
+					if (player.getX() + beattackedBox == x + beattackedBox && player.getY() == y) {
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (player.getX() == enemy.getX()
-							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+					if (player.getX() == x && player.getY() + beattackedBox == y + beattackedBox) {
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
-							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+					if (player.getX() + beattackedBox == x + beattackedBox
+							&& player.getY() + beattackedBox == y + beattackedBox) {
 
 						enemyRestart();
 					}
-					if (stage.getState() == 1) {
+					if (player.getState() == 1) {
 						screamLeft = false;
 						change();
 					}
@@ -233,13 +231,13 @@ public class Enemy2 extends JLabel implements Moveable {
 
 	// 스크림 모드 오른쪽
 	private void screamRight() {
-		this.enemyWay = EnemyWay.LEFT;
+		this.enemyWay = EnemyWay.RIGHT;
 		screamRight = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (screamRight) {
-					x -= SPEED;
+					x += SPEED;
 					setLocation(x, y);
 					try {
 						Thread.sleep(10);
@@ -247,33 +245,31 @@ public class Enemy2 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+					if (player.getX() == x && player.getY() == y) {
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
-							&& player.getY() == enemy.getY()) {
+					if (player.getX() + beattackedBox == x + beattackedBox && player.getY() == y) {
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (player.getX() == enemy.getX()
-							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+					if (player.getX() == x && player.getY() + beattackedBox == y + beattackedBox) {
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
-							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+					if (player.getX() + beattackedBox == x + beattackedBox
+							&& player.getY() + beattackedBox == y + beattackedBox) {
 						enemyRestart();
 					}
-					if (stage.getState() == 1) {
+					if (player.getState() == 1) {
 						screamRight = false;
 						change();
 					}
-					if (backgroundEnemyService2.leftWall()) {
+					if (backgroundEnemyService2.rightWall()) {
 						break;
 					}
 				}
-				if (backgroundEnemyService2.leftWall()) {
+				if (backgroundEnemyService2.rightWall()) {
 					screamRight = false;
 					screamchange();
 				}
@@ -283,13 +279,13 @@ public class Enemy2 extends JLabel implements Moveable {
 
 	// 스크림 모드 위
 	private void screamUp() {
-		this.enemyWay = EnemyWay.LEFT;
+		this.enemyWay = EnemyWay.UP;
 		screamUp = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (screamUp) {
-					x -= SPEED;
+					y -= SPEED;
 					setLocation(x, y);
 					try {
 						Thread.sleep(10);
@@ -297,33 +293,31 @@ public class Enemy2 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+					if (player.getX() == x && player.getY() == y) {
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
-							&& player.getY() == enemy.getY()) {
+					if (player.getX() + beattackedBox == x + beattackedBox && player.getY() == y) {
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (player.getX() == enemy.getX()
-							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+					if (player.getX() == x && player.getY() + beattackedBox == y + beattackedBox) {
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
-							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+					if (player.getX() + beattackedBox == x + beattackedBox
+							&& player.getY() + beattackedBox == y + beattackedBox) {
 						enemyRestart();
 					}
-					if (backgroundEnemyService2.leftWall()) {
+					if (backgroundEnemyService2.upWall()) {
 						break;
 					}
-					if (stage.getState() == 1) {
+					if (player.getState() == 1) {
 						screamUp = false;
 						change();
 					}
 				}
-				if (backgroundEnemyService2.leftWall()) {
+				if (backgroundEnemyService2.upWall()) {
 					screamUp = false;
 					screamchange();
 				}
@@ -333,13 +327,13 @@ public class Enemy2 extends JLabel implements Moveable {
 
 	// 스크림 모드 아래
 	private void screamDown() {
-		this.enemyWay = EnemyWay.LEFT;
+		this.enemyWay = EnemyWay.DOWN;
 		screamDown = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (screamDown) {
-					x -= SPEED;
+					y += SPEED;
 					setLocation(x, y);
 					try {
 						Thread.sleep(10);
@@ -347,33 +341,31 @@ public class Enemy2 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+					if (player.getX() == x && player.getY() == y) {
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
-							&& player.getY() == enemy.getY()) {
+					if (player.getX() + beattackedBox == x + beattackedBox && player.getY() == y) {
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (player.getX() == enemy.getX()
-							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+					if (player.getX() == x && player.getY() + beattackedBox == y + beattackedBox) {
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (player.getX() + beattackedBox == enemy.getX() + beattackedBox
-							&& player.getY() + beattackedBox == enemy.getY() + beattackedBox) {
+					if (player.getX() + beattackedBox == x + beattackedBox
+							&& player.getY() + beattackedBox == y + beattackedBox) {
 						enemyRestart();
 					}
-					if (backgroundEnemyService2.leftWall()) {
+					if (backgroundEnemyService2.downWall()) {
 						break;
 					}
-					if (stage.getState() == 1) {
+					if (player.getState() == 1) {
 						screamDown = false;
 						change();
 					}
 				}
-				if (backgroundEnemyService2.leftWall()) {
+				if (backgroundEnemyService2.downWall()) {
 					screamDown = false;
 					screamchange();
 				}
@@ -407,7 +399,7 @@ public class Enemy2 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 				}
-				left();
+				right();
 			}
 		}).start();
 
@@ -465,7 +457,7 @@ public class Enemy2 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					if (stage.getState() == 2) {
+					if (player.getState() == 2) {
 						left = false;
 						beAttcked();
 					}
@@ -498,7 +490,7 @@ public class Enemy2 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					if (stage.getState() == 2) {
+					if (player.getState() == 2) {
 						right = false;
 						beAttcked();
 					}
@@ -531,7 +523,7 @@ public class Enemy2 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					if (stage.getState() == 2) {
+					if (player.getState() == 2) {
 						up = false;
 						beAttcked();
 					}
@@ -566,7 +558,7 @@ public class Enemy2 extends JLabel implements Moveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					if (stage.getState() == 2) {
+					if (player.getState() == 2) {
 						down = false;
 						beAttcked();
 					}
@@ -725,4 +717,35 @@ public class Enemy2 extends JLabel implements Moveable {
 		this.direction = direction;
 	}
 
+	public boolean isScreamLeft() {
+		return screamLeft;
+	}
+
+	public void setScreamLeft(boolean screamLeft) {
+		this.screamLeft = screamLeft;
+	}
+
+	public boolean isScreamRight() {
+		return screamRight;
+	}
+
+	public void setScreamRight(boolean screamRight) {
+		this.screamRight = screamRight;
+	}
+
+	public boolean isScreamUp() {
+		return screamUp;
+	}
+
+	public void setScreamUp(boolean screamUp) {
+		this.screamUp = screamUp;
+	}
+
+	public boolean isScreamDown() {
+		return screamDown;
+	}
+
+	public void setScreamDown(boolean screamDown) {
+		this.screamDown = screamDown;
+	}
 }
