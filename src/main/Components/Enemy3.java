@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 
 import main.Maingame;
 import main.Interface.Moveable;
-import main.Service.BackgroundEnemyService2;
 import main.Service.BackgroundEnemyService3;
 import main.State.EnemyWay;
 

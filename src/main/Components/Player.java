@@ -7,6 +7,7 @@ import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
 import main.Service.BackgroundPlayerService2;
+import main.Service.BackgroundPlayerService3;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
@@ -28,6 +29,7 @@ public class Player extends JLabel implements Moveable {
 
 	// 점수
 	private String score;
+	private int finalscore;
 
 	private boolean clearFlag;
 
@@ -38,6 +40,7 @@ public class Player extends JLabel implements Moveable {
 	private int eatedCount;
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
+	private ImageIcon playernull;
 	private ImageIcon[] imageIconU = new ImageIcon[5];
 	private ImageIcon[] imageIconD = new ImageIcon[5];
 
@@ -64,6 +67,7 @@ public class Player extends JLabel implements Moveable {
 		setInitLayout();
 
 		new Thread(new BackgroundPlayerService(this)).start();
+		
 	}
 
 	private void initData() {
@@ -80,6 +84,8 @@ public class Player extends JLabel implements Moveable {
 		imageIconL[2] = new ImageIcon("img/pacman/pac2_L.png");
 		imageIconL[3] = new ImageIcon("img/pacman/pac3_L.png");
 		imageIconL[4] = new ImageIcon("img/pacman/pac4_L.png");
+
+		playernull = new ImageIcon("img/pacman/null.png");
 
 		// 위쪽 이미지 배열
 		imageIconU[0] = new ImageIcon("img/pacman/pac0_U.png");
@@ -125,6 +131,7 @@ public class Player extends JLabel implements Moveable {
 		setIcon(imageIconR[0]);
 		setSize(28, 28);
 		setLocation(x, y);
+
 	}
 
 	// getter, setter
@@ -322,6 +329,13 @@ public class Player extends JLabel implements Moveable {
 
 	public void setImageIconD(ImageIcon[] imageIconD) {
 		this.imageIconD = imageIconD;
+	}
+	public int getFinalscore() {
+		return finalscore;
+	}
+
+	public void setFinalscore(int finalscore) {
+		this.finalscore = finalscore;
 	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
@@ -596,22 +610,27 @@ public class Player extends JLabel implements Moveable {
 	public void lostLifeMotion() {
 		if (playerLife >= 0) {
 			for (int i = 0; i <= 3; i++) {
+
 				setIcon(imageIconR[2]);
+
 				stage.healthScreen[playerLife + 1].setIcon(imageIconR[4]);
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				setIcon(null);
+
 				stage.healthScreen[playerLife + 1].setIcon(null);
+
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+
 			setIcon(imageIconR[2]);
+
 		}
 	}
 
@@ -741,7 +760,17 @@ public class Player extends JLabel implements Moveable {
 			for (int i = 0; i < 239; i++) {
 				stage.getItem()[i].setIcon(null);
 			}
+
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+
 		}
+		stage.start(stage);
 	}
 
 	// 먹기 구현
@@ -750,27 +779,37 @@ public class Player extends JLabel implements Moveable {
 		for (int i = 0; i < 239; i++) {
 			int absXResult = Math.abs(x - stage.getItem()[i].getX());
 			int absYResult = Math.abs(y - stage.getItem()[i].getY());
-			if (absXResult < 23 && absYResult < 23
-					&& (stage.getItem()[i].getState() == 0 || stage.getItem()[i].getState() == 2)) {
-				if (stage.getItem()[i].getState() == 0) {
-					stage.getItem()[i].setIcon(null);
-					stage.getItem()[i].setState(1);
-					eatedCount += 10;
-				} else if (stage.getItem()[i].getState() == 2) {
-					stage.getItem()[i].setIcon(null);
-					stage.getItem()[i].setState(1);
-					this.state = 2;
-					eatedCount += 50;
-					continue;
-				}
+
+			if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 0) {
+
+				stage.getItem()[i].setIcon(null);
+				stage.getItem()[i].setState(1);
+				eatedCount += 10;
+
+			} else if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 2) {
+
+				stage.getItem()[i].setIcon(null);
+				stage.getItem()[i].setState(1);
+				state = 2;
+				eatedCount += 50;
+				stage.playerAttackable();
+				
+
 			}
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
+			
 			if (eatedCount >= 1700) {
+				finalscore = eatedCount;
+				stage.scoreScreen.setText("점수 : " + finalscore + "(Clear)");
 				clearFlag = true;
 				clearStage();
+
 			}
+
 		}
 	}
+	
+	
 
 } // end of class

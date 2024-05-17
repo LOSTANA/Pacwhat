@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import main.Components.Enemy2;
 import main.Components.Enemy3;
 
 public class BackgroundEnemyService3 {

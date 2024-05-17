@@ -1,6 +1,5 @@
 package main.Service;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +20,12 @@ public class BackgroundPlayerService3 implements Runnable {
 	private Enemy1 enemy1;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
+
 	private boolean flag = true;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 29fade318fbae8594e82fe2d2a3bedac98ed29dc
 
 	// 생성자 의존 설계
 	public BackgroundPlayerService3(Player player, Enemy1 enemy1, Enemy2 enemy2, Enemy3 enemy3) {
@@ -38,6 +42,7 @@ public class BackgroundPlayerService3 implements Runnable {
 		}
 	}
 
+
 	public boolean isFlag() {
 		return flag;
 	}
@@ -52,8 +57,26 @@ public class BackgroundPlayerService3 implements Runnable {
 		// 플레이어 state가 2일 때(=과일 아이템을 먹었을 때, 무적 상태)
 		// 플레이어-에너미 좌표를 확인 후, 중첩 시 점수 UP
 
+<<<<<<< HEAD
 		System.out.println("백그3 시작");
 		// for 문 반복문으로 0.2초x30번 반복(6초 동안 지속)
+=======
+			System.out.println("백그3 시작");
+			// for 문 반복문으로 0.2초x30번 반복(6초 동안 지속)
+			
+			while(flag) {
+				if(player.getState() == 2) {
+					System.out.println("if 통과");
+					for (int i = 0; i < 10; i++) {
+						System.out.println("while 시작");
+						// 에너미 1 감지
+						if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+								&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+							System.out.println("적 공격 시작1");
+							// System.out.println(player.getEatedCount());
+							// System.out.println(player.getScore());
+							player.setEatedCount(player.getEatedCount() + 100);
+>>>>>>> 29fade318fbae8594e82fe2d2a3bedac98ed29dc
 
 		while (flag) {
 			if (player.getState() == 2) {
@@ -87,6 +110,7 @@ public class BackgroundPlayerService3 implements Runnable {
 					} else {
 						System.out.println("if 통과 못함");
 					}
+<<<<<<< HEAD
 					try {
 						Thread.sleep(800);
 					} catch (InterruptedException e) {
@@ -94,6 +118,11 @@ public class BackgroundPlayerService3 implements Runnable {
 						e.printStackTrace();
 					}
 					// System.out.println(i+"번째");
+=======
+					// 무적상태 (6초 후) 원래 상태로 복귀
+					player.setState(1);
+					stage.backToNormal();
+>>>>>>> 29fade318fbae8594e82fe2d2a3bedac98ed29dc
 				}
 				// 무적상태 (6초 후) 원래 상태로 복귀
 				player.setState(1);
@@ -105,4 +134,5 @@ public class BackgroundPlayerService3 implements Runnable {
 	public void stop() {
 		flag = false;
 	}
+
 }
