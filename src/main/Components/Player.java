@@ -778,12 +778,19 @@ public class Player extends JLabel implements Moveable {
 				eatedCount += 10;
 
 			} else if (absXResult < 23 && absYResult < 23 && stage.getItem()[i].getState() == 2) {
+				if(this.state==2) {
+					eatedCount+=200;
+					break;
+				}
 
 				stage.getItem()[i].setIcon(null);
 				stage.getItem()[i].setState(1);
 				state = 2;
 				eatedCount += 50;
 				stage.playerAttackable();
+				if(stage.getPlayer().getState()==1) {
+					stage.backToNormal();
+				}
 
 			}
 			score = Integer.toString(eatedCount);
