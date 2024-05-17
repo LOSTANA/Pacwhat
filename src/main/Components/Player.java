@@ -66,7 +66,7 @@ public class Player extends JLabel implements Moveable {
 		setInitLayout();
 
 		new Thread(new BackgroundPlayerService(this)).start();
-		
+
 	}
 
 	private void initData() {
@@ -784,7 +784,6 @@ public class Player extends JLabel implements Moveable {
 				state = 2;
 				eatedCount += 50;
 				stage.playerAttackable();
-				
 
 			}
 			score = Integer.toString(eatedCount);
@@ -797,7 +796,5 @@ public class Player extends JLabel implements Moveable {
 
 		}
 	}
-	
-	
 
 } // end of class
