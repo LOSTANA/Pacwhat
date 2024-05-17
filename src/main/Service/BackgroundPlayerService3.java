@@ -60,7 +60,7 @@ public class BackgroundPlayerService3 implements Runnable {
 			while(flag) {
 				if(player.getState() == 2) {
 					System.out.println("if 통과");
-					for (int i = 0; i < 30; i++) {
+					for (int i = 0; i < 10; i++) {
 						System.out.println("while 시작");
 						// 에너미 1 감지
 						if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
@@ -99,6 +99,7 @@ public class BackgroundPlayerService3 implements Runnable {
 					}
 					// 무적상태 (6초 후) 원래 상태로 복귀
 					player.setState(1);
+					stage.backToNormal();
 				}
 			}
 			

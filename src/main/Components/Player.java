@@ -29,6 +29,7 @@ public class Player extends JLabel implements Moveable {
 
 	// 점수
 	private String score;
+	private int finalscore;
 
 	private boolean clearFlag;
 
@@ -66,7 +67,7 @@ public class Player extends JLabel implements Moveable {
 		setInitLayout();
 
 		new Thread(new BackgroundPlayerService(this)).start();
-
+		
 	}
 
 	private void initData() {
@@ -130,9 +131,6 @@ public class Player extends JLabel implements Moveable {
 		setIcon(imageIconR[0]);
 		setSize(28, 28);
 		setLocation(x, y);
-
-		new Thread(new BackgroundPlayerService2(this, stage.getEnemy(), stage.getEnemy2(), stage.getEnemy3())).start();
-		new Thread(new BackgroundPlayerService3(this, stage.getEnemy(), stage.getEnemy2(), stage.getEnemy3())).start();
 
 	}
 
@@ -331,6 +329,13 @@ public class Player extends JLabel implements Moveable {
 
 	public void setImageIconD(ImageIcon[] imageIconD) {
 		this.imageIconD = imageIconD;
+	}
+	public int getFinalscore() {
+		return finalscore;
+	}
+
+	public void setFinalscore(int finalscore) {
+		this.finalscore = finalscore;
 	}
 
 	// 오른쪽으로 입 벌렸다가 닫음
@@ -762,9 +767,10 @@ public class Player extends JLabel implements Moveable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			stage.start(stage);
+			
 
 		}
+		stage.start(stage);
 	}
 
 	// 먹기 구현
@@ -792,7 +798,10 @@ public class Player extends JLabel implements Moveable {
 			}
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
+			
 			if (eatedCount >= 1700) {
+				finalscore = eatedCount;
+				stage.scoreScreen.setText("점수 : " + finalscore + "(Clear)");
 				clearFlag = true;
 				clearStage();
 

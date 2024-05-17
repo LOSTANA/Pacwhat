@@ -35,7 +35,7 @@ public class Maingame extends JFrame {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
-	
+
 	private Thread back2;
 	private Thread back3;
 
@@ -43,7 +43,6 @@ public class Maingame extends JFrame {
 	public int height = 0;
 
 	private Item[] item = new Item[239];
-	
 
 	public Maingame() {
 		initData();
@@ -129,10 +128,8 @@ public class Maingame extends JFrame {
 		healthScreen[0].setText("목숨 : ");
 		healthScreen[0].setFont(new Font("DungGeunMo", Font.BOLD, 38));
 		healthScreen[0].setForeground(Color.WHITE);
-		
+
 		// 플레이어 충돌 감지기
-			
-				
 
 		for (int i = 1; i < 4; i++) {
 
@@ -141,15 +138,10 @@ public class Maingame extends JFrame {
 			healthScreen[i].setLocation(width, height);
 			width += 30;
 
-
-			
 		}
 
 	}
-	
-	
-	
-	
+
 	private void setInitLayout() {
 
 		setLayout(new BorderLayout());
@@ -215,9 +207,9 @@ public class Maingame extends JFrame {
 			}
 
 		}
+
+		backToNormal();
 	}
-
-
 
 	private void addEventListener() {
 
@@ -365,40 +357,54 @@ public class Maingame extends JFrame {
 		});
 
 		back2 = new Thread(new BackgroundPlayerService2(player, enemy, enemy2, enemy3));
-	    back3 = new Thread(new BackgroundPlayerService3(player, enemy, enemy2, enemy3));	
-		
-	   
+		back3 = new Thread(new BackgroundPlayerService3(player, enemy, enemy2, enemy3));
+
 	}
-	
-	 public void playerAttackable() {
-			if(player.getState()==2) {
-				System.out.println("어태커블 작동");
-				back2.interrupt();
-				System.out.println("어태커블 -back3 시작");
-				back3.start();
+
+	public void playerAttackable() {
+		if (player.getState() == 2) {
+			if (back2 != null) {
+				if (back3.isAlive()) {
+					
+				} else {
+					back2.interrupt();
+					if (back2.interrupted()) {
+						System.out.println("어태커블 작동");
+					}
+					System.out.println("어태커블 -back3 시작");
+					back3.start();
+				}
 			}
 		}
-		
-		public void backToNormal() {
-			if(player.getState()!=2) {
-				System.out.println("백투노말 작동");
-				back3.interrupt();
-				System.out.println("백투노말 -back2 시작");
-				back2.start();
+	}
+
+	public void backToNormal() {
+		if (player.getState() != 2) {
+			if (back3 != null) {
+				if (back2.isAlive()) {
+					
+				} else {
+					back3.interrupt();
+					if (back3.interrupted()) {
+						System.out.println("백투노말 작동");
+					}
+
+					System.out.println("백투노말 -back2 시작");
+					back2.start();
+				}
+
 			}
 		}
-	
+	}
 
 	public void pause() {
 		new PauseGame(this);
 	}
+
 	public void start(Maingame stage) {
 		this.stage = stage;
 		new Startgame(this);
 		dispose();
 	}
-
-
-	
 
 }
