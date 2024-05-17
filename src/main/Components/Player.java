@@ -182,10 +182,6 @@ public class Player extends JLabel implements Moveable {
 		this.down = down;
 	}
 
-	public int getSPEED() {
-		return SPEED;
-	}
-
 	public boolean isLeftWallCrash() {
 		return leftWallCrash;
 	}
@@ -274,30 +270,6 @@ public class Player extends JLabel implements Moveable {
 		this.playerLife = playerLife;
 	}
 
-	public ImageIcon[] getImageIconR() {
-		return imageIconR;
-	}
-
-	public void setImageIconR(ImageIcon[] imageIconR) {
-		this.imageIconR = imageIconR;
-	}
-
-	public ImageIcon[] getImageIconL() {
-		return imageIconL;
-	}
-
-	public void setImageIconL(ImageIcon[] imageIconL) {
-		this.imageIconL = imageIconL;
-	}
-
-	public boolean isClearFlag() {
-		return clearFlag;
-	}
-
-	public void setClearFlag(boolean clearFlag) {
-		this.clearFlag = clearFlag;
-	}
-
 	public int getEatedCount() {
 		return eatedCount;
 	}
@@ -322,6 +294,22 @@ public class Player extends JLabel implements Moveable {
 		this.imageIconD = imageIconD;
 	}
 
+	public ImageIcon[] getImageIconR() {
+		return imageIconR;
+	}
+
+	public void setImageIconR(ImageIcon[] imageIconR) {
+		this.imageIconR = imageIconR;
+	}
+
+	public ImageIcon[] getImageIconL() {
+		return imageIconL;
+	}
+
+	public void setImageIconL(ImageIcon[] imageIconL) {
+		this.imageIconL = imageIconL;
+	}
+	
 	// 오른쪽으로 입 벌렸다가 닫음
 	public void changeIconRight() {
 		new Thread(new Runnable() {
@@ -584,7 +572,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	public void lostLifeMotion() {
-		if (playerLife >= 0) {
+		if (state == 0) {
 			for (int i = 0; i <= 3; i++) {
 				setIcon(imageIconR[2]);
 				stage.healthScreen[playerLife + 1].setIcon(imageIconR[4]);
@@ -593,6 +581,7 @@ public class Player extends JLabel implements Moveable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				setIcon(null);
 				stage.healthScreen[playerLife + 1].setIcon(null);
 				try {
 					Thread.sleep(200);
@@ -707,7 +696,6 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	// 클리어 스테이지
-	// 추후 수정
 	public void clearStage() {
 
 		while (clearFlag) {
@@ -727,14 +715,8 @@ public class Player extends JLabel implements Moveable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-<<<<<<< HEAD
 			stage.start(stage);
-=======
-			
-
->>>>>>> 888c1e448d61d9aa72fbb90b0f006e86b55e6ad2
 		}
-		stage.start(stage);
 	}
 
 	// 먹기 구현
