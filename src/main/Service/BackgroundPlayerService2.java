@@ -70,38 +70,35 @@ public class BackgroundPlayerService2 implements Runnable {
 			}
 
 			else if (player.getState() == 2) {
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < 7; i++) {
 					if (player.strong == true) {
 						i = 0;
 						player.strong = false;
+					}
+					// 에너미 1 감지
+					if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
+
+						// 에너미 2 감지
+					} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
+
+						// 에너미 3 감지
+					} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
+
 					} else {
-
-						// 에너미 1 감지
-						if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-							// 에너미 2 감지
-						} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-							// 에너미 3 감지
-						} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-						} else {
-						}
 					}
 					try {
-						System.out.println(i);
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
