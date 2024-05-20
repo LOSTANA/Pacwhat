@@ -18,6 +18,8 @@ public class Enemy2 extends JLabel implements Moveable {
 
 	private int direction;
 
+	private int eneatedCount = player.getEatedCount();
+
 	// 적군의 좌표값 위치 상태
 	private int x;
 	private int y;
@@ -114,6 +116,7 @@ public class Enemy2 extends JLabel implements Moveable {
 
 	// 리스폰
 	public void enemyRestart() {
+		eneatedCount += 100;
 
 		setLocation(x = 355, y = 435);
 		setIcon(enemyU);
