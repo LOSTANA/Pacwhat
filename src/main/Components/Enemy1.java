@@ -130,7 +130,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 리스폰
-	private void enemyRestart() {
+	public void enemyRestart() {
 
 		setLocation(x = 360, y = 435);
 		setIcon(enemyU);
@@ -153,7 +153,12 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 
 					}
+					if(player.getState() == 1) {
 					right();
+					}
+					else if(player.getState() == 2) {
+						screamRight();
+					}
 				}
 			}
 		}).start();
@@ -162,7 +167,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	// 스크림적의 방향을 무작위로 변경하는 값
 	private void screamchange() {
 		Random random = new Random();
-		int direction = random.nextInt(4); // 0~3 무작위 숫자 생성
+		direction = random.nextInt(4); // 0~3 무작위 숫자 생성
 
 		switch (direction) {
 		case 0:
@@ -196,7 +201,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 왼쪽
-	private void screamLeft() {
+	public void screamLeft() {
 		this.enemyWay = EnemyWay.LEFT;
 		screamLeft = true;
 		new Thread(new Runnable() {
@@ -247,7 +252,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 오른쪽
-	private void screamRight() {
+	public void screamRight() {
 		this.enemyWay = EnemyWay.RIGHT;
 		screamRight = true;
 		new Thread(new Runnable() {
@@ -297,7 +302,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 위
-	private void screamUp() {
+	public void screamUp() {
 		this.enemyWay = EnemyWay.UP;
 		screamUp = true;
 		new Thread(new Runnable() {
@@ -347,7 +352,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 아래
-	private void screamDown() {
+	public void screamDown() {
 		this.enemyWay = EnemyWay.DOWN;
 		screamDown = true;
 		new Thread(new Runnable() {

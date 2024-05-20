@@ -115,7 +115,7 @@ public class Enemy3 extends JLabel implements Moveable {
 	}
 
 	// 리스폰
-	private void enemyRestart() {
+	public void enemyRestart() {
 
 		setLocation(x = 360, y = 435);
 		setIcon(enemyU);
@@ -138,7 +138,12 @@ public class Enemy3 extends JLabel implements Moveable {
 						e.printStackTrace();
 
 					}
-					right();
+					if(player.getState() == 1) {
+						right();
+						}
+						else if(player.getState() == 2) {
+							screamRight();
+						}
 				}
 			}
 		}).start();
@@ -181,7 +186,7 @@ public class Enemy3 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 왼쪽
-	private void screamLeft() {
+	public void screamLeft() {
 		this.enemyWay = EnemyWay.LEFT;
 		screamLeft = true;
 		new Thread(new Runnable() {
@@ -230,7 +235,7 @@ public class Enemy3 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 오른쪽
-	private void screamRight() {
+	public void screamRight() {
 		this.enemyWay = EnemyWay.RIGHT;
 		screamRight = true;
 		new Thread(new Runnable() {
@@ -278,7 +283,7 @@ public class Enemy3 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 위
-	private void screamUp() {
+	public void screamUp() {
 		this.enemyWay = EnemyWay.UP;
 		screamUp = true;
 		new Thread(new Runnable() {
@@ -326,7 +331,7 @@ public class Enemy3 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 아래
-	private void screamDown() {
+	public void screamDown() {
 		this.enemyWay = EnemyWay.DOWN;
 		screamDown = true;
 		new Thread(new Runnable() {
