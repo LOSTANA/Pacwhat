@@ -17,8 +17,10 @@ public class Enemy1 extends JLabel implements Moveable {
 	Enemy1 enemy;
 
 	private int direction;
+
 	private int eneatedCount;
 	
+
 
 	// 적군의 좌표값 위치 상태
 	private int x;
@@ -131,7 +133,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	// 리스폰
 	public void enemyRestart() {
 		eneatedCount += 100;
-		
+
 		setLocation(x = 360, y = 435);
 		setIcon(enemyU);
 		new Thread(new Runnable() {
@@ -169,6 +171,14 @@ public class Enemy1 extends JLabel implements Moveable {
 				}
 			}
 		}).start();
+	}
+
+	public int getEneatedCount() {
+		return eneatedCount;
+	}
+
+	public void setEneatedCount(int eneatedCount) {
+		this.eneatedCount = eneatedCount;
 	}
 
 	// 스크림적의 방향을 무작위로 변경하는 값
@@ -233,6 +243,7 @@ public class Enemy1 extends JLabel implements Moveable {
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamLeft = false;
+						
 						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
@@ -285,24 +296,28 @@ public class Enemy1 extends JLabel implements Moveable {
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamRight = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 오른쪽상단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamRight = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 왼쪽하단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamRight = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 오른쪽 하단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamRight = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					if (player.getState() == 1) {
@@ -340,24 +355,28 @@ public class Enemy1 extends JLabel implements Moveable {
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamUp = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 오른쪽상단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamUp = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 왼쪽하단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamUp = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 오른쪽 하단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamUp = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					if (backgroundEnemyService.upWall()) {
@@ -399,24 +418,28 @@ public class Enemy1 extends JLabel implements Moveable {
 					// System.out.println("스크림 다운-if 직전");
 					if (player.getX() == x && player.getY() == y) {
 						screamDown = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 오른쪽상단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamDown = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 왼쪽하단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamDown = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 오른쪽 하단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamDown = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					if (backgroundEnemyService.downWall()) {

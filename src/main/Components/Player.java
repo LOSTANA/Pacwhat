@@ -18,10 +18,12 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 목숨
 	private int playerLife;
-	private int finalscore;
+	
 	// 점수
 	private String score;
-	
+	// 최근점수
+	private int finalscore;
+	// 클리어에 필요한 점수
 	private int clearScore;
 
 	public boolean strong = false;
@@ -30,7 +32,9 @@ public class Player extends JLabel implements Moveable {
 
 	private int x;
 	private int y;
+
 	private int eatedCount = 0;
+
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
 	private ImageIcon[] imageIconU = new ImageIcon[5];
