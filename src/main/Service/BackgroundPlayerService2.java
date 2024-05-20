@@ -53,16 +53,16 @@ public class BackgroundPlayerService2 implements Runnable {
 			if (player.getState() != 2) {
 				if (player.getState() == 1) {
 					// 에너미1-좌표 감지
-					if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-							&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+					if ((Math.abs((player.getX()-enemy1.getX())) < 20)
+							&& Math.abs((player.getY() -enemy1.getY())) < 20) {
 						player.isBeAttacked1();
 						// 에너미2-좌표 감지
-					} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-							&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+					} else if ((Math.abs((player.getX()-enemy2.getX())) < 20)
+							&& Math.abs((player.getY() -enemy2.getY())) < 20) {
 						player.isBeAttacked2();
 						// 에너미3-좌표 감지
-					} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-							&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+					} else if ((Math.abs((player.getX()-enemy3.getX())) < 20)
+							&& Math.abs((player.getY() -enemy3.getY())) < 20) {
 						player.isBeAttacked3();
 					}
 				}
@@ -77,18 +77,18 @@ public class BackgroundPlayerService2 implements Runnable {
 						}
 						
 						// 에너미 1 감지
-						if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						if ((Math.abs((player.getX()-enemy1.getX())) < 20)
+								&& Math.abs((player.getY() -enemy1.getY())) < 20) {
 							player.setEatedCount(player.getEatedCount() + 100);
 
 							// 에너미 2 감지
-						} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						} else if ((Math.abs((player.getX()-enemy2.getX())) < 20)
+								&& Math.abs((player.getY() -enemy2.getY())) < 20) {
 							player.setEatedCount(player.getEatedCount() + 100);
 
 							// 에너미 3 감지
-						} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						} else if ((Math.abs((player.getX()-enemy3.getX())) < 20)
+								&& Math.abs((player.getY() -enemy3.getY())) < 20) {
 							player.setEatedCount(player.getEatedCount() + 100);
 							}
 
