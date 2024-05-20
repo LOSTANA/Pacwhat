@@ -23,6 +23,7 @@ public class BackgroundPlayerService2 implements Runnable {
 	private boolean flag = true;
 	private boolean strong = false;
 
+	private int width=784;
 	public int a;
 
 	// 생성자 의존 설계
@@ -65,7 +66,7 @@ public class BackgroundPlayerService2 implements Runnable {
 		while (flag) {
 			System.out.println("1");
 			if (player.getState() != 2) {
-				if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+				if (Math.abs((player.getX() + width / 2) - (enemy1.getX() + width / 2)) < (width / 2 + width / 2)
 						&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
 					player.isBeAttacked1();
 					// 에너미2-좌표 감지
