@@ -33,15 +33,13 @@ public class Maingame extends JFrame {
 	private Enemy1 enemy;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
-	
-	private Thread back2;
 
+	private Thread back2;
 
 	public int width = 0;
 	public int height = 0;
 
 	private Item[] item = new Item[239];
-	
 
 	public Maingame() {
 		initData();
@@ -49,6 +47,7 @@ public class Maingame extends JFrame {
 		addEventListener();
 	}
 
+	// get set 모음
 	public Player getPlayer() {
 		return player;
 	}
@@ -93,7 +92,9 @@ public class Maingame extends JFrame {
 		this.healthScreen = healthScreen;
 	}
 
+	// 기본설정
 	private void initData() {
+		// 가운데 배경 구성 설정
 		backgroundMap = new JLabel(new ImageIcon("img/background/Background.png"));
 
 		setSize(750, 1000);
@@ -116,20 +117,17 @@ public class Maingame extends JFrame {
 		for (int i = 0; i < 239; i++) {
 			item[i] = new Item(this);
 		}
-
+		// 위쪽 점수 구성 설정
 		scoreScreen = new JLabel();
 		scoreScreen.setText("점수 : 0");
 		scoreScreen.setFont(new Font("DungGeunMo", Font.BOLD, 38));
 		scoreScreen.setForeground(Color.WHITE);
 
+		// 아래쪽 목숨 구성 설정
 		healthScreen[0] = new JLabel();
 		healthScreen[0].setText("목숨 : ");
 		healthScreen[0].setFont(new Font("DungGeunMo", Font.BOLD, 38));
 		healthScreen[0].setForeground(Color.WHITE);
-		
-		// 플레이어 충돌 감지기
-			
-				
 
 		for (int i = 1; i < 4; i++) {
 
@@ -138,15 +136,11 @@ public class Maingame extends JFrame {
 			healthScreen[i].setLocation(width, height);
 			width += 30;
 
-
-			
 		}
 
 	}
-	
-	
-	
-	
+
+	// 게임에 진행할 요소 추가
 	private void setInitLayout() {
 
 		setLayout(new BorderLayout());
@@ -165,11 +159,9 @@ public class Maingame extends JFrame {
 		add(enemy);
 		add(enemy2);
 		add(enemy3);
-		add(new JLabel("테스트"));
-		
 
+//아이템 추가 설정(x,y좌표)
 		for (int i = 1; i < 239; i++) {
-
 			if (i % 17 == 0) {
 				if (i == 0) {
 					item[i + 1].setX(item[i].getX() + 40);
@@ -181,25 +173,20 @@ public class Maingame extends JFrame {
 					}
 				}
 			} else {
-
 				if (i == 239) {
-
 				} else {
 					if (i + 1 < 239) {
 						item[i + 1].setX(item[i].getX() + 40);
 						item[i + 1].setY(item[i].getY());
 					} else {
-
 					}
-
 				}
-
 			}
 			add(item[i]);
-
 		}
 
 		setVisible(true);
+		//아이템 랜덤값을 줘서 일부 코인을 아이템으로 변경
 		for (int i = 0; i < 4; i++) {
 			int a = rd.nextInt(238) + 1;
 			if (item[a].getIcon() == null) {
@@ -211,15 +198,13 @@ public class Maingame extends JFrame {
 				System.out.println(a + "번째에 아이템 " + i + "생성");
 
 			} else {
-				
+
 			}
 
 		}
-		
+
 	}
-
-
-
+//키보드 눌렀을 경우 이벤트 만들기
 	private void addEventListener() {
 
 		this.addKeyListener(new KeyAdapter() {
@@ -260,7 +245,8 @@ public class Maingame extends JFrame {
 					}
 
 				case KeyEvent.VK_SPACE:
-					pause();
+					pause(); // 일시 정지화면 생성(프레임 추가)
+					// 모든 움직임 정지(만약을 위해 모든 코드 false)
 					enemy.setLeft(false);
 					enemy.setRight(false);
 					enemy.setUp(false);
@@ -269,15 +255,17 @@ public class Maingame extends JFrame {
 					enemy.setScreamRight(false);
 					enemy.setScreamUp(false);
 					enemy.setScreamDown(false);
-					
+
 					enemy2.setLeft(false);
 					enemy2.setRight(false);
 					enemy2.setUp(false);
 					enemy2.setDown(false);
+					
 					enemy3.setLeft(false);
 					enemy3.setRight(false);
 					enemy3.setUp(false);
 					enemy3.setDown(false);
+					
 					player.setLeft(false);
 					player.setRight(false);
 					player.setUp(false);
@@ -314,11 +302,11 @@ public class Maingame extends JFrame {
 					}
 					break;
 
-				case KeyEvent.VK_1:
+				case KeyEvent.VK_1: // 좌표값 알아낼수 있는 코드 (임시)
 					System.out.println("좌표 x : " + player.getX() + ", 좌표 y : " + player.getY());
 					break;
 				case KeyEvent.VK_ESCAPE:
-
+					//게임 종료
 					System.exit(0);
 					break;
 				}
@@ -373,19 +361,15 @@ public class Maingame extends JFrame {
 		back2 = new Thread(new BackgroundPlayerService2(player, enemy, enemy2, enemy3));
 		back2.start();
 	}
-	
-	 
 
 	public void pause() {
 		new PauseGame(this);
 	}
+
 	public void start(Maingame stage) {
 		this.stage = stage;
 		new Startgame(this);
-		dispose();
+		dispose();//현재 프레임을 끈다
 	}
-
-
-	
 
 }

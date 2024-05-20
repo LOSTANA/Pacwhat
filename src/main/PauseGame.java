@@ -26,12 +26,12 @@ public class PauseGame extends JFrame {
 		addEventListener();
 
 	}
-
+	//화면 구성
 	private void initData() {
 
 		setSize(750, 1000);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setUndecorated(true);
+		setUndecorated(true); // 위쪽 언더바 삭제
 		setBackground(new Color(0, 0, 0, 122));
 
 		drawLogo = new DrawLogo();
@@ -39,7 +39,7 @@ public class PauseGame extends JFrame {
 		setLayout(new BorderLayout());
 		drawLogo.setBackground(new Color(255, 255, 255, 0));
 	}
-
+	//텍스트를 입히기 위한 세팅
 	private void setInitLayout() {
 
 		add(drawLogo, BorderLayout.CENTER);
@@ -49,7 +49,7 @@ public class PauseGame extends JFrame {
 		setVisible(true);
 
 	}
-
+	//이벤트 리스너(마우스, 키보드)
 	private void addEventListener() {
 		this.addMouseListener(new MouseListener() {
 
@@ -250,7 +250,7 @@ public class PauseGame extends JFrame {
 			}
 		});
 	}
-
+	// 글자 출력
 	static class DrawLogo extends JPanel {
 		private Image logo;
 

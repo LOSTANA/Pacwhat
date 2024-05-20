@@ -192,7 +192,7 @@ public class BackgroundPlayerService2 implements Runnable {
 
 			else if (player.getState() == 9) {
 				flag = false;
-				break;
+				break; 
 			}
 
 		}
