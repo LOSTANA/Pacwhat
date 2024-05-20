@@ -36,7 +36,6 @@ public class BackgroundPlayerService2 implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
 	@Override
 	public void run() {
 		this.player = stage.getPlayer();
@@ -46,55 +45,61 @@ public class BackgroundPlayerService2 implements Runnable {
 		this.enemy3 = stage.getEnemy3();
 		// 플레이어 state가 1일 때(=살아 있을 때)
 		// 플레이어-에너미 좌표를 확인 후, 중첩 시 공격 처리
-		
-		
 		while (flag) {
-			// 플레이어가 과일(무적 상태 아이템)을 먹지 않았을 때
 			if (player.getState() != 2) {
 				if (player.getState() == 1) {
-					// 에너미1-좌표 감지
-					if ((Math.abs((player.getX()-enemy1.getX())) < 20)
-							&& Math.abs((player.getY() -enemy1.getY())) < 20) {
+					if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						player.isBeAttacked1();
 						// 에너미2-좌표 감지
-					} else if ((Math.abs((player.getX()-enemy2.getX())) < 20)
-							&& Math.abs((player.getY() -enemy2.getY())) < 20) {
+					} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						player.isBeAttacked2();
 						// 에너미3-좌표 감지
-					} else if ((Math.abs((player.getX()-enemy3.getX())) < 20)
-							&& Math.abs((player.getY() -enemy3.getY())) < 20) {
+					} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						player.isBeAttacked3();
 					}
 				}
 
-				// 플레이어가 과일(무적 상태 아이템)을 먹었을 때
 				else if (player.getState() == 2) {
 
-					for (int i = 0; i < 600; i++) {
+					strong = false;
+
+					for (int i = 0; i < 1000; i++) {
 						if (player.strong == true) {
 							i = 0;
 							player.strong = false;
 						}
-						
 						// 에너미 1 감지
-						if ((Math.abs((player.getX()-enemy1.getX())) < 20)
-								&& Math.abs((player.getY() -enemy1.getY())) < 20) {
+						if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+								&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+							// System.out.println(player.getEatedCount());
+							// System.out.println(player.getScore());
 							player.setEatedCount(player.getEatedCount() + 100);
 
 							// 에너미 2 감지
-						} else if ((Math.abs((player.getX()-enemy2.getX())) < 20)
-								&& Math.abs((player.getY() -enemy2.getY())) < 20) {
+						} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+								&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+							// System.out.println(player.getEatedCount());
+							// System.out.println(player.getScore());
 							player.setEatedCount(player.getEatedCount() + 100);
 
 							// 에너미 3 감지
-						} else if ((Math.abs((player.getX()-enemy3.getX())) < 20)
-								&& Math.abs((player.getY() -enemy3.getY())) < 20) {
+						} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+								&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+							// System.out.println(player.getEatedCount());
+							// System.out.println(player.getScore());
 							player.setEatedCount(player.getEatedCount() + 100);
-							}
+
+						} else {
+						}
+						// System.out.println(i+"번째");
 
 						try {
 							Thread.sleep(10);
 						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
