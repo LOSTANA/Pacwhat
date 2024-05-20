@@ -36,10 +36,10 @@ public class BackgroundPlayerService2 implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void run() {
 		this.player = stage.getPlayer();
-
 		this.enemy1 = stage.getEnemy();
 		this.enemy2 = stage.getEnemy2();
 		this.enemy3 = stage.getEnemy3();
@@ -47,6 +47,12 @@ public class BackgroundPlayerService2 implements Runnable {
 		// 플레이어-에너미 좌표를 확인 후, 중첩 시 공격 처리
 		while (flag) {
 			if (player.getState() != 2) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (player.getState() == 1) {
 					if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
@@ -61,56 +67,50 @@ public class BackgroundPlayerService2 implements Runnable {
 						player.isBeAttacked3();
 					}
 				}
+			}
 
-				else if (player.getState() == 2) {
-
-					strong = false;
-
-					for (int i = 0; i < 1000; i++) {
-						if (player.strong == true) {
-							i = 0;
-							player.strong = false;
-						}
-						// 에너미 1 감지
-						if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-							// 에너미 2 감지
-						} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-							// 에너미 3 감지
-						} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-						} else {
-						}
-						// System.out.println(i+"번째");
-
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+			else if (player.getState() == 2) {
+				for (int i = 0; i < 7; i++) {
+					if (player.strong == true) {
+						i = 0;
+						player.strong = false;
 					}
-					// 무적상태 (6초 후) 원래 상태로 복귀
-					player.setState(1);
-				}
+					// 에너미 1 감지
+					if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
 
-				else if (player.getState() == 9) {
-					flag = false;
-					break;
+						// 에너미 2 감지
+					} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
+
+						// 에너미 3 감지
+					} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
+
+					} else {
+					}
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
+				// 무적상태 (6초 후) 원래 상태로 복귀
+				player.setState(1);
+			}
+
+			else if (player.getState() == 9) {
+				flag = false;
+				break;
 			}
 		}
 	}
