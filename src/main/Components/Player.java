@@ -32,7 +32,9 @@ public class Player extends JLabel implements Moveable {
 
 	private int x;
 	private int y;
-	public int eatedCount;
+
+	private int eatedCount = 0;
+
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
 	private ImageIcon[] imageIconU = new ImageIcon[5];
