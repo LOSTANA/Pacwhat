@@ -18,7 +18,7 @@ public class Enemy3 extends JLabel implements Moveable {
 
 	private int direction;
 
-	private int eneatedCount = player.getEatedCount();
+	private int eneatedCount;
 
 	// 적군의 좌표값 위치 상태
 	private int x;
@@ -91,7 +91,7 @@ public class Enemy3 extends JLabel implements Moveable {
 		x = 350;
 		y = 435;
 		player = stage.getPlayer();
-
+		eneatedCount = player.getEatedCount();
 	}
 
 	private void setInitLayout() {
@@ -268,24 +268,28 @@ public class Enemy3 extends JLabel implements Moveable {
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamRight = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 오른쪽상단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamRight = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 왼쪽하단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamRight = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 오른쪽 하단
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamRight = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					if (player.getState() == 1) {
