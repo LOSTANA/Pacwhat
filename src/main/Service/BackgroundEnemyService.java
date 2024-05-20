@@ -14,7 +14,6 @@ public class BackgroundEnemyService {
 
 	private BufferedImage image;
 	private Enemy1 enemy;
-	private Player player;
 
 	public BackgroundEnemyService(Enemy1 enemy) {
 		this.enemy = enemy;

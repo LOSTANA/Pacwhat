@@ -16,8 +16,6 @@ public class Enemy2 extends JLabel implements Moveable {
 	Player player;
 	Enemy2 enemy;
 
-	private boolean flag = true;
-
 	private int direction;
 
 	// 적군의 좌표값 위치 상태

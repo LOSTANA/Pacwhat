@@ -69,30 +69,23 @@ public class Startgame extends JFrame {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Maingame start = new Maingame();
+				new Maingame();
 				dispose();
 
 			}
@@ -113,7 +106,7 @@ public class Startgame extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
-					Maingame start = new Maingame();
+					new Maingame();
 					dispose();
 					break;
 				case KeyEvent.VK_ESCAPE:
@@ -176,7 +169,7 @@ public class Startgame extends JFrame {
 				g.drawString("점수가 없습니다!", 250, 400);
 				g.drawString("플레이 해서 최고점수에 도전하세요!!", 100, 450);
 			} else {
-				g.drawString("최근 플레이 점수 : " + stage.getPlayer().getScore(), 200, 400);
+				g.drawString("최근 플레이 점수 : " + stage.getPlayer().getFinalscore(), 200, 400);
 			}
 			g.setFont(new Font("DungGeunMo", Font.BOLD, 25));
 			g.setColor(new Color(255, 255, 0));
