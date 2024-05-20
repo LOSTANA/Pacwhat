@@ -23,7 +23,7 @@ public class Enemy2 extends JLabel implements Moveable {
 	// 적군의 좌표값 위치 상태
 	private int x;
 	private int y;
-	private ImageIcon enemyR, enemyL, enemyD, enemyU, enemyS, enemyT;
+	private ImageIcon enemyR, enemyL, enemyD, enemyU, enemyS;
 	private BackgroundEnemyService2 backgroundEnemyService2;
 
 	// 움직임의 상태
@@ -71,7 +71,6 @@ public class Enemy2 extends JLabel implements Moveable {
 		enemyD = new ImageIcon("img/ghostmove/pinkD.gif");
 		enemyU = new ImageIcon("img/ghostmove/pinkU.gif");
 		enemyS = new ImageIcon("img/ghostmove/ghostDie.gif");
-		enemyT = new ImageIcon("img/ghostmove/ghostDieTime.gif");
 
 		backgroundEnemyService2 = new BackgroundEnemyService2(this);
 

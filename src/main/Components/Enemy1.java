@@ -34,7 +34,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	private int y;
-	private ImageIcon enemyR, enemyL, enemyD, enemyU, enemyS, enemyT;
+	private ImageIcon enemyR, enemyL, enemyD, enemyU, enemyS;
 	private BackgroundEnemyService backgroundEnemyService;
 
 	// 움직임의 상태
@@ -83,7 +83,6 @@ public class Enemy1 extends JLabel implements Moveable {
 		enemyD = new ImageIcon("img/ghostmove/cyanD.gif");
 		enemyU = new ImageIcon("img/ghostmove/cyanU.gif");
 		enemyS = new ImageIcon("img/ghostmove/ghostDie.gif");
-		enemyT = new ImageIcon("img/ghostmove/ghostDieTime.gif");
 
 		backgroundEnemyService = new BackgroundEnemyService(this);
 
@@ -433,7 +432,6 @@ public class Enemy1 extends JLabel implements Moveable {
 					}
 					if (player.getState() == 1) {
 						screamDown = false;
-						player.setEatedCount(player.getEatedCount()+100);
 						change();
 					}
 				}
