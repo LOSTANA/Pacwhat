@@ -441,11 +441,7 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					eated();
-					if (state == 1) {
-						isBeAttacked1();
-						isBeAttacked2();
-						isBeAttacked3();
-					}
+					
 				}
 			}
 		}).start();
@@ -472,11 +468,7 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					eated();
-					if (state == 1) {
-						isBeAttacked1();
-						isBeAttacked2();
-						isBeAttacked3();
-					}
+					
 				}
 			}
 		}).start();
@@ -502,11 +494,7 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					eated();
-					if (state == 1) {
-						isBeAttacked1();
-						isBeAttacked2();
-						isBeAttacked3();
-					}
+					
 				}
 			}
 		}).start();
@@ -531,11 +519,7 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					eated();
-					if (state == 1) {
-						isBeAttacked1();
-						isBeAttacked2();
-						isBeAttacked3();
-					}
+					
 				}
 			}
 		}).start();
