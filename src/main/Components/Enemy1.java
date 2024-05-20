@@ -229,6 +229,7 @@ public class Enemy1 extends JLabel implements Moveable {
 					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
 							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
 						screamLeft = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						enemyRestart();
 					}
 					// 왼쪽하단
@@ -358,6 +359,7 @@ public class Enemy1 extends JLabel implements Moveable {
 					}
 					if (player.getState() == 1) {
 						screamUp = false;
+						
 						change();
 					}
 				}
@@ -417,6 +419,7 @@ public class Enemy1 extends JLabel implements Moveable {
 					}
 					if (player.getState() == 1) {
 						screamDown = false;
+						player.setEatedCount(player.getEatedCount()+100);
 						change();
 					}
 				}

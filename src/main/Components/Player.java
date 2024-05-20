@@ -18,7 +18,7 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 목숨
 	private int playerLife;
-	
+
 	// 점수
 	private String score;
 	// 최근점수
@@ -112,7 +112,7 @@ public class Player extends JLabel implements Moveable {
 		playerLife = 3; // 목숨 3개
 
 		eatedCount = 0; // 점수 0점
-		
+
 		clearScore = 1600; // 클리어에 필요한 점수
 
 		playerWay = PlayerWay.RIGHT;
@@ -434,12 +434,18 @@ public class Player extends JLabel implements Moveable {
 					x = x - SPEED;
 					setLocation(x, y);
 					bridgeLeft();
+
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					eated();
+					if (state == 1) {
+						isBeAttacked1();
+						isBeAttacked2();
+						isBeAttacked3();
+					}
 				}
 			}
 		}).start();
@@ -459,12 +465,18 @@ public class Player extends JLabel implements Moveable {
 					x = x + SPEED;
 					setLocation(x, y);
 					bridgeRight();
+
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					eated();
+					if (state == 1) {
+						isBeAttacked1();
+						isBeAttacked2();
+						isBeAttacked3();
+					}
 				}
 			}
 		}).start();
@@ -483,12 +495,18 @@ public class Player extends JLabel implements Moveable {
 				while (up) {
 					y = y - SPEED;
 					setLocation(x, y);
+
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					eated();
+					if (state == 1) {
+						isBeAttacked1();
+						isBeAttacked2();
+						isBeAttacked3();
+					}
 				}
 			}
 		}).start();
@@ -506,12 +524,18 @@ public class Player extends JLabel implements Moveable {
 				while (down) {
 					y = y + SPEED;
 					setLocation(x, y);
+
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					eated();
+					if (state == 1) {
+						isBeAttacked1();
+						isBeAttacked2();
+						isBeAttacked3();
+					}
 				}
 			}
 		}).start();
@@ -529,6 +553,7 @@ public class Player extends JLabel implements Moveable {
 		sleep(50);
 		finalscore = eatedCount;
 		stage.start(stage);
+		stage.dispose();
 		eatedCount = 0;
 	}
 
@@ -638,6 +663,7 @@ public class Player extends JLabel implements Moveable {
 		}
 		finalscore = eatedCount;
 		sleep(50);
+		stage.dispose();
 		stage.start(stage);
 	}
 
