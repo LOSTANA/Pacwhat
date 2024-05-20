@@ -66,8 +66,8 @@ public class BackgroundPlayerService2 implements Runnable {
 		while (flag) {
 			System.out.println("1");
 			if (player.getState() != 2) {
-				if (Math.abs((player.getX() + width / 2) - (enemy1.getX() + width / 2)) < (width / 2 + width / 2)
-						&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+				if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+						&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
 					player.isBeAttacked1();
 					// 에너미2-좌표 감지
 				} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
@@ -85,9 +85,10 @@ public class BackgroundPlayerService2 implements Runnable {
 
 				System.out.println("if 통과");
 
-				for (int i = 0; i < 1000; i++) {
+				for (int i = 0; i < 10; i++) {
 					if (player.strong == true) {
 						i = 0;
+						player.strong=false; // 중복 방지
 					}
 					System.out.println("while 시작");
 					// 에너미 1 감지
@@ -97,6 +98,7 @@ public class BackgroundPlayerService2 implements Runnable {
 						// System.out.println(player.getEatedCount());
 						// System.out.println(player.getScore());
 						player.setEatedCount(player.getEatedCount() + 100);
+						System.out.println(player.getEatedCount());
 
 						// 에너미 2 감지
 					} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
@@ -105,6 +107,8 @@ public class BackgroundPlayerService2 implements Runnable {
 						// System.out.println(player.getEatedCount());
 						// System.out.println(player.getScore());
 						player.setEatedCount(player.getEatedCount() + 100);
+						System.out.println(player.getEatedCount());
+						
 
 						// 에너미 3 감지
 					} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
@@ -113,6 +117,7 @@ public class BackgroundPlayerService2 implements Runnable {
 						// System.out.println(player.getEatedCount());
 						// System.out.println(player.getScore());
 						player.setEatedCount(player.getEatedCount() + 100);
+						System.out.println(player.getEatedCount());
 
 					} else {
 						System.out.println("if 통과 못함");
@@ -120,7 +125,7 @@ public class BackgroundPlayerService2 implements Runnable {
 					// System.out.println(i+"번째");
 
 					try {
-						Thread.sleep(10);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
