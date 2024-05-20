@@ -67,13 +67,11 @@ public class BackgroundPlayerService implements Runnable {
 				try {
 					Thread.sleep(3);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 	}
