@@ -358,7 +358,7 @@ public class Maingame extends JFrame {
 
 		});
 
-		back2 = new Thread(new BackgroundPlayerService2(player, enemy, enemy2, enemy3));
+		back2 = new Thread(new BackgroundPlayerService2(this));
 		back2.start();
 	}
 
