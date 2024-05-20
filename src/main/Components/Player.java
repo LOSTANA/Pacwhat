@@ -674,13 +674,15 @@ public class Player extends JLabel implements Moveable {
 			}
 			sleep(5);
 			stage.start(stage);
+			sleep(5);
+			stage.start(stage);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			
 		}
 		stage.start(stage);
 	}
@@ -718,7 +720,7 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 	}
-
+	
 	// Thread.sleep 지우기
 	// sleep 1 에 0.1초
 	public void sleep(int a) {

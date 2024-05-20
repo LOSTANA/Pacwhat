@@ -127,7 +127,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 리스폰
-	private void enemyRestart() {
+	public void enemyRestart() {
 
 		setLocation(x = 360, y = 435);
 		setIcon(enemyU);
@@ -155,7 +155,11 @@ public class Enemy1 extends JLabel implements Moveable {
 				}
 				// 예외처리
 				if (player.getState() == 1) {
-					right();
+					if (player.getState() == 1) {
+						right();
+					} else if (player.getState() == 2) {
+						screamRight();
+					}
 				}
 				if (player.getState() == 2) {
 					screamRight();
@@ -167,9 +171,9 @@ public class Enemy1 extends JLabel implements Moveable {
 	// 스크림적의 방향을 무작위로 변경하는 값
 	private void screamchange() {
 		Random random = new Random();
-		int direction2 = random.nextInt(4); // 0~3 무작위 숫자 생성
+		int direction = random.nextInt(4); // 0~3 무작위 숫자 생성
 		setIcon(enemyS);
-		switch (direction2) {
+		switch (direction) {
 		case 0:
 			// 방어적 코드
 			if (!leftWallCrash) {
@@ -201,7 +205,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 왼쪽
-	private void screamLeft() {
+	public void screamLeft() {
 		this.enemyWay = EnemyWay.LEFT;
 		screamLeft = true;
 		new Thread(new Runnable() {
@@ -256,7 +260,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 오른쪽
-	private void screamRight() {
+	public void screamRight() {
 		this.enemyWay = EnemyWay.RIGHT;
 		screamRight = true;
 		new Thread(new Runnable() {
@@ -311,7 +315,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 위
-	private void screamUp() {
+	public void screamUp() {
 		this.enemyWay = EnemyWay.UP;
 		screamUp = true;
 		new Thread(new Runnable() {
@@ -366,16 +370,16 @@ public class Enemy1 extends JLabel implements Moveable {
 	}
 
 	// 스크림 모드 아래
-	private void screamDown() {
+	public void screamDown() {
 		this.enemyWay = EnemyWay.DOWN;
-		//System.out.println("스크림 다운");
+		// System.out.println("스크림 다운");
 		screamDown = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (screamDown) {
 
-					//System.out.println("스크림 다운-while");
+					// System.out.println("스크림 다운-while");
 					y += SPEED;
 					setLocation(x, y);
 					try {
@@ -385,7 +389,7 @@ public class Enemy1 extends JLabel implements Moveable {
 					}
 					// 왼쪽 상단
 
-					//System.out.println("스크림 다운-if 직전");
+					// System.out.println("스크림 다운-if 직전");
 					if (player.getX() == x && player.getY() == y) {
 						screamDown = false;
 						enemyRestart();
