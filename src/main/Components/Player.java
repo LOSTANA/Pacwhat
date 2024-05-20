@@ -89,7 +89,7 @@ public class Player extends JLabel implements Moveable {
 		imageIconD[3] = new ImageIcon("img/pacman/pac3_D.png");
 		imageIconD[4] = new ImageIcon("img/pacman/pac4_D.png");
 
-		// 초기위치값 임시로 설정 -- 추후 수정예정
+		// 초기위치값
 		x = 355;
 		y = 520;
 
