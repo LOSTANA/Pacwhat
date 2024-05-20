@@ -22,7 +22,7 @@ public class BackgroundPlayerService2 implements Runnable {
 	private Enemy3 enemy3;
 	private boolean flag = true;
 	private boolean strong =false;
-
+	public int a;
 	// 생성자 의존 설계
 	public BackgroundPlayerService2(Player player, Enemy1 enemy1, Enemy2 enemy2, Enemy3 enemy3) {
 		this.player = player;
@@ -86,10 +86,11 @@ public class BackgroundPlayerService2 implements Runnable {
 				 
 				System.out.println("if 통과");
 				strong=false;
-				
-					for (int i = 0; i < 10; i++) {
+				a = 0;
+					for ( int i = 0; i < 10; i++) {
 						if(player.strong==true) {
-							i=0;
+							a = i;
+							i = 0;
 							player.strong=false;
 						}
 						System.out.println("while 시작");
@@ -100,6 +101,7 @@ public class BackgroundPlayerService2 implements Runnable {
 							// System.out.println(player.getEatedCount());
 							// System.out.println(player.getScore());
 							player.setEatedCount(player.getEatedCount() + 100);
+							enemy1.enemyRestart();
 
 							// 에너미 2 감지
 						} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
@@ -108,6 +110,7 @@ public class BackgroundPlayerService2 implements Runnable {
 							// System.out.println(player.getEatedCount());
 							// System.out.println(player.getScore());
 							player.setEatedCount(player.getEatedCount() + 100);
+							enemy2.enemyRestart();
 
 							// 에너미 3 감지
 						} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
@@ -116,6 +119,7 @@ public class BackgroundPlayerService2 implements Runnable {
 							// System.out.println(player.getEatedCount());
 							// System.out.println(player.getScore());
 							player.setEatedCount(player.getEatedCount() + 100);
+							enemy3.enemyRestart();
 
 						} else {
 							System.out.println("if 통과 못함");
@@ -129,6 +133,7 @@ public class BackgroundPlayerService2 implements Runnable {
 							e.printStackTrace();
 						}
 						System.out.println(i+"초 경과");
+						a++;
 				}
 			// 무적상태 (6초 후) 원래 상태로 복귀
 			System.out.println("set state==1");
