@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 
 import main.Maingame;
 import main.Interface.Moveable;
-import main.Service.BackgroundEnemyService2;
 import main.Service.BackgroundEnemyService3;
 import main.State.EnemyWay;
 
@@ -16,8 +15,6 @@ public class Enemy3 extends JLabel implements Moveable {
 	Maingame stage;
 	Player player;
 	Enemy2 enemy;
-
-	private boolean flag = true;
 
 	private int direction;
 

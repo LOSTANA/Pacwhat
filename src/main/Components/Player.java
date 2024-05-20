@@ -12,10 +12,6 @@ public class Player extends JLabel implements Moveable {
 
 	Maingame stage;
 
-	private Enemy1 enemy;
-	private Enemy2 enemy2;
-	private Enemy3 enemy3;
-
 	// 플레이어 살아있는상태 1, 죽은상태 0, 에너미를 먹을수 있는 상태 2 , 클리어 9
 	private int state;
 	private Item[] item;
@@ -25,10 +21,9 @@ public class Player extends JLabel implements Moveable {
 
 	// 점수
 	private String score;
-	
 
 	private boolean clearFlag;
-	
+
 	public boolean strong = false;
 
 	private BackgroundPlayerService backgroundPlayerService;
@@ -637,7 +632,7 @@ public class Player extends JLabel implements Moveable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 
@@ -674,7 +669,7 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 	}
-	
+
 	// Thread.sleep 지우기
 	// sleep 1 에 0.01초
 	public void sleep(int a) {

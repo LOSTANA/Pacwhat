@@ -69,30 +69,23 @@ public class Startgame extends JFrame {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Maingame start = new Maingame();
+				new Maingame();
 				dispose();
 
 			}
@@ -113,7 +106,7 @@ public class Startgame extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
-					Maingame start = new Maingame();
+					new Maingame();
 					dispose();
 					break;
 				case KeyEvent.VK_ESCAPE:

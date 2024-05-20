@@ -252,7 +252,6 @@ public class PauseGame extends JFrame {
 	}
 	// 글자 출력
 	static class DrawLogo extends JPanel {
-		private Image logo;
 
 		public DrawLogo() {
 
