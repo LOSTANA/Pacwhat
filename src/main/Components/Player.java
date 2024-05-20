@@ -21,8 +21,8 @@ public class Player extends JLabel implements Moveable {
 	private int finalscore;
 	// 점수
 	private String score;
-
-	private boolean clearFlag;
+	
+	private int clearScore;
 
 	public boolean strong = false;
 
@@ -89,7 +89,7 @@ public class Player extends JLabel implements Moveable {
 		imageIconD[3] = new ImageIcon("img/pacman/pac3_D.png");
 		imageIconD[4] = new ImageIcon("img/pacman/pac4_D.png");
 
-		// 초기위치값 임시로 설정 -- 추후 수정예정
+		// 초기위치값
 		x = 355;
 		y = 520;
 
@@ -108,6 +108,8 @@ public class Player extends JLabel implements Moveable {
 		playerLife = 3; // 목숨 3개
 
 		eatedCount = 0; // 점수 0점
+		
+		clearScore = 1600; // 클리어에 필요한 점수
 
 		playerWay = PlayerWay.RIGHT;
 	}
@@ -630,17 +632,9 @@ public class Player extends JLabel implements Moveable {
 		for (int i = 0; i < 239; i++) {
 			stage.getItem()[i].setIcon(null);
 		}
-		sleep(50);
 		finalscore = eatedCount;
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		sleep(50);
 		stage.start(stage);
-		eatedCount = 0;
 	}
 
 	// 먹기 구현
@@ -670,7 +664,7 @@ public class Player extends JLabel implements Moveable {
 			}
 			score = Integer.toString(eatedCount);
 			stage.scoreScreen.setText("점수 : " + eatedCount);
-			if (eatedCount >= 1600) {
+			if (eatedCount >= clearScore) {
 				clearStage();
 			}
 		}
