@@ -32,9 +32,9 @@ public class Player extends JLabel implements Moveable {
 
 	private int x;
 	private int y;
-
 	private int eatedCount = 0;
 
+	// 플레이어 아이콘 움직임 배열
 	private ImageIcon[] imageIconR = new ImageIcon[5];
 	private ImageIcon[] imageIconL = new ImageIcon[5];
 	private ImageIcon[] imageIconU = new ImageIcon[5];
@@ -52,8 +52,8 @@ public class Player extends JLabel implements Moveable {
 	private boolean topWallCrash;
 	private boolean bottomWallCrash;
 
-	// 플레이어 속도 상태 -- 추후 수정
-	private final int SPEED = 4;
+	// 플레이어 속도 상태
+	private final int SPEED = 3;
 
 	PlayerWay playerWay;
 
@@ -229,14 +229,6 @@ public class Player extends JLabel implements Moveable {
 		this.state = state;
 	}
 
-	public int getPlayrerLife() {
-		return playerLife;
-	}
-
-	public void setPlayrerLife(int playrerLife) {
-		this.playerLife = playrerLife;
-	}
-
 	public String getScore() {
 		return score;
 	}
@@ -322,6 +314,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+
 				while (right) {
 					for (int i = 0; i < 5; i++) {
 						if (right == false) {
@@ -338,6 +331,7 @@ public class Player extends JLabel implements Moveable {
 						setIcon(imageIconR[i - 1]);
 						sleep(2);
 					}
+
 				}
 			}
 		}).start();
@@ -348,6 +342,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+
 				while (left) {
 					for (int i = 0; i < 5; i++) {
 						setIcon(imageIconL[i]);
@@ -374,6 +369,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				
 				while (up) {
 					for (int i = 0; i < 5; i++) {
 						setIcon(imageIconU[i]);
@@ -400,6 +396,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				
 				while (down) {
 					for (int i = 0; i < 5; i++) {
 						setIcon(imageIconD[i]);
@@ -430,18 +427,17 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				
 				while (left) {
 					x = x - SPEED;
 					setLocation(x, y);
 					bridgeLeft();
-
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					eated();
-					
 				}
 			}
 		}).start();
@@ -457,18 +453,17 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				
 				while (right) {
 					x = x + SPEED;
 					setLocation(x, y);
 					bridgeRight();
-
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					eated();
-					
 				}
 			}
 		}).start();
@@ -484,17 +479,16 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				
 				while (up) {
 					y = y - SPEED;
 					setLocation(x, y);
-
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					eated();
-					
 				}
 			}
 		}).start();
@@ -509,17 +503,16 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				
 				while (down) {
 					y = y + SPEED;
 					setLocation(x, y);
-
 					try {
 						Thread.sleep(15);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					eated();
-					
 				}
 			}
 		}).start();
