@@ -78,74 +78,15 @@ public class BackgroundPlayerService2 implements Runnable {
 					player.isBeAttacked3();
 					player.isBeAttacked3();
 				}
-				strong = true;
 			}
 
 			else if (player.getState() == 2) {
 
 				System.out.println("if 통과");
-				strong = false;
-				a = 0;
-				for (int i = 0; i < 10; i++) {
-					if (player.strong == true) {
-						a = i;
-						i = 0;
-						player.strong = false;
-					}
-					System.out.println("while 시작");
-					// 에너미 1 감지
-					if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-							&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-						System.out.println("적 공격 시작1");
-						// System.out.println(player.getEatedCount());
-						// System.out.println(player.getScore());
-						player.setEatedCount(player.getEatedCount() + 100);
-						enemy1.enemyRestart();
-
-						// 에너미 2 감지
-					} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-							&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-						System.out.println("적 공격 시작2");
-						// System.out.println(player.getEatedCount());
-						// System.out.println(player.getScore());
-						player.setEatedCount(player.getEatedCount() + 100);
-						enemy2.enemyRestart();
-
-						// 에너미 3 감지
-					} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-							&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-						System.out.println("적 공격 시작3");
-						// System.out.println(player.getEatedCount());
-						// System.out.println(player.getScore());
-						player.setEatedCount(player.getEatedCount() + 100);
-						enemy3.enemyRestart();
-
-					} else {
-						System.out.println("if 통과 못함");
-					}
-					// System.out.println(i+"번째");
-
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					System.out.println(i + "초 경과");
-					a++;
-				}
-				strong = true;
-			}
-
-			else if (player.getState() == 2) {
-
-				System.out.println("if 통과");
-				strong = false;
 
 				for (int i = 0; i < 1000; i++) {
 					if (player.strong == true) {
 						i = 0;
-						player.strong = false;
 					}
 					System.out.println("while 시작");
 					// 에너미 1 감지
@@ -188,6 +129,7 @@ public class BackgroundPlayerService2 implements Runnable {
 				// 무적상태 (6초 후) 원래 상태로 복귀
 				System.out.println("set state==1");
 				player.setState(1);
+				player.strong=false;
 			}
 
 			else if (player.getState() == 9) {
