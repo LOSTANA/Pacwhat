@@ -27,7 +27,7 @@ public class BackgroundEnemyService2 {
 
 	public boolean leftWall() {
 		// 255 0 0 <-- 빨간색 (왼쪽벽 확인)
-		Color leftColor = new Color(image.getRGB(enemy2.getX() - 10, enemy2.getY() + 25));
+		Color leftColor = new Color(image.getRGB(enemy2.getX() - 10, enemy2.getY() + 14));
 		if (leftColor.getRed() == 255 && leftColor.getGreen() == 0 && leftColor.getBlue() == 0) {
 			return true;
 		}
@@ -36,7 +36,7 @@ public class BackgroundEnemyService2 {
 
 	// 오른쪽벽
 	public boolean rightWall() {
-		Color rightColor = new Color(image.getRGB(enemy2.getX() + 60, enemy2.getY() + 25));
+		Color rightColor = new Color(image.getRGB(enemy2.getX() + 38, enemy2.getY() + 14));
 		if (rightColor.getRed() == 255 && rightColor.getGreen() == 0 && rightColor.getBlue() == 0) {
 			return true;
 		}
@@ -45,7 +45,7 @@ public class BackgroundEnemyService2 {
 
 	// 위쪽벽
 	public boolean upWall() {
-		Color topColor = new Color(image.getRGB(enemy2.getX() + 25, enemy2.getY() - 10));
+		Color topColor = new Color(image.getRGB(enemy2.getX() + 14, enemy2.getY() - 10));
 		if (topColor.getRed() == 255 && topColor.getGreen() == 0 && topColor.getBlue() == 0) {
 			return true;
 		}
@@ -54,7 +54,7 @@ public class BackgroundEnemyService2 {
 
 	// 아래벽
 	public boolean downWall() {
-		Color downColor = new Color(image.getRGB(enemy2.getX() + 25, enemy2.getY() + 60));
+		Color downColor = new Color(image.getRGB(enemy2.getX() + 14, enemy2.getY() + 38));
 		if (downColor.getRed() == 255 && downColor.getGreen() == 0 && downColor.getBlue() == 0) {
 			return true;
 		}

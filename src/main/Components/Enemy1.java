@@ -18,7 +18,6 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	private int direction;
 
-	
 	// 적군의 좌표값 위치 상태
 	private int x;
 
@@ -70,7 +69,7 @@ public class Enemy1 extends JLabel implements Moveable {
 
 	public Enemy1(Maingame stage) {
 		this.stage = stage;
-		
+
 		initData();
 		setInitLayout();
 
@@ -104,7 +103,6 @@ public class Enemy1 extends JLabel implements Moveable {
 		x = 360;
 		y = 435;
 		player = stage.getPlayer();
-		
 
 	}
 
@@ -120,11 +118,10 @@ public class Enemy1 extends JLabel implements Moveable {
 	public void beAttcked() {
 
 		if (player.getState() == 2) {
-			System.out.println("작동3");
 			setIcon(enemyS);
 			screamchange();
 		}
-		if (stage.getPlayer().getState() != 2) {
+		if (stage.getPlayer().getState() == 1) {
 			change();
 		}
 	}
@@ -137,14 +134,16 @@ public class Enemy1 extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < 30; i++) {
+
+				for (int i = 0; i < 50; i++) {
+
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-				for (int i = 0; i < 35; i++) {
+				for (int i = 0; i < 34; i++) {
 					y -= SPEED;
 					setLocation(x, y);
 					try {
@@ -153,7 +152,13 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 
 					}
+				}
+				// 예외처리
+				if (player.getState() == 1) {
 					right();
+				}
+				if (player.getState() == 2) {
+					screamRight();
 				}
 			}
 		}).start();
@@ -162,9 +167,9 @@ public class Enemy1 extends JLabel implements Moveable {
 	// 스크림적의 방향을 무작위로 변경하는 값
 	private void screamchange() {
 		Random random = new Random();
-		int direction = random.nextInt(4); // 0~3 무작위 숫자 생성
-
-		switch (direction) {
+		int direction2 = random.nextInt(4); // 0~3 무작위 숫자 생성
+		setIcon(enemyS);
+		switch (direction2) {
 		case 0:
 			// 방어적 코드
 			if (!leftWallCrash) {
@@ -211,23 +216,27 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (player.getX() == x && player.getY() == y) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamLeft = false;
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() == y) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamLeft = false;
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (player.getX() == x
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamLeft = false;
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() + beattackedBox == y + beattackedBox) {
-
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamLeft = false;
 						enemyRestart();
 					}
 					if (player.getState() == 1) {
@@ -262,22 +271,27 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (player.getX() == x && player.getY() == y) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamRight = false;
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() == y) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamRight = false;
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (player.getX() == x
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamRight = false;
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (player.getX() + beattackedBox == x+ beattackedBox
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamRight = false;
 						enemyRestart();
 					}
 					if (player.getState() == 1) {
@@ -312,22 +326,27 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
-					if (player.getX() == x && player.getY() == y) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamUp = false;
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() == y) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamUp = false;
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (player.getX() == x
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamUp = false;
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamUp = false;
 						enemyRestart();
 					}
 					if (backgroundEnemyService.upWall()) {
@@ -349,12 +368,15 @@ public class Enemy1 extends JLabel implements Moveable {
 	// 스크림 모드 아래
 	private void screamDown() {
 		this.enemyWay = EnemyWay.DOWN;
+		//System.out.println("스크림 다운");
 		screamDown = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (screamDown) {
-					y+= SPEED;
+
+					//System.out.println("스크림 다운-while");
+					y += SPEED;
 					setLocation(x, y);
 					try {
 						Thread.sleep(10);
@@ -362,22 +384,28 @@ public class Enemy1 extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 					// 왼쪽 상단
+
+					//System.out.println("스크림 다운-if 직전");
 					if (player.getX() == x && player.getY() == y) {
+						screamDown = false;
 						enemyRestart();
 					}
 					// 오른쪽상단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() == y) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamDown = false;
 						enemyRestart();
 					}
 					// 왼쪽하단
-					if (player.getX() == x
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamDown = false;
 						enemyRestart();
 					}
 					// 오른쪽 하단
-					if (player.getX() + beattackedBox == x + beattackedBox
-							&& player.getY() + beattackedBox == y + beattackedBox) {
+					if (Math.abs((player.getX() + 28 / 2) - (x + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (y + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						screamDown = false;
 						enemyRestart();
 					}
 					if (backgroundEnemyService.downWall()) {

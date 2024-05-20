@@ -6,7 +6,6 @@ import javax.swing.JLabel;
 import main.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
-import main.Service.BackgroundPlayerService2;
 import main.State.PlayerWay;
 
 public class Player extends JLabel implements Moveable {
@@ -309,7 +308,7 @@ public class Player extends JLabel implements Moveable {
 	public void setImageIconL(ImageIcon[] imageIconL) {
 		this.imageIconL = imageIconL;
 	}
-	
+
 	// 오른쪽으로 입 벌렸다가 닫음
 	public void changeIconRight() {
 		new Thread(new Runnable() {
@@ -563,11 +562,7 @@ public class Player extends JLabel implements Moveable {
 		stage.healthScreen[1].setIcon(null);
 		stage.remove(stage.getPlayer());
 		stage.healthScreen[0].setText("----- YOU DIE -----");
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		sleep(5);
 		stage.start(stage);
 	}
 
@@ -576,18 +571,10 @@ public class Player extends JLabel implements Moveable {
 			for (int i = 0; i <= 3; i++) {
 				setIcon(imageIconR[2]);
 				stage.healthScreen[playerLife + 1].setIcon(imageIconR[4]);
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				sleep(2);
 				setIcon(null);
 				stage.healthScreen[playerLife + 1].setIcon(null);
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				sleep(2);
 			}
 			setIcon(imageIconR[2]);
 		}
@@ -600,22 +587,14 @@ public class Player extends JLabel implements Moveable {
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
 			playerLife--;
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			sleep(2);
 			if (stage.getPlayer().getState() == 0) {
 				if (playerLife != 0) {
 					lostLifeMotion();
 				} else {
 					completelyDie();
 				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				sleep(12);
 			}
 			state = 1;
 		}
@@ -628,22 +607,14 @@ public class Player extends JLabel implements Moveable {
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
 			playerLife--;
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			sleep(2);
 			if (stage.getPlayer().getState() == 0) {
 				if (playerLife != 0) {
 					lostLifeMotion();
 				} else {
 					completelyDie();
 				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				sleep(12);
 			}
 			state = 1;
 		}
@@ -656,22 +627,14 @@ public class Player extends JLabel implements Moveable {
 		if (absXResult < 35 && absYResult < 35) {
 			this.state = 0;
 			playerLife--;
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			sleep(2);
 			if (stage.getPlayer().getState() == 0) {
 				if (playerLife != 0) {
 					lostLifeMotion();
 				} else {
 					completelyDie();
 				}
-				try {
-					Thread.sleep(1150);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				sleep(12);
 			}
 			state = 1;
 		}
@@ -709,13 +672,15 @@ public class Player extends JLabel implements Moveable {
 			for (int i = 0; i < 239; i++) {
 				stage.getItem()[i].setIcon(null);
 			}
+			sleep(5);
+			stage.start(stage);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 		stage.start(stage);
 	}
@@ -753,4 +718,17 @@ public class Player extends JLabel implements Moveable {
 			}
 		}
 	}
+
+	// Thread.sleep 지우기
+	// sleep 1 에 0.1초
+	public void sleep(int a) {
+		for (int i = 0; i < a; i++) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

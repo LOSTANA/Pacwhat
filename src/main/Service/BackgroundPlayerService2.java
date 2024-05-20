@@ -21,7 +21,7 @@ public class BackgroundPlayerService2 implements Runnable {
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
 	private boolean flag = true;
-	private boolean strong =false;
+	private boolean strong = false;
 
 	// 생성자 의존 설계
 	public BackgroundPlayerService2(Player player, Enemy1 enemy1, Enemy2 enemy2, Enemy3 enemy3) {
@@ -37,8 +37,7 @@ public class BackgroundPlayerService2 implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public boolean isStrong() {
 		return strong;
 	}
@@ -47,11 +46,10 @@ public class BackgroundPlayerService2 implements Runnable {
 		this.strong = strong;
 	}
 
-
 	public boolean isFlag() {
 		return flag;
 	}
-	
+
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
@@ -59,14 +57,12 @@ public class BackgroundPlayerService2 implements Runnable {
 	@Override
 	public void run() {
 
-		
-		
 		// 플레이어 state가 1일 때(=살아 있을 때)
 		// 플레이어-에너미 좌표를 확인 후, 중첩 시 공격 처리
 		System.out.println("백그2 시작");
-		while(flag) {
-			System.out.println("While 넘어감");
-			if(player.getState()!=2) {
+		while (flag) {
+			System.out.println("1");
+			if (player.getState() != 2) {
 				if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
 						&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
 					player.isBeAttacked1();
@@ -77,69 +73,69 @@ public class BackgroundPlayerService2 implements Runnable {
 					// 에너미3-좌표 감지
 				} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
 						&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-					player.isBeAttacked3();} 
-				strong=true;
-			}
-			
-			
-			 else if (player.getState() == 2) {
-				 
-				System.out.println("if 통과");
-				strong=false;
-				
-					for (int i = 0; i < 10; i++) {
-						if(player.strong==true) {
-							i=0;
-							player.strong=false;
-						}
-						System.out.println("while 시작");
-						// 에너미 1 감지
-						if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							System.out.println("적 공격 시작1");
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-							// 에너미 2 감지
-						} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							System.out.println("적 공격 시작2");
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-							// 에너미 3 감지
-						} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
-								&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
-							System.out.println("적 공격 시작3");
-							// System.out.println(player.getEatedCount());
-							// System.out.println(player.getScore());
-							player.setEatedCount(player.getEatedCount() + 100);
-
-						} else {
-							System.out.println("if 통과 못함");
-						}
-						// System.out.println(i+"번째");
-						
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						System.out.println(i+"초 경과");
+					player.isBeAttacked3();
 				}
-			// 무적상태 (6초 후) 원래 상태로 복귀
-			System.out.println("set state==1");
-			player.setState(1);}
-			
-			 else if(player.getState()==9) {
-				 flag=false;
-				 break;
-			 }
-			
-		
-	}
+				strong = true;
+			}
 
-}}
+			else if (player.getState() == 2) {
+
+				System.out.println("if 통과");
+				strong = false;
+
+				for (int i = 0; i < 1000; i++) {
+					if (player.strong == true) {
+						i = 0;
+						player.strong = false;
+					}
+					System.out.println("while 시작");
+					// 에너미 1 감지
+					if (Math.abs((player.getX() + 28 / 2) - (enemy1.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy1.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						System.out.println("적 공격 시작1");
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
+
+						// 에너미 2 감지
+					} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy2.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						System.out.println("적 공격 시작2");
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
+
+						// 에너미 3 감지
+					} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
+							&& Math.abs((player.getY() + 28 / 2) - (enemy3.getY() + 28 / 2)) < (28 / 2 + 28 / 2)) {
+						System.out.println("적 공격 시작3");
+						// System.out.println(player.getEatedCount());
+						// System.out.println(player.getScore());
+						player.setEatedCount(player.getEatedCount() + 100);
+
+					} else {
+						System.out.println("if 통과 못함");
+					}
+					// System.out.println(i+"번째");
+
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println(i + "초 경과");
+				}
+				// 무적상태 (6초 후) 원래 상태로 복귀
+				System.out.println("set state==1");
+				player.setState(1);
+			}
+
+			else if (player.getState() == 9) {
+				flag = false;
+				break;
+			}
+
+		}
+	}
+}
