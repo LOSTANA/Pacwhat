@@ -17,8 +17,8 @@ public class Enemy1 extends JLabel implements Moveable {
 	Enemy1 enemy;
 
 	private int direction;
-	
-	private int eneatedCount = player.getEatedCount();
+
+	private int eneatedCount;
 
 	// 적군의 좌표값 위치 상태
 	private int x;
@@ -105,7 +105,7 @@ public class Enemy1 extends JLabel implements Moveable {
 		x = 360;
 		y = 435;
 		player = stage.getPlayer();
-
+		eneatedCount = player.getEatedCount();
 	}
 
 	private void setInitLayout() {
@@ -131,7 +131,7 @@ public class Enemy1 extends JLabel implements Moveable {
 	// 리스폰
 	public void enemyRestart() {
 		eneatedCount += 100;
-		
+
 		setLocation(x = 360, y = 435);
 		setIcon(enemyU);
 		new Thread(new Runnable() {
@@ -169,6 +169,14 @@ public class Enemy1 extends JLabel implements Moveable {
 				}
 			}
 		}).start();
+	}
+
+	public int getEneatedCount() {
+		return eneatedCount;
+	}
+
+	public void setEneatedCount(int eneatedCount) {
+		this.eneatedCount = eneatedCount;
 	}
 
 	// 스크림적의 방향을 무작위로 변경하는 값
