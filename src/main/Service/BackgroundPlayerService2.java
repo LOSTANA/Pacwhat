@@ -78,7 +78,6 @@ public class BackgroundPlayerService2 implements Runnable {
 				} else if (Math.abs((player.getX() + width / 2) - (enemy3.getX() + width / 2)) < (width / 2 + width / 2)
 						&& Math.abs((player.getY() + height / 2) - (enemy3.getY() + height / 2)) < (height / 2 + height / 2)) {
 					player.isBeAttacked3();
-					player.isBeAttacked3();
 				}
 			}
 
@@ -86,7 +85,7 @@ public class BackgroundPlayerService2 implements Runnable {
 
 				System.out.println("if 통과");
 
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < 50; i++) {
 					if (player.strong == true) {
 						i = 0;
 						player.strong=false; // 중복 방지
@@ -98,7 +97,7 @@ public class BackgroundPlayerService2 implements Runnable {
 						System.out.println("적 공격 시작1");
 						// System.out.println(player.getEatedCount());
 						// System.out.println(player.getScore());
-						player.setEatedCount(player.getEatedCount() + 100);
+						player.setEatedCount(player.getEatedCount()+100);
 						System.out.println(player.getEatedCount());
 
 						// 에너미 2 감지
@@ -126,7 +125,7 @@ public class BackgroundPlayerService2 implements Runnable {
 					// System.out.println(i+"번째");
 
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(250);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
