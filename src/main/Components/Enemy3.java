@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import main.Maingame;
 import main.Interface.Moveable;
+import main.Service.BackgroundEnemyService2;
 import main.Service.BackgroundEnemyService3;
 import main.State.EnemyWay;
 
@@ -16,9 +17,9 @@ public class Enemy3 extends JLabel implements Moveable {
 	Player player;
 	Enemy2 enemy;
 
-	private int direction;
+	private boolean flag = true;
 
-	private int eneatedCount;
+	private int direction;
 
 	// 적군의 좌표값 위치 상태
 	private int x;
@@ -91,7 +92,7 @@ public class Enemy3 extends JLabel implements Moveable {
 		x = 350;
 		y = 435;
 		player = stage.getPlayer();
-		int eneatedCount = player.getEatedCount();
+
 	}
 
 	private void setInitLayout() {
@@ -116,7 +117,6 @@ public class Enemy3 extends JLabel implements Moveable {
 
 	// 리스폰
 	public void enemyRestart() {
-		eneatedCount += 100;
 
 		setLocation(x = 350, y = 435);
 		setIcon(enemyU);
@@ -145,11 +145,12 @@ public class Enemy3 extends JLabel implements Moveable {
 				// 예외처리
 				if (player.getState() == 1) {
 					right();
-					if (player.getState() == 1) {
+					if(player.getState() == 1) {
 						right();
-					} else if (player.getState() == 2) {
-						screamRight();
-					}
+						}
+						else if(player.getState() == 2) {
+							screamRight();
+						}
 				}
 				if (player.getState() == 2) {
 					screamRight();
