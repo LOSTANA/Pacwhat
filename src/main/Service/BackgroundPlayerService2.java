@@ -88,6 +88,7 @@ public class BackgroundPlayerService2 implements Runnable {
 				for (int i = 0; i < 1000; i++) {
 					if (player.strong == true) {
 						i = 0;
+						player.strong=false; // 중복 방지
 					}
 					System.out.println("while 시작");
 					// 에너미 1 감지
@@ -97,6 +98,7 @@ public class BackgroundPlayerService2 implements Runnable {
 						// System.out.println(player.getEatedCount());
 						// System.out.println(player.getScore());
 						player.setEatedCount(player.getEatedCount() + 100);
+						System.out.println(player.getEatedCount());
 
 						// 에너미 2 감지
 					} else if (Math.abs((player.getX() + 28 / 2) - (enemy2.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
@@ -105,6 +107,8 @@ public class BackgroundPlayerService2 implements Runnable {
 						// System.out.println(player.getEatedCount());
 						// System.out.println(player.getScore());
 						player.setEatedCount(player.getEatedCount() + 100);
+						System.out.println(player.getEatedCount());
+						
 
 						// 에너미 3 감지
 					} else if (Math.abs((player.getX() + 28 / 2) - (enemy3.getX() + 28 / 2)) < (28 / 2 + 28 / 2)
@@ -113,6 +117,7 @@ public class BackgroundPlayerService2 implements Runnable {
 						// System.out.println(player.getEatedCount());
 						// System.out.println(player.getScore());
 						player.setEatedCount(player.getEatedCount() + 100);
+						System.out.println(player.getEatedCount());
 
 					} else {
 						System.out.println("if 통과 못함");
@@ -130,7 +135,6 @@ public class BackgroundPlayerService2 implements Runnable {
 				// 무적상태 (6초 후) 원래 상태로 복귀
 				System.out.println("set state==1");
 				player.setState(1);
-				player.strong=false;
 			}
 
 			else if (player.getState() == 9) {
