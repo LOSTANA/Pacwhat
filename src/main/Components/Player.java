@@ -674,6 +674,7 @@ public class Player extends JLabel implements Moveable {
 			stage.scoreScreen.setText("점수 : " + eatedCount);
 			if (eatedCount >= clearScore) {
 				clearStage();
+				break;
 			}
 		}
 	}
