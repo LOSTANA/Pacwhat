@@ -3,7 +3,7 @@ package main.Components;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import main.Maingame;
+import main.Frame.Maingame;
 import main.Interface.Moveable;
 import main.Service.BackgroundPlayerService;
 import main.State.PlayerWay;

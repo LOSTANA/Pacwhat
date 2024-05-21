@@ -6,11 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import main.Maingame;
 import main.Components.Enemy1;
 import main.Components.Enemy2;
 import main.Components.Enemy3;
 import main.Components.Player;
+import main.Frame.Maingame;
 
 public class BackgroundPlayerService2 implements Runnable {
 

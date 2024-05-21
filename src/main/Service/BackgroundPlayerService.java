@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import main.Maingame;
 import main.Components.Player;
+import main.Frame.Maingame;
 
 public class BackgroundPlayerService implements Runnable {
 
