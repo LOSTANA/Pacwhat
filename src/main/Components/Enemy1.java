@@ -160,7 +160,7 @@ public class Enemy1 extends JLabel implements Moveable {
 						screamRight();
 					}
 				}
-				if (player.getState() == 2) {
+				else if (player.getState() == 2) {
 					screamRight();
 				}
 			}
